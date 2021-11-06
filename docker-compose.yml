@@ -33,9 +33,9 @@ services:
         volumes:
             - .:/app
         # link the flaskapp service to the database service
-        links:
-            - db
+        #links:
+            #- db
     # database service
-    db:
+    #db:
         # mongoDB base image
-        image: mongo
+    #    image: mongo

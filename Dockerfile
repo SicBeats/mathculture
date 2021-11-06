@@ -12,14 +12,13 @@
 #       https://goinbigdata.com/docker-run-vs-cmd-vs-entrypoint/
 #       https://docker-curriculum.com/
 #
-# Creation Date: 10/01/2021
-# Last Edited: 11/02/2021
+# Creation Date: 11/06/2021
 ##################################################################################
 
 # Specify debian Linux as our base image (parent image)
 FROM debian
 LABEL maintainer="kelemens@uoregon.edu"
-LABEL build_date="2021-11-2"
+LABEL build_date="2021-11-6"
 
 # update Debian's apt-get packages list
 RUN apt-get update -y
@@ -46,3 +45,6 @@ RUN pip3 install -r requirements.txt
 # The default command that will be executed when you run the docker container
 # (Run flask)
 CMD ["flask","run"]
+# Google Cloud Run expects port 8080
+#ENV PORT 8080
+#CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 app:app
