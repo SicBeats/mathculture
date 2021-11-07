@@ -15,7 +15,7 @@ html, body {
   color: black;
   background-color: blue;
   min-width: 500px;
-  background-image: url("mathbackground.jpg");
+  background-image: url("/static/mathbackground.jpg");
 }
 
 .dropbtn {

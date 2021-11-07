@@ -10,7 +10,7 @@ function userLoggedIn()
   if (getAccountStatus() == "")
     alert('You must login first! Use the account menu!');
   else
-    window.location.href = "http://stackoverflow.com";
+    window.location.href = "/auth";
 }
 
 function myFunction() {
@@ -24,11 +24,11 @@ function myFunction() {
     link1 = document.getElementById("e1"); 
     link1.innerText="Sign In";  
     /* Go to Sign In webpage */
-    link1.setAttribute("href", "http://www.google.com");
+    link1.setAttribute("href", "/auth");
     link2 = document.getElementById("e2"); 
     link2.innerText="Sign Up";  
     /* Go to Sign Up webpage */
-    link2.setAttribute("href", "http://www.google.com");
+    link2.setAttribute("href", "/auth");
   }
   else
   {
@@ -45,9 +45,8 @@ function myFunction() {
 /* This will get removed later */
 function getAccountStatus()
 {
-  return "k";
+  return "";
 }
-
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) 
@@ -64,3 +63,12 @@ window.onclick = function(event)
     }
   }
 }
+
+window.onload = function chg()
+{
+  let accStat = getAccountStatus();
+  if (accStat == "")
+    acStat = Account;
+  document.getElementById('buton').innerText = accStat;
+}
+
