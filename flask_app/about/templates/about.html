@@ -1,0 +1,53 @@
+<!--
+Statement: Introduces users to the website and supplies access to the other web pages
+Authors: Kaiser Slocum
+Team: Map Culture (Team 5)
+Project: Math Culture
+Date last edited: 11/7/2021
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CIS 422: Project 2</title>
+    <meta charset="utf-8">
+    <script src="../static/index.js"></script>
+    <link rel="stylesheet" href="../static/style.css" /> 
+    <link rel="icon" type="image/x-icon" href="../static/mapcultureicon.ico" />
+  </head>
+
+<body>  
+  <nav id="ya">      
+    <li>
+      <ul> <img src="../static/mapculturelogo.png" > </ul>  
+      <ul> <a href="/home">Home</a> </ul>        
+      <ul> <a href="javascript:userLoggedIn();">Translate Image</a> </ul>
+      <ul> <a href="/about">About us</a> </ul>
+      <ul> <a href="/references">Help</a> </ul>
+    </li>
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropbtn" id="buton">Account </button>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="#home" id="e1">Login</a>
+        <a href="#about" id="e2">About</a>
+      </div>
+    </div>
+  </nav>   
+  <!-- A brief introduction to our software system -->  
+  <section>
+    <h1> <u>ABOUT US:</u> </h1>
+    <h2> Who is mapculture? </h2>
+    <p> We are a group of computer science students at the University of Oregon
+    solving the "Travelling Salesman" problem in a <u>loud way</u>.<br><br>
+    By utilizing 2 different algorithms to help create efficient routes,
+    we have not only solved the problem, but designed the solution to be
+    beautifully intuitive.<br><br>
+    The amazing people responsible for this project are as follows:<br><br>
+    <u>Liam Dauphinee: Database designer & UI: Accounts Designer</u><br><br>
+    <u>Kaiser Slocum: Project Manager & Algorithms engineer</u><br><br>
+    <u>Kelemen Szimonisz: API Controller, Frontend/backend innovator, & UI: General Dev</u><br><br>
+    <u>Sofi Vinas: UI: General Dev & Documentation specialist</u><br><br>
+    <u>Aliya: API Controller, Frontend/backend innovator, & UI: General Dev</u><br><br>
+    <u>Jordan Whiteley: Algorithms engineer & UI: Branding</u><br><br><br></p>    
+  </section>
+</body>
+</html>

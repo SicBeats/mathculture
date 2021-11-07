@@ -1,0 +1,61 @@
+<!-- 
+Statement: New or returning users will be directed to this web page to login or create their account
+Authors: Liam Dauphinee, Kaiser Slocum
+Team: Map Culture (Team 5)
+Date Last Edited: 10/29/2021
+-->
+<html>
+<head>	
+	<title>CIS 422: Project 1</title>
+	<link rel="stylesheet" href="/auth/static/style.css">	
+    <link rel="icon" type="image/x-icon" href="/static/mapcultureicon.ico" />	
+</head>
+<body>
+	<div class="hero"> 		
+		
+		<div class="form-box">
+			<a href="/" >Home</a>
+			<!-- This is the toggle button which is actually two buttons at the top of the main form box -->
+			<div class="button-box">				
+				<button type="button" class="toggle-btn" onclick="signin()">Log In</button>
+				<button type="button" class="toggle-btn" onclick="register()">Register</button>
+			</div>
+		<!-- This is where a user would login if they already had an account -->
+		<form id="sign_in" action="/sign_in" class="input-group">
+			<input type="text" class="input-field" placeholder="User ID"required>
+			<input type="text" class="input-field" placeholder="Enter Password"required>
+			<input type="checkbox" class="check-box"><span>Remember Password</span>
+			<button type="submit" class="submit-btn" onclick="signin()">Log in</button>
+		</form>
+		<!-- This is where a user would create their account if they're new -->
+		<form id="register" class="input-group">
+			<input type="text" class="input-field" placeholder="User ID"required>
+			<input type="email" class="input-field" placeholder="Email ID"required>
+			<input type="text" class="input-field" placeholder="Enter Password"required>
+			<input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
+			<button type="submit" class="submit-btn">Register</button>
+		</form>
+		</div>
+	</div> 
+	
+	<script>
+	var x = document.getElementById("sign_in")
+	var y = document.getElementById("register")
+	var z = document.getElementById("btn")
+        x.style.left = "50px";
+        y.style.left = "450px";
+        z.style.left = "0px";
+	
+	function register(){
+		x.style.left = "-400px";
+		y.style.left = "50px";
+		z.style.left = "110px";
+	}
+	function signin(){
+		x.style.left = "50px";
+		y.style.left = "450px";
+		z.style.left = "0px";
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!--
+Statement: Introduces users to the website and supplies access to the other web pages
+Authors: Kaiser Slocum
+Team: Map Culture (Team 5)
+Project: Math Culture
+Date last edited: 11/7/2021
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CIS 422: Project 2</title>
+    <meta charset="utf-8">
+    <script src="../static/index.js"></script>
+    <link rel="stylesheet" href="../static/style.css" /> 
+    <link rel="icon" type="image/x-icon" href="../static/mapcultureicon.ico" />
+  </head>
+
+<body>  
+  <nav id="ya">      
+    <li>
+      <ul> <img src="../static/mapculturelogo.png" > </ul>  
+      <ul> <a href="/home">Home</a> </ul>        
+      <ul> <a href="javascript:userLoggedIn();">Translate Image</a> </ul>
+      <ul> <a href="/about">About us</a> </ul>
+      <ul> <a href="/references">Help</a> </ul>
+    </li>
+    <div class="dropdown">
+      <button onclick="myFunction()" class="dropbtn" id="buton">Account </button>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="#home" id="e1">Login</a>
+        <a href="#about" id="e2">About</a>
+      </div>
+    </div>
+  </nav>   
+  <!-- A brief introduction to our software system -->  
+  <section>
+    <h1> Algorithm Information</h1>
+    <h2> <i>Modern Solution for a Complex Problem</i> </h2>
+    <p>Genetic Algorithm:</p>
+    <p>Our genetic algorithm transforms the Traveling Salesman Problem (TSP) into a natural evolution heuristic.
+    The path that a customer could follow is represented by a Gnome, and the destinations including the source
+    is represented by cells inside that Gnome.
+    </p>
+    <hr>
+    <!-- <p>Prim's Minimum Spanning Tree Algorithm:</p> -->
+    <p>Prim's Minimum Spanning Tree Algorithm:</p>
+    <br>    
+    <p>Another way to solve this problem is to use a minimum cost spanning tree from the origin.
+      This inherently takes the lowest cost path from the origin point and adds that vertex to the locations visited set.
+      Then, using all the edges from the vertices in the locations visited set, it continues to look for the lowest cost path.
+      There are no self loops (i.e. location 1 -> location 1). This allows every vertex to be visited via the lowest cost, then,
+      from the last vertex added, we go back to the origin as detailed in the project spec.
+    </p>
+  </section>
+</body>
+</html>
