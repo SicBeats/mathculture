@@ -1,11 +1,11 @@
 '''
-File name: references/__init__.py (references package)
+File name: help/__init__.py (help package)
 
 Author: Sofi Vinas, Kelemen Szimonisz
 Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
 
-This python file tells Python that the /references directory is a Python package.
-(Allows us to import the references blueprint from the parent flask app directory)
+This python file tells Python that the /help directory is a Python package.
+(Allows us to import the help blueprint from the parent flask app directory)
 
 In this file, we create and configure a blueprint for the Auth package.
 
@@ -18,18 +18,18 @@ Last Edited: 10/27/2021
 from flask import Blueprint
 
 # Blueprint configuration
-references_blueprint = Blueprint(
+help_blueprint = Blueprint(
     # blueprint name
-    'references_blueprint',
+    'help_blueprint',
     # import_name (current Python module)
      __name__,
-    # use the template folder local to references/
+    # use the template folder local to help/
     template_folder='templates',
-    # use the static folder local to references/
+    # use the static folder local to help/
     static_folder='static',
-    # configure the url path for references's static folder
+    # configure the url path for help's static folder
     # (the html references this)
-    static_url_path='/references/static'
+    static_url_path='/help/static'
 )
 
 

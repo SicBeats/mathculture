@@ -56,7 +56,11 @@ def create_app(test_config=None):
     # (flask can have multiple apps running in the same process)
     with app.app_context():
         # import blueprints for all flask app modules
-        # modules: home, about, map, auth, references (represent each page in webapp)
+        # modules: home, about, map, auth, help (represent each page in webapp)
+        from .home import home_blueprint
+        from .about import about_blueprint
+        from .auth import auth_blueprint
+        from .help import help_blueprint
 
         # register error handlers for 404, 405, and 500
         app.register_error_handler(404,page_not_found)
@@ -64,6 +68,11 @@ def create_app(test_config=None):
         app.register_error_handler(500,internal_server_error)
 
         # register the imported blueprints
+        app.register_blueprint(home_blueprint)
+        app.register_blueprint(about_blueprint)
+        app.register_blueprint(auth_blueprint)
+        app.register_blueprint(help_blueprint)
+
 
         # return the flask app
         return app

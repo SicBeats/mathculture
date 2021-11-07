@@ -12,10 +12,7 @@ Last Modified: 10/28/2021
 
 from . import auth_blueprint
 from flask import Flask, jsonify, render_template, request, current_app, redirect, url_for
-from . import db
 
-mongo = db.Mongodb()
-mongo.connect()
 
 # create a route between a URL (/login) and the function login() that returns a response
 @auth_blueprint.route('/login', methods=['GET'])
