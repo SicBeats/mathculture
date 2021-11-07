@@ -40,6 +40,8 @@
 - For now, the code that trains the neural network will not be in the Github repository.
 - Instead, it is hosted on Google Colab and utilizes Google's free Cloud GPUs:
     - https://colab.research.google.com/drive/1Y_qcrWQf-x3NgfWXg4BpRVaF1hyDCSjs?usp=sharing
+- The dataset used to train the model is from:
+    - https://www.kaggle.com/sagyamthapa/handwritten-math-symbols
 
 #### (DEVELOPMENT) Making changes:
 
