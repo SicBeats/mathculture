@@ -19,6 +19,7 @@ torchvision
 pillow
 matplotlib
 numpy
+pybase64
 
 #gunicorn
-#pymongo
+pymongo
