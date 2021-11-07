@@ -35,6 +35,12 @@
 
     //TODO
 
+#### (DEVELOPMENT) Neural Network Training and Testing (Google Colab)
+
+- For now, the code that trains the neural network will not be in the Github repository.
+- Instead, it is hosted on Google Colab and utilizes Google's free Cloud GPUs:
+    - https://colab.research.google.com/drive/1Y_qcrWQf-x3NgfWXg4BpRVaF1hyDCSjs?usp=sharing
+
 #### (DEVELOPMENT) Making changes:
 
 Using the docker-compose script will automatically push changes to the web app immediately after changes are made (without having to run any further commands or scripts).
