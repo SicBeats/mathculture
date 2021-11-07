@@ -5,6 +5,14 @@ Team: Map Culture (Team 5)
 Date last edited: 11/7/2021
 */
 
+function userLoggedIn()
+{
+  if (getAccountStatus() == "")
+    alert('You must login first! Use the account menu!');
+  else
+    window.location.href = "http://stackoverflow.com";
+}
+
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
   let lbl = document.getElementById('buton');
@@ -37,7 +45,7 @@ function myFunction() {
 /* This will get removed later */
 function getAccountStatus()
 {
-  return "";
+  return "k";
 }
 
 
