@@ -1,0 +1,43 @@
+<!--
+File Name: draw.html
+
+Author: Kelemen Szimonisz
+Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
+Team: Map Culture (Team 5)
+
+Creation Date: 10/03/2021
+Last Modified: 11/02/2021
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>CIS 422: Project 2</title>    
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/draw/static/styledraw.css" />
+        <script src="/draw/static/index.js"></script>
+        <link rel="icon" type="image/x-icon" href="/static/mapcultureicon.ico" />
+    </head>
+    <body>
+        <div class="container"> <!---grid container--> <!---grid has base layout of rows and columns -->
+            <div class="header">
+                <li>
+                    <ul><a href="/">Home</a></ul>
+                    <ul><a href="/login">Account</a></ul>
+                </li>          
+            </div>
+        <div class="side"> <!-- sidebar column of grid container -->
+            <div class="imagelocation">
+                <img src="/static/mapculturelogo.png" alt="mapculture logo">
+            </div>
+            <div class="image-upload">
+                <input type="file" id="myFile" name="filename" onchange="encodeImageFileAsURL(this)">
+            </div>
+            <div class="message-container">
+                <h3 id="message"></h3>
+            </div>
+        </div> <!-- side -->
+        <div id="canvas"></div><!-- This is where the canvas will be inserted -->  <!-- second column of grid container -->
+    </div> <!-- container -->
+  </body>
+</html>

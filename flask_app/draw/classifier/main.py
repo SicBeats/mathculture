@@ -2,7 +2,7 @@ import torch
 import torchvision
 from torchvision.io import read_image
 import torchvision.transforms as transforms
-from neuralnet import Net
+from .neuralnet import Net
 from torch.utils.data import Dataset, DataLoader, Subset
 from PIL import Image
 import matplotlib.pyplot as plt
@@ -19,7 +19,7 @@ def imshow(img):
 
 transform = transforms.Compose([transforms.Resize((100,100)), transforms.ToTensor()])
 
-dataset = torchvision.datasets.ImageFolder(root="/app/classifier/dataset",transform=transform)
+dataset = torchvision.datasets.ImageFolder(root="/app/flask_app/draw/classifier/dataset",transform=transform)
 
 lengths = [5404,1802,1802]
 trainset, valset, testset = torch.utils.data.dataset.random_split(dataset,lengths)
@@ -29,16 +29,16 @@ testloader = DataLoader(testset,batch_size=4,num_workers=2)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 net = Net()
-net.load_state_dict(torch.load('/app/classifier/checkpoint.pth', map_location=torch.device('cpu')))
+net.load_state_dict(torch.load('/app/flask_app/draw/classifier/checkpoint.pth', map_location=torch.device('cpu')))
 net.to(device)  
 
-plus = (read_image('/app/classifier/test_images/plus.jpg'))
-three = (read_image('/app/classifier/test_images/three.jpg'))
-five = (read_image('/app/classifier/test_images/five.jpg'))
-one = (read_image('/app/classifier/test_images/one.jpg'))
-eight = (read_image('/app/classifier/test_images/eight.jpg'))
-divide = (read_image('/app/classifier/test_images/divide.jpg'))
-times = (read_image('/app/classifier/test_images/times.jpg'))
+plus = (read_image('/app/flask_app/draw/classifier/test_images/plus.jpg'))
+three = (read_image('/app/flask_app/draw/classifier/test_images/three.jpg'))
+five = (read_image('/app/flask_app/draw/classifier/test_images/five.jpg'))
+one = (read_image('/app/flask_app/draw/classifier/test_images/one.jpg'))
+eight = (read_image('/app/flask_app/draw/classifier/test_images/eight.jpg'))
+divide = (read_image('/app/flask_app/draw/classifier/test_images/divide.jpg'))
+times = (read_image('/app/flask_app/draw/classifier/test_images/times.jpg'))
 
 transform = transforms.Compose(
     [transforms.Resize((100,100)),
@@ -64,3 +64,17 @@ with torch.no_grad():
     print("truth:",test_truths[i])
     print("prediction:",class_prediction)
     print()
+
+def classifyImage(image_filename):
+    img = (read_image('/app/flask_app/draw/temp.jpg'))
+    idx_to_class = {v: k for k, v in dataset.class_to_idx.items()}
+    with torch.no_grad():
+        img = transform(img)
+        imshow(img)
+        img = img.permute(0,1,2).unsqueeze(0)
+        img = img.to(device)
+        out = net(img)
+        _, predicted = torch.max(out.data,1)
+        class_prediction = idx_to_class[predicted.item()]
+        print("prediction:",class_prediction)
+        return(class_prediction)
