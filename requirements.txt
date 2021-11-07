@@ -14,5 +14,11 @@
 # Last Edited: 10/24/2021
 ##################################################################################
 Flask
+torch
+torchvision
+pillow
+matplotlib
+numpy
+
 #gunicorn
 #pymongo

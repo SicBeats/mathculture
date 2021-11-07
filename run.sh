@@ -20,4 +20,4 @@
 sudo docker-compose build
 # run the service (-d means the process will be detached from the terminal)
 sudo docker-compose up -d
-
+#sudo docker exec -it project2_flaskwebservice_1 bash -c "unzip /app/classifier/handwritten-math-symbols.zip"

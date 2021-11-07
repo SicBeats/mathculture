@@ -24,11 +24,13 @@ LABEL build_date="2021-11-6"
 RUN apt-get update -y
 
 # install pip, python, and some essential Debian building packages
-RUN apt-get install -y python3-pip python-dev build-essential
+RUN apt-get install -y python3-pip python-dev build-essential unzip
 # Copy all files from Dockerfile's current directory to the folder /app inside the image
-COPY . /app
 # Set /app as the working directory for the RUN, CMD commands
+COPY . /app
 WORKDIR /app
+
+#RUN unzip /tmp/handwritten-math-symbols.zip -d ./app/classifier/
 
 # Set environmental variables (inside the Docker image) for the flask app 
 # flask_app folder contains the main Flask app package
@@ -41,7 +43,7 @@ ENV FLASK_ENV=development
 # Run a shell command on top of the current image
 # Install all python dependencies found in the requirements.txt file using pip
 # Creates a new layer by committing the results
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r requirements.txt --no-cache-dir
 # The default command that will be executed when you run the docker container
 # (Run flask)
 CMD ["flask","run"]
