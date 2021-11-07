@@ -36,14 +36,18 @@ plus = (read_image('/app/classifier/test_images/plus.jpg'))
 three = (read_image('/app/classifier/test_images/three.jpg'))
 five = (read_image('/app/classifier/test_images/five.jpg'))
 one = (read_image('/app/classifier/test_images/one.jpg'))
+eight = (read_image('/app/classifier/test_images/eight.jpg'))
+divide = (read_image('/app/classifier/test_images/divide.jpg'))
+times = (read_image('/app/classifier/test_images/times.jpg'))
 
 transform = transforms.Compose(
     [transforms.Resize((100,100)),
      transforms.ConvertImageDtype(torch.float32)]
 )
 
-test_imgs = [plus,three,five,one]
-test_truths = ["plus","three","five","one"]
+test_imgs = [plus,three,five,one,eight,times,divide]
+
+test_truths = ["plus.jpg","three.jpg","five.jpg","one.jpg","eight.jpg","times.jpg","divide.jpg"]
 
 #print(dataset.class_to_idx)
 idx_to_class = {v: k for k, v in dataset.class_to_idx.items()}
