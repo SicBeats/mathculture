@@ -10,7 +10,7 @@ function userLoggedIn()
   if (getAccountStatus() == "")
     alert('You must login first! Use the account menu!');
   else
-    window.location.href = "/auth";
+    window.location.href = "/draw";
 }
 
 function myFunction() {
@@ -45,7 +45,7 @@ function myFunction() {
 /* This will get removed later */
 function getAccountStatus()
 {
-  return "";
+  return "Juan";
 }
 
 // Close the dropdown if the user clicks outside of it
