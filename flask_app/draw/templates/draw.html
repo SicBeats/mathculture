@@ -1,12 +1,12 @@
 <!--
 File Name: draw.html
 
-Author: Kelemen Szimonisz
+Author: Kelemen Szimonisz, Kaiser Slocum
 Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
 Team: Map Culture (Team 5)
 
 Creation Date: 10/03/2021
-Last Modified: 11/02/2021
+Last Modified: 11/09/2021
 -->
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ Last Modified: 11/02/2021
         <script src="/draw/static/index.js"></script>
         <link rel="icon" type="image/x-icon" href="/static/mapcultureicon.ico" />
     </head>
-    <body>
+    <body onload="init()">
         <div class="container"> <!---grid container--> <!---grid has base layout of rows and columns -->
             <div class="header">
                 <li>
@@ -31,13 +31,32 @@ Last Modified: 11/02/2021
                 <img src="/static/mapculturelogo.png" alt="mapculture logo">
             </div>
             <div class="image-upload">
-                <input type="file" id="myFile" name="filename" onchange="encodeImageFileAsURL(this)">
+                <label for="file">Choose image to upload: </label>
+                <input type="file" id="myFile" accept="image/*" name="filename" onchange="encodeImageFileAsURL(this)">
             </div>
             <div class="message-container">
                 <h3 id="message"></h3>
             </div>
         </div> <!-- side -->
-        <div id="canvas"></div><!-- This is where the canvas will be inserted -->  <!-- second column of grid container -->
+        <div class = "side" id="side2">
+            <!-- Contains image screenshot -->
+            <img id="canvasimg" style="display:none;">
+        </div>
+        <div id="canvas">
+            <canvas id="can" width="400" height="400"></canvas>
+            <div id="choosecolor">Choose Your Color</div>
+            <div class="colorblock" id="green" onclick="color(this)"></div>
+            <div class="colorblock" id="blue" onclick="color(this)"></div>
+            <div class="colorblock" id="red" onclick="color(this)"></div>
+            <div class="colorblock" id="yellow" onclick="color(this)"></div>
+            <div class="colorblock" id="orange" onclick="color(this)"></div>
+            <div class="colorblock" id="black" onclick="color(this)"></div>
+            <div id="eraser" >Eraser</div>
+            <div class="colorblock" id="white" onclick="color(this)"></div>
+            
+            <input type="button" value="save" id="btn" size="30" onclick="save()" >
+            <input type="button" value="clear" id="clr" size="23" onclick="erase()" >
+        </div><!-- canvas and canvas related controls -->
     </div> <!-- container -->
   </body>
 </html>
