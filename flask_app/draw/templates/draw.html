@@ -40,6 +40,7 @@ Last Modified: 11/09/2021
         </div> <!-- side -->
         <div class = "side" id="side2">
             <!-- Contains image screenshot -->
+            <!--<h3>Last character inputted:</h3>-->
             <img id="canvasimg" style="display:none;">
         </div>
         <div id="canvas">
@@ -54,8 +55,10 @@ Last Modified: 11/09/2021
             <div id="eraser" >Eraser</div>
             <div class="colorblock" id="white" onclick="color(this)"></div>
             
-            <input type="button" value="save" id="btn" size="30" onclick="save()" >
-            <input type="button" value="clear" id="clr" size="23" onclick="erase()" >
+            <input type="button" value="Save Character" id="btn" size="30" onclick="save()" >
+            <input type="button" value="Clear Character" id="clr" size="23" onclick="erase()" >
+
+            <div id="displayEquation"></div>
         </div><!-- canvas and canvas related controls -->
     </div> <!-- container -->
   </body>

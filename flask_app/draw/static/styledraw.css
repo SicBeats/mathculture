@@ -205,6 +205,11 @@ button{
     float: left;
     display: block;
 }
+#displayEquation {
+    float: left;
+    clear: left;
+    display: block;
+}
 
 h3{
     color:white;
