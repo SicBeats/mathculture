@@ -99,8 +99,11 @@ var stat = "";
 function getCookie() 
 {
     let decodedCookie = decodeURIComponent(document.cookie);
+    console.log(decodedCookie);
     let ca = decodedCookie.split(';');
-    let c = ca[2];
+    console.log(ca);
+    let c = ca[ca.length-1];
+    console.log(c);
     return c;
   }
 
