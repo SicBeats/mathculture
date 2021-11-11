@@ -168,8 +168,13 @@ function translate_to_char(image)
 // TODO
 async function calculatEquation()
 {   
-    const response = await fetch("https://api.wolframalpha.com/v2/query?appid=TJEJTU-Q6X8E5T86E&input=6^2&includepodid=Result&format=plaintext&output=xml");    
+    var request = new Request({
+        url: "https://cors-anywhere.herokuapp.com/https://api.wolframalpha.com/v2/query?appid=TJEJTU-Q6X8E5T86E&input=6^2&includepodid=Result&format=plaintext&output=xml",
+        method: 'GET'
+      });
+    const response = await fetch(request);    
     var data = await response.xml();
+        
     data.getElementById("plaintext");
     document.getElementById("displayResult").innerText = " Answer: " + equation.join("");
 }
