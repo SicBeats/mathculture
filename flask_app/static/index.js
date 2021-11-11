@@ -19,7 +19,6 @@ function myFunction() {
   /* This should access a function in the auth js file */
   let name = getAccountStatus();
   console.log(name);
-  alert("wait");
   if (name == "")
   {
     name = "Account"
