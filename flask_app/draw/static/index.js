@@ -166,8 +166,11 @@ function translate_to_char(image)
 }
 // Displays answer - should call WOLFRAM API
 // TODO
-function calculatEquation()
+async function calculatEquation()
 {   
+    const response = await fetch("https://api.wolframalpha.com/v2/query?appid=TJEJTU-Q6X8E5T86E&input=6^2&includepodid=Result&format=plaintext&output=xml");    
+    var data = await response.xml();
+    data.getElementById("plaintext");
     document.getElementById("displayResult").innerText = " Answer: " + equation.join("");
 }
 // Deletes the last character
