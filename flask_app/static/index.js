@@ -2,7 +2,7 @@
 Statement: Implements index.html button clicking
 Authors: Kaiser Slocum
 Team: Map Culture (Team 5)
-Date last edited: 11/7/2021
+Date last edited: 11/11/2021
 */
 
 function userLoggedIn()
@@ -18,35 +18,33 @@ function myFunction() {
   let lbl = document.getElementById('buton');
   /* This should access a function in the auth js file */
   let name = getAccountStatus();
+  console.log(name);
+  alert("wait");
   if (name == "")
   {
     name = "Account"
     link1 = document.getElementById("e1"); 
     link1.innerText="Sign In";  
     /* Go to Sign In webpage */
-    link1.setAttribute("href", "/auth");
+    link1.setAttribute("href", "/login");
     link2 = document.getElementById("e2"); 
     link2.innerText="Sign Up";  
     /* Go to Sign Up webpage */
-    link2.setAttribute("href", "/auth");
+    link2.setAttribute("href", "/login");
   }
   else
   {
     link1 = document.getElementById("e1"); 
     link1.innerText="Profile";  
-    link1.setAttribute("href", "http://www.google.com");
+    link1.setAttribute("href", "/login");
     link2 = document.getElementById("e2"); 
     link2.innerText="Sign Out";  
-    link2.setAttribute("href", "http://www.google.com");
+    link2.setAttribute("href", "");
+    signoutMethod();
   }
   lbl.innerText = name;
 }
 
-/* This will get removed later */
-function getAccountStatus()
-{
-  return "Juan";
-}
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) 
@@ -68,7 +66,7 @@ window.onload = function chg()
 {
   let accStat = getAccountStatus();
   if (accStat == "")
-    acStat = Account;
+    accStat = "Account";
   document.getElementById('buton').innerText = accStat;
 }
 

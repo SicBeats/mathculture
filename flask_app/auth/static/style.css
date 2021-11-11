@@ -96,8 +96,8 @@ a:hover,.submit-btn:hover,.toggle-btn:hover{
 }
 /* This affects the "login" or "register" buttons at the bottom of the main form */
 .submit-btn{
-    width: 85%;
-    padding: 10px 30px;
+    width: 100%;
+    padding: 10px 20px;
     display: block;
     margin: auto;
     background: linear-gradient(to right, #ff105f, #ffad06);
@@ -115,7 +115,13 @@ span{
     font-size: 14px;
     position: absolute;
 }
-
+#profile label {
+    clear: left;
+    float: left;
+}
+label {
+    font-size: 12px;
+}
 
 
 .option-set {
