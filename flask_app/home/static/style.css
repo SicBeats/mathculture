@@ -80,7 +80,7 @@ nav li {
 }
 /* Controls the look and layout of our top links/buttons */
 nav ul{
-  float: none;
+  float: center;
   margin-left: 5%;
   margin-right: 5%;
   margin-top: 2%;
