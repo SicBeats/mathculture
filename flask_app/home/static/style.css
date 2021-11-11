@@ -86,16 +86,13 @@ nav ul{
   margin-top: 2%;
   padding: 0px;
   font-weight: bold;
-  background-color: black;
   padding: 5px;
+  padding-top: 10px;
   border-radius: 5px;
 }
-
 nav ul:first-of-type{
   border-top: none;
   margin: 0px;  
-  padding-top: 5px;
-  padding-bottom: 3px;
 }
 .dropdown{
     margin: 0px;    
@@ -109,7 +106,7 @@ nav ul:first-of-type{
     display: inline-block;
 }
 img {
-  max-width: 100px;
+  max-width: 200px;
   width: 100%;
 }
 
