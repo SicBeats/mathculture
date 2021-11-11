@@ -168,15 +168,14 @@ function translate_to_char(image)
 // TODO
 async function calculatEquation()
 {   
-    var request = new Request({
-        url: "https://cors-anywhere.herokuapp.com/https://api.wolframalpha.com/v2/query?appid=TJEJTU-Q6X8E5T86E&input=6^2&includepodid=Result&format=plaintext&output=xml",
-        method: 'GET'
-      });
-    const response = await fetch(request);    
-    var data = await response.xml();
+    var eq1 = "2*3+3*4+6-25/23";
+    var eq2 = "2 ^ x";
+    var n = math.evaluate(eq1)
+
+    var expr = Parser.parse(eq2);
+    expr.evaluate({ x: 3 }); // 8
         
-    data.getElementById("plaintext");
-    document.getElementById("displayResult").innerText = " Answer: " + equation.join("");
+    document.getElementById("displayResult").innerText = " Answer: " + n;
 }
 // Deletes the last character
 function deleteCharacter()
