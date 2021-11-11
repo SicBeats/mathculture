@@ -31,11 +31,31 @@ body {
 }
 /* The button box just affects the positioning of the login/register toggle button */
 .button-box{
-    width: 220px;
+    width: 100%;
     top: 60px;
     position: absolute;
-    margin-left: 40px;
+    text-align: center;
+    margin-left: -5px;
 }
+/* This affects the login/register toggle button */
+.toggle-btn{
+    padding: 10px ;
+    margin: 0px;
+    width: 32%;
+    background: linear-gradient(to right, brown, #ffad06);
+    border: 0;
+}
+#midbtn{
+    background: linear-gradient(to right, #ffad06, brown);
+    margin-left: -5px;
+    margin-right: -5px;
+}
+/* To create a sort of rainbow effect, we have to reverse the colors on the last one */
+/* Also, to avoid the gap, the last button has to be moved to the left a little */
+/*.toggle-btn:last-of-type{
+    background: linear-gradient(to right, #ffad06, brown);
+    margin-left: -5px;    
+}*/
 /* Redirects users to the home page */
 a{
     position: relative;    
@@ -56,22 +76,9 @@ a:hover,.submit-btn:hover,.toggle-btn:hover{
     color: rgb(28, 196, 28);
     font-weight: bold;
 }
-/* This affects the login/register toggle button */
-.toggle-btn{
-    padding: 10px 30px;
-    width: 50%;
-    background: linear-gradient(to right, brown, #ffad06);
-    border: 0;
-}
-/* To create a sort of rainbow effect, we have to reverse the colors on the last one */
-/* Also, to avoid the gap, the last button has to be moved to the left a little */
-.toggle-btn:last-of-type{
-    background: linear-gradient(to right, #ffad06, brown);
-    margin-left: -5px;    
-}
 /* This affects the location of the input fields and the login/register buttons */
 .input-group{
-    top: 180px;
+    top: 140px;
     position: absolute;
     width: 208px;
     /* transition is for the "swoosh" motion of moving between login and register */
@@ -100,19 +107,21 @@ a:hover,.submit-btn:hover,.toggle-btn:hover{
 }
 /* This makes sure the check box is correctly positioned */
 .check-box{
-    margin: 30px 10px 30px 0;
+    margin: 10px 10px 10px 0;
 }
 /* This is for the words next to the check box */
 span{
     color: #777;
-    font-size: 12px;
-    bottom: 68px;
+    font-size: 14px;
     position: absolute;
 }
-/* Positions the login form box and the register form box */
-#login{
-    left: 50px;
+
+
+
+.option-set {
+    width: 100%;
+    margin: 10px;
 }
-#register{
-    left: 450px;
+#radio-instructor {
+    margin-left: 10px;
 }

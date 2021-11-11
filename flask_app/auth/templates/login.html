@@ -8,18 +8,28 @@ Date Last Edited: 10/29/2021
 <head>	
 	<title>CIS 422: Project 1</title>
 	<link rel="stylesheet" href="/auth/static/style.css">	
+	<script src="/auth/static/login.js"></script>
     <link rel="icon" type="image/x-icon" href="/static/mapcultureicon.ico" />	
 </head>
-<body>
-	<div class="hero"> 		
+<body onload="init()">
+	<div class="hero" > 		
 		
 		<div class="form-box">
 			<a href="/" >Home</a>
 			<!-- This is the toggle button which is actually two buttons at the top of the main form box -->
 			<div class="button-box">				
 				<button type="button" class="toggle-btn" onclick="signin()">Log In</button>
-				<button type="button" class="toggle-btn" onclick="register()">Register</button>
+				<button type="button" class="toggle-btn" onclick="register()" id="midbtn">Register</button>
+				<button type="button" class="toggle-btn" onclick="profile()">Profile</button>
 			</div>
+		<form id="profile" action="/profile" class="input-group">
+			<label id="User ID"></label>
+			<label id="Group ID"></label>
+			<input type="text" class="input-field" placeholder="Enter Password"required>
+			<input type="text" class="input-field" placeholder="New Password"required>
+			<input type="text" class="input-field" placeholder="Re-enter New Password"required>
+			<button type="submit" class="submit-btn" onclick="profile()">Submit Password Change</button>
+		</form>
 		<!-- This is where a user would login if they already had an account -->
 		<form id="sign_in" action="/sign_in" class="input-group">
 			<input type="text" class="input-field" placeholder="User ID"required>
@@ -31,32 +41,18 @@ Date Last Edited: 10/29/2021
 		<form id="register" class="input-group">
 			<input type="text" class="input-field" placeholder="User ID"required>
 			<input type="email" class="input-field" placeholder="Email ID"required>
-			<input type="text" class="input-field" placeholder="Group Name" required>
+			<input type="text" class="input-field" placeholder="Group ID" required>
 			<input type="text" class="input-field" placeholder="Enter Password"required>
-			<input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
-			<button type="submit" class="submit-btn">Register</button>
-		</form>
+			<input type="checkbox" class="check-box"><span id="TermsConditions">I agree to the terms and conditions</span>
+			<div class="option-set"> <!-- distance and duration bubbles -->
+				<input type="radio" name="radio" id="radio-student" checked="checked"/>
+				<label id="radio-student-label" for="radio1">Student</label>
+				<input type="radio" name="radio" id="radio-instructor"/>
+				<label id="radio-instructor-label" for="radio2">Instructor</label>
+			</div>
+			<button type="submit" class="submit-btn" onclick="register()">Register</button>
+		</form>				
 		</div>
-	</div> 
-	
-	<script>
-	var x = document.getElementById("sign_in")
-	var y = document.getElementById("register")
-	var z = document.getElementById("btn")
-        x.style.left = "50px";
-        y.style.left = "450px";
-        z.style.left = "0px";
-	
-	function register(){
-		x.style.left = "-400px";
-		y.style.left = "50px";
-		z.style.left = "110px";
-	}
-	function signin(){
-		x.style.left = "50px";
-		y.style.left = "450px";
-		z.style.left = "0px";
-	}
-	</script>
+	</div> 	
 </body>
 </html>
