@@ -167,11 +167,10 @@ function translate_to_char(image)
 // Displays answer - should call WOLFRAM API
 // TODO
 function calculatEquation()
-{
+{   
     document.getElementById("displayResult").innerText = " Answer: " + equation.join("");
 }
 // Deletes the last character
-// TODO
 function deleteCharacter()
 {
     if (equation.length == 1)
