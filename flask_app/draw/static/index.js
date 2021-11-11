@@ -169,21 +169,14 @@ function translate_to_char(image)
 async function calculatEquation()
 {   
     var eq1 = "2*3+3*4+6-25/23";
-    var eq2 = "2 ^ x";
-    var n = math.evaluate(eq1)
-
-    var expr = Parser.parse(eq2);
-    expr.evaluate({ x: 3 }); // 8
-        
+    var n = eval(eq1);        
     document.getElementById("displayResult").innerText = " Answer: " + n;
 }
 // Deletes the last character
 function deleteCharacter()
 {
     if (equation.length == 1)
-    {
         alert("No more characters to delete!");
-    }
     else
     {
         var thing = document.getElementById("displayEquation");
