@@ -32,6 +32,14 @@ function encodeImageFileAsURL(element){
     };
     reader.readAsDataURL(file);
 }
+/* Forwarded the upload file button to do this instead so it displays the picture in the side view screen */
+function loadfile(event) 
+{
+    var img = URL.createObjectURL(event.target.files[0])
+    document.getElementById("canvasimg").style.border = "2px solid";    
+    document.getElementById("canvasimg").src = img;
+    document.getElementById("canvasimg").style.display = "inline";
+};
 
 //source: https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
 // Javascript for Canvas design
