@@ -39,6 +39,9 @@ function loadfile(event)
     document.getElementById("canvasimg").style.border = "2px solid";    
     document.getElementById("canvasimg").src = img;
     document.getElementById("canvasimg").style.display = "inline";
+    var image = document.getElementById("canvasimg");    
+    image.style.width = '640px';
+    image.style.height = '480px';
 };
 
 //source: https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
@@ -123,6 +126,9 @@ function displayCanvas()
     var dataURL = canvas.toDataURL();
     document.getElementById("canvasimg").src = dataURL;
     document.getElementById("canvasimg").style.display = "inline";
+    //var image = document.getElementById("canvasimg");    
+    //image.style.width = '640px';
+    //image.style.height = '480px';
 }
 // This calls displayCanvas() and calls the algorithm to get the image character
 function save() 
