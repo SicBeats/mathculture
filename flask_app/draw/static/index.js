@@ -60,8 +60,12 @@ function windowResized()
     canvas = document.getElementById('can');
     cont = document.getElementById('canvas');
     // We want the canvas to fill up most of the canvas element's width, but only about half of the height
-    canvas.width = cont.clientWidth / 1.03;
-    canvas.height = cont.clientHeight / 1.5;
+    canvas.width = cont.clientWidth / 1.5;
+    canvas.height = Math.round(canvas.clientWidth * 3 / 4);
+    
+    canvasimg.style.height = (Math.round(canvasimg.clientWidth * 3 / 4)).toString(10) + "px";
+    console.log("CanvasW: ", canvas.clientWidth);
+    console.log("CanvasH: ", canvas.clientHeight);
 }
 
 // The main functin in charge of setting up the canvas
@@ -122,13 +126,13 @@ function erase()
 // This copies the contents of the canvas to the canvas img on the side
 function displayCanvas()
 {
-    document.getElementById("canvasimg").style.border = "2px solid";
+    var canvasimg = document.getElementById("canvasimg"); 
     var dataURL = canvas.toDataURL();
-    document.getElementById("canvasimg").src = dataURL;
-    document.getElementById("canvasimg").style.display = "inline";
-    //var image = document.getElementById("canvasimg");    
-    //image.style.width = '640px';
-    //image.style.height = '480px';
+    canvasimg.src = dataURL;
+    canvasimg.style.display = "inline";  
+    // Need to retain aspect ratio to keep 640x480
+    canvasimg.style.height = (Math.round(canvasimg.clientWidth * 3 / 4)).toString(10) + "px";
+    console.log("Canvas image element height is now: ", canvasimg.clientHeight);
 }
 // This calls displayCanvas() and calls the algorithm to get the image character
 function save() 
