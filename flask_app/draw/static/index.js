@@ -60,7 +60,7 @@ function windowResized()
     canvas = document.getElementById('can');
     cont = document.getElementById('canvas');
     // We want the canvas to fill up most of the canvas element's width, but only about half of the height
-    canvas.width = cont.clientWidth / 1.5;
+    canvas.width = cont.clientWidth / 1.3;
     canvas.height = Math.round(canvas.clientWidth * 3 / 4);
     
     canvasimg.style.height = (Math.round(canvasimg.clientWidth * 3 / 4)).toString(10) + "px";
@@ -151,8 +151,8 @@ function findxy(res, e)
     {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
+        currX = e.clientX - canvas.getBoundingClientRect().left;
+        currY = e.clientY - canvas.getBoundingClientRect().top;
     
         flag = true;
         dot_flag = true;
@@ -171,8 +171,8 @@ function findxy(res, e)
     {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
+        currX = e.clientX - canvas.getBoundingClientRect().left;
+        currY = e.clientY - canvas.getBoundingClientRect().top;
         draw();
     }
 }
@@ -200,5 +200,5 @@ function deleteCharacter()
         var thing = document.getElementById("displayEquation");
         equation.shift();
         thing.innerText = "Equation: " + equation.join("");
-    }    
+    }   
 }
