@@ -141,7 +141,7 @@ button{
     background-color: black;
 }
 /* Describe the draw div's attributes */
-#canvas {
+#drawInterface {
     border: 3px solid #000000;
     background-color: rgba(0,128,128,0.5);
     border-radius: 20px;
@@ -154,7 +154,7 @@ button{
     padding: 5px;
     padding-right: 8px;
 }
-#can {
+#canvas {
     background-color: white;
     float: center;
     border:2px solid;

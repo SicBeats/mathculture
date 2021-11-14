@@ -41,10 +41,10 @@ Last Modified: 11/10/2021
         <div class = "side" id="side2">
             <!-- Contains image screenshot -->
             <!--<h3>Last character inputted:</h3>-->
-            <img id="canvasimg" style="display:none;">
+            <img id="canvasimg" style="display:inline;">
         </div>
-        <div id="canvas">
-            <canvas id="can" width="640" height="480"></canvas>
+        <div id="drawInterface">
+            <canvas id="canvas" width="640" height="480"></canvas>
             <div id="choosecolor">Choose Your Color</div>
             <div class="colorblock" id="green" onclick="color(this)"></div>
             <div class="colorblock" id="blue" onclick="color(this)"></div>
@@ -57,7 +57,7 @@ Last Modified: 11/10/2021
             
             <input type="button" value="Add Character" id="btn" onclick="save()" >
             <input type="button" value="Remove last Character" id="del" onclick="deleteCharacter()" >
-            <input type="button" value="Clear Drawn Character" id="clr" onclick="erase()" >
+            <input type="button" value="Clear Drawn Character" id="clr" onclick="clearCanvas()" >
             <input type="button" value="Calculate equation" id="calc" onclick="calculatEquation()" >
             <div id="equationFormat">---------------------- </div>
             <div id="displayEquation"></div>
