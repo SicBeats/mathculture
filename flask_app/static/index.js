@@ -2,7 +2,7 @@
 Statement: Implements index.html button clicking
 Authors: Kaiser Slocum
 Team: Map Culture (Team 5)
-Date last edited: 11/11/2021
+Date last edited: 11/15/2021
 */
 
 function userLoggedIn()
@@ -12,7 +12,7 @@ function userLoggedIn()
   else
     window.location.href = "/draw";
 }
-
+// Open the dropdown if the user clicks on it
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
   let lbl = document.getElementById('buton');
@@ -39,11 +39,10 @@ function myFunction() {
     link2 = document.getElementById("e2"); 
     link2.innerText="Sign Out";  
     link2.setAttribute("href", "");
-    signoutMethod();
+    signout();
   }
   lbl.innerText = name;
 }
-
 
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) 
@@ -60,7 +59,7 @@ window.onclick = function(event)
     }
   }
 }
-
+// This is in charge of whether we display the dummy username or "account" for the drop-down menu
 window.onload = function chg()
 {
   let accStat = getAccountStatus();
@@ -68,4 +67,3 @@ window.onload = function chg()
     accStat = "Account";
   document.getElementById('buton').innerText = accStat;
 }
-

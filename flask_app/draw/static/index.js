@@ -5,11 +5,16 @@ Author: Kelemen Szimonisz, Kaiser Slocum
 Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
 Team: Map Culture (Team 5)
 
-Last Modified: 11/10/2021
+Last Modified: 11/14/2021
 */
 
-// source: https://stackoverflow.com/a/20285053
-// and: https://stackoverflow.com/a/52311051
+/*****************************************************************
+FUNCTION:encodeImageFileAsURL
+PURPOSE: This function takes an image file and coverts it to a url
+SOURCES: 
+https://stackoverflow.com/a/20285053
+https://stackoverflow.com/a/52311051
+******************************************************************/
 function encodeImageFileAsURL(element){
     var file = element.files[0];
     var reader = new FileReader();
@@ -32,33 +37,64 @@ function encodeImageFileAsURL(element){
     };
     reader.readAsDataURL(file);
 }
+/***********************************************************************************************
+FUNCTION: loadfile
+PURPOSE: This function takes the uploaded file image and displays it in the canvas image element
+************************************************************************************************/
+function loadfile(event) 
+{
+    imagePreview(URL.createObjectURL(event.target.files[0]));
+}
 
-//source: https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
-// Javascript for Canvas design
-var canvas, ctx, flag = false, dot_flag = false,
-    prevX = 0, currX = 0, prevY = 0, currY = 0,
-    x = "black", y = 2;
+function imagePreview(img)
+{
+    var canvasimg = document.getElementById("canvasimg");   
+    canvasimg.src = img;  
+    // Need to retain aspect ratio to keep 640x480
+    canvasimg.style.height = (Math.round(canvasimg.clientWidth * 3 / 4)).toString(10) + "px";
+    console.log("Canvas image element height is now: ", canvasimg.clientHeight);
+}
+
+/***********************************************************************************************
+VARIABLES: canvas, ctx, flag, x, y, prevX, currX, prevY, currY, equation
+PURPOSE: These variables (except equation which is purely for the calculating of equations)
+hold attributes needed for drawing on the canvas.
+SOURCES: https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-a-mouse
+(The above source was used for most of the canvas drawing functions - although heavily modified)
+************************************************************************************************/
+var canvas, ctx, flag = false, x = "black", y = 2, prevX = 0, currX = 0, prevY = 0, currY = 0;    
 const equation = ["="];
 
-// When our window is resized, the canvas element will resize.
-// Hence we need to resize our canvas to retain the correct dimensions
-// NOTE: CSS styles will skew the drawing on the canvas, so we need to use JS
+/***********************************************************************************************
+FUNCTION: windowResized
+PURPOSE: When our window is resized, this function will cause the canvas element to resize as well.
+NOTE: CSS styles will skew the drawing on the canvas, so we need to use JS to do this
+************************************************************************************************/
 window.onresize = windowResized;
 function windowResized() 
 {
-    canvas = document.getElementById('can');
-    cont = document.getElementById('canvas');
-    // We want the canvas to fill up most of the canvas element's width, but only about half of the height
-    canvas.width = cont.clientWidth / 1.03;
-    canvas.height = cont.clientHeight / 1.5;
+    // Get our various elements
+    canvas = document.getElementById('canvas');
+    drawInterface = document.getElementById('drawInterface');
+    // Set how wide our canvas is according to the size of its parent container
+    canvas.width = drawInterface.clientWidth / 1.3;
+    // Now set the height of the canvas to match the 640x480 size
+    canvas.height = Math.round(canvas.clientWidth * 3 / 4);
+    // We also will resize the canvas view
+    canvasimg.style.height = (Math.round(canvasimg.clientWidth * 3 / 4)).toString(10) + "px";
 }
 
-// The main functin in charge of setting up the canvas
+/***********************************************************************************************
+FUNCTION: init
+PURPOSE: This is the main function called by the html's body element. 
+It is in charge of setting up the drawFace interface and the elements inside - namely the canvas
+************************************************************************************************/
 function init() 
 {
-    canvas = document.getElementById('can');
+    // Call window resize to make sure the sizing of the canvas/canvas view is correct    
     windowResized();
-
+    canvas = document.getElementById('canvas');
+    // Set the global variables
     ctx = canvas.getContext("2d");
     w = canvas.width;
     h = canvas.height;
@@ -69,118 +105,113 @@ function init()
     canvas.addEventListener("mouseup", function (e) { findxy('up', e) }, false);
     canvas.addEventListener("mouseout", function (e) { findxy('out', e) }, false);
 
-    // Display the current canvas in the "last character" area
-    displayCanvas();
-    // Display the current Equation    
-    var thing = document.getElementById("displayEquation");
-    thing.innerText = "Equation: " + equation.join("");
+    // Display the empty canvas in the "last character" area
+    imagePreview(canvas.toDataURL());
+    // Display the current Equation   
+    document.getElementById("displayEquation").innerText = "Equation: " + equation.join("");
 }
-// Dictates the color and size of the drawing    
+/***********************************************************************************************
+FUNCTION: color
+PURPOSE: To change the color of the drawing depending on the color that the user selects
+************************************************************************************************/  
 function color(obj) 
 {
     x = obj.id;
     if (x == "white") 
+    {
         y = 14;
+    }
     else 
         y = 2;    
 }
-// Dictates how the drawing feature works
-function draw() 
+/***********************************************************************************************
+FUNCTION: clearCanvas
+PURPOSE: Clears the main canvas, but not the canvas viewer
+************************************************************************************************/
+function clearCanvas() 
 {
-    ctx.beginPath();
-    ctx.moveTo(prevX, prevY);
-    ctx.lineTo(currX, currY);
-    ctx.strokeStyle = x;
-    ctx.lineWidth = y;
-    ctx.stroke();
-    ctx.closePath();
-}
-// This will clear the canvas
-// It is not in charge of the eraser feature
-function erase() 
-{
-    var m = confirm("Are you sure you want to clear the canvas?");
-    if (m) 
+    if (confirm("Are you sure you want to clear the canvas?")) 
     {
         ctx.clearRect(0, 0, w, h);
-        document.getElementById("canvasimg").style.display = "none";
+        document.getElementById("canvasimg").style.display = "inline";
     }
-    displayCanvas();
-}
-    
-// This copies the contents of the canvas to the canvas img on the side
-function displayCanvas()
-{
-    document.getElementById("canvasimg").style.border = "2px solid";
-    var dataURL = canvas.toDataURL();
-    document.getElementById("canvasimg").src = dataURL;
-    document.getElementById("canvasimg").style.display = "inline";
-}
-// This calls displayCanvas() and calls the algorithm to get the image character
+}    
+/***********************************************************************************************
+FUNCTION: save()
+PURPOSE: This function:
+Calls imagePreview() to display the character
+Calls translate_to_char() to get the corresponding character for the image
+Adds the mathematical operator or digit to the equation
+************************************************************************************************/
 function save() 
 {
-    displayCanvas();
-
-    var dataURL = canvas.toDataURL();
-    var thing = document.getElementById("displayEquation");
-    equation.unshift(translate_to_char(dataURL));
-    thing.innerText = "Equation: " + equation.join("");
+    imagePreview(canvas.toDataURL());
+    equation.unshift(translate_to_char(canvas.toDataURL()));
+    document.getElementById("displayEquation").innerText = "Equation: " + equation.join("");
 }
-// Honestly, I'm not exactly sure what this does lol    
+/***********************************************************************************************
+FUNCTION: findxy
+PURPOSE: Pretty much handles all of the drawing  
+************************************************************************************************/
 function findxy(res, e) 
-{
-    if (res == 'down') 
-    {
-        prevX = currX;
-        prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
-    
-        flag = true;
-        dot_flag = true;
-        if (dot_flag) 
-        {
-            ctx.beginPath();
-            ctx.fillStyle = x;
-            ctx.fillRect(currX, currY, 2, 2);
-            ctx.closePath();
-            dot_flag = false;
-        }
-    }
+{    
     if (res == 'up' || res == "out")
         flag = false;
-    if ((res == 'move') && (flag))
+    else
     {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
-        draw();
-    }
+        currX = e.clientX - canvas.getBoundingClientRect().left;
+        currY = e.clientY - canvas.getBoundingClientRect().top;
+        if (res == 'down') 
+        {    
+            flag = true;
+            ctx.beginPath();
+            ctx.fillStyle = x;
+            ctx.fillRect(currX, currY, 3, 3);            
+            ctx.closePath();
+        }
+        else if ((res == 'move') && (flag))
+        {
+            ctx.beginPath();
+            ctx.moveTo(prevX, prevY);
+            ctx.lineTo(currX, currY);
+            ctx.strokeStyle = x;
+            ctx.lineWidth = y;
+            ctx.stroke();
+            ctx.closePath();
+        }            
+    }    
 }
-// Place holder function until algorithm is implemented
-// TODO
+/***********************************************************************************************
+FUNCTION: translate_to_char()
+PURPOSE: Calls deep-learning algorithm to translate image into math character
+************************************************************************************************/
 function translate_to_char(image)
 {
     return "t";
 }
-// Displays answer - should call WOLFRAM API
-// TODO
+/***********************************************************************************************
+FUNCTION: calculatEquation
+PURPOSE: Displays answer - should call WOLFRAM API
+************************************************************************************************/
 async function calculatEquation()
 {   
     var eq1 = "2*3+3*4+6-25/23";
     var n = eval(eq1);        
     document.getElementById("displayResult").innerText = " Answer: " + n;
 }
-// Deletes the last character
+/***********************************************************************************************
+FUNCTION: deleteCharacter
+PURPOSE: Deletes the last character in the equation
+************************************************************************************************/
 function deleteCharacter()
 {
     if (equation.length == 1)
         alert("No more characters to delete!");
     else
     {
-        var thing = document.getElementById("displayEquation");
         equation.shift();
-        thing.innerText = "Equation: " + equation.join("");
-    }    
+        document.getElementById("displayEquation").innerText = "Equation: " + equation.join("");
+    }   
 }

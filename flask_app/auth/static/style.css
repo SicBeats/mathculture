@@ -39,7 +39,7 @@ body {
 }
 /* This affects the login/register toggle button */
 .toggle-btn{
-    padding: 10px ;
+    padding: 10px;
     margin: 0px;
     width: 32%;
     background: linear-gradient(to right, brown, #ffad06);
@@ -78,7 +78,7 @@ a:hover,.submit-btn:hover,.toggle-btn:hover{
 }
 /* This affects the location of the input fields and the login/register buttons */
 .input-group{
-    top: 140px;
+    top: 100px;
     position: absolute;
     width: 208px;
     /* transition is for the "swoosh" motion of moving between login and register */
