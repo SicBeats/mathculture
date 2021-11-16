@@ -2,7 +2,7 @@
 Statement: New or returning users will be directed to this web page to login or create their account
 Authors: Liam Dauphinee, Kaiser Slocum
 Team: Map Culture (Team 5)
-Date Last Edited: 11/11/2021
+Date Last Edited: 11/15/2021
 -->
 <html>
 <head>	
@@ -18,15 +18,15 @@ Date Last Edited: 11/11/2021
 			<a href="/" >Home</a>
 			<!-- This is the toggle button which is actually two buttons at the top of the main form box -->
 			<div class="button-box">				
-				<button type="button" class="toggle-btn" onclick="signin()">Log In</button>
-				<button type="button" class="toggle-btn" onclick="register()" id="midbtn">Register</button>
-				<button type="button" class="toggle-btn" onclick="profile()">Profile</button>
+				<button type="button" class="toggle-btn" onclick="show_signin()">Log In</button>
+				<button type="button" class="toggle-btn" onclick="show_register()" id="midbtn">Register</button>
+				<button type="button" class="toggle-btn" onclick="show_profile()">Profile</button>
 			</div>
 		<form id="profile" class="input-group">
-			<label id="UserID">User ID:   Lumpy</label>
-			<label id="GroupID">Group ID: Heffalump</label>
-			<label id="RoleID">Role ID:   Instructor</label>
-			<label id="Email">Email ID: </label>
+			<label id="UserID">User ID:   </label>
+			<label id="GroupID">Group ID: </label>
+			<label id="RoleID">Role ID:   </label>
+			<label id="Email">Email ID:   </label>
 			<input type="text" class="input-field" id="oldpass" placeholder="Enter Password"required>
 			<input type="text" class="input-field" id="newpass" placeholder="New Password"required>
 			<input type="text" class="input-field" id="confirmpass" placeholder="Re-enter New Password"required>
@@ -37,7 +37,7 @@ Date Last Edited: 11/11/2021
 			<input type="text" class="input-field" placeholder="User ID"required>
 			<input type="text" class="input-field" placeholder="Enter Password"required>
 			<input type="checkbox" class="check-box"><span>Remember Password</span>
-			<button type="submit" class="submit-btn" onclick="signinMethod()">Log in</button>
+			<button type="submit" class="submit-btn" onclick="signin()">Log in</button>
 		</form>
 		<!-- This is where a user would create their account if they're new -->
 		<form id="register" class="input-group">
@@ -53,7 +53,7 @@ Date Last Edited: 11/11/2021
 				<input type="radio" name="radio" id="radio-instructor"/>
 				<label id="radio-instructor-label" for="radio2">Instructor</label>
 			</div>
-			<button type="submit" class="submit-btn" onclick="registerMethod()">Register</button>
+			<button type="submit" class="submit-btn" onclick="register()">Register</button>
 		</form>				
 		</div>
 	</div> 	

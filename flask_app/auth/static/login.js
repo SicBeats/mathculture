@@ -2,17 +2,18 @@
 Statement: Loads of js
 Authors: Kaiser Slocum
 Team: Map Culture (Team 5)
-Date Last Edited: 11/11/2021
+Date Last Edited: 11/15/2021
 */
 
 
-/* Called by the login.html when the page is loading */
+// Called by the login.html when the page is loading
+// We always want the signin form to show up first
 function init() 
 {
-	signin();
-    profileMethod();	
+	show_signin();	
 }
-function signin()
+// Shows the signin form
+function show_signin()
 {
     var x = document.getElementById("sign_in")
 	var y = document.getElementById("register")	
@@ -21,7 +22,8 @@ function signin()
     y.style.left = "450px";
     z.style.left = "850px";
 }
-function register()
+// Shows the register form
+function show_register()
 {
     var x = document.getElementById("sign_in")
 	var y = document.getElementById("register")
@@ -30,7 +32,8 @@ function register()
     y.style.left = "50px";
     z.style.left = "450px";
 }
-function profile()
+// Shows the profile form
+function show_profile()
 {
     var x = document.getElementById("sign_in")
 	var y = document.getElementById("register")	
@@ -38,42 +41,63 @@ function profile()
     x.style.left = "-750px";
     y.style.left = "-350px";
     z.style.left = "50px";
+
+    profile();
 }
 
-/* This is called by the main js from every page to get the name of the user */
+// Function called by all pages' js files to get the name of the dummy account
 function getAccountStatus()
 {
-  return getUser();
+    console.log(getCookie());
+
+    if (getCookie() == " signedin")
+        return "Lumpy";
+    else
+        return ""; 
 }
 
-/* signa  user in or up or out */
-function signinMethod()
+// Called by signin button
+function signin()
 {   
-    do_sign_in();
-    //alert("signedin");
+    // Check to make sure user ID and password match
+    document.cookie = "signedin";  
+    console.log("After sign in cookie is: ", getCookie()); 
 }
-function signoutMethod()
+// Called by signout button
+function signout()
 {
-    do_sign_out();
-    //alert("signedout");    
+    document.cookie= " signedout";
+    console.log("After sign out cookie is: ", getCookie());   
 }
-function registerMethod()
+// Called by register button
+function register()
 {
-    //alert("registered");
+    // Check to make sure user ID is unique, verify group ID corresponds with account sign-up code
+    document.cookie = "signedin";  
+    console.log("After register (which is technically just sign in) cookie is: ", getCookie()); 
 }
 /* Sets up the info on the profile page */
-function profileMethod()
+function profile()
 {
-    document.getElementById("UserID").innerHTML = "User ID: " + getUser();
-    document.getElementById("GroupID").innerHTML = "Group ID: " + getGroup();
-    document.getElementById("RoleID").innerHTML = "Role ID: " + getRole();
-    document.getElementById("Email").innerHTML = "Email: " + getEmail();
+    var user = "";
+    var group = "";
+    var role = "";
+    var email = "";
+    if (getCookie() == " signedin")
+    {
+        var user = "Lumpy";
+        var group = "TiggerGang";
+        var role = "Instructor";
+        var email = "lumpyh@hundredacre.woods";
+    }
+    document.getElementById("UserID").innerHTML = "User ID: " + user;
+    document.getElementById("GroupID").innerHTML = "Group ID: " + group;
+    document.getElementById("RoleID").innerHTML = "Role ID: " + role;
+    document.getElementById("Email").innerHTML = "Email: " + email;
 }
 /* 
 Called by change password button
-if the new and confirm passwords match
-and the original passwords match
-then new password is set
+if the new and confirm passwords match and the original passwords match then new password is set
 this is not hooked up to database so it's broken
 */
 function changePassword()
@@ -84,82 +108,20 @@ function changePassword()
     console.log(oldpass);
     if (newpass != confirmpass)
         alert("The new password and confirmation password do not match!");
-    else if (oldpass != getPassword())
+    else if (oldpass != "1amLump")
         alert("Your password does not match the correct password!")
     else
     {
-        setPassword(newpass);
         alert("Your new password(1amLump) has been set!")
+        // change the password
     }
 }
 
-
 /* This decodes the cookie to get the "signedin" or "signedout" clause */
-var stat = "";
 function getCookie() 
 {
     let decodedCookie = decodeURIComponent(document.cookie);
-    console.log(decodedCookie);
     let ca = decodedCookie.split(';');
-    console.log(ca);
     let c = ca[ca.length-1];
-    console.log(c);
     return c;
-  }
-
-  /* These functions are called for signing in and signint out */
-function do_sign_in()
-{    
-    document.cookie = "signedin";  
-    profileMethod();
-    console.log("After sign in cookie is: ", getCookie());  
-}
-function do_sign_out()
-{
-    document.cookie= " signedout";
-    profileMethod();
-    console.log("After sign out cookie is: ", getCookie());
-}
-
-/* the following functions are mainly just for displaying info on the profile page */
-function getUser()
-{
-    console.log(getCookie());
-
-    if (getCookie() == " signedin")
-        return "Lumpy";
-    else
-        return "";        
-}
-function getPassword()
-{
-    if (getCookie() == " signedin")
-        return "1amLump";
-    else
-        return "";
-}
-function setPassword(newPass)
-{
-    var pass = newPass;
-}
-function getGroup()
-{
-    if (getCookie() == " signedin")
-        return "TiggerGang";
-    else
-        return "";
-}
-function getRole()
-{
-    if (getCookie() == " signedin")
-        return "Instructor";
-    else
-        return "";
-}
-function getEmail()
-{
-    if (getCookie() == " signedin")
-        return "lumpyh@hundredacre.woods";
-    else
-        return "";
 }
