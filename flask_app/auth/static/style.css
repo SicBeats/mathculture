@@ -42,11 +42,11 @@ body {
     padding: 10px;
     margin: 0px;
     width: 32%;
-    background: linear-gradient(to right, brown, #ffad06);
+    background: linear-gradient(to right, #FF0000, #6284FF, #FFFFFF);
     border: 0;
 }
 #midbtn{
-    background: linear-gradient(to right, #ffad06, brown);
+    background: linear-gradient(to right, #FFFFFF, #6284FF, #FF0000);
     margin-left: -5px;
     margin-right: -5px;
 }
@@ -67,7 +67,7 @@ a{
     padding-right: 100px;
     padding-left: 100px;
     border-radius: 5px;
-    background: linear-gradient(to right, brown, #ffad06);
+    background: linear-gradient(to right, #FF0000, #6284FF, #FFFFFF);
     color: black;
     text-decoration: none;
 }
@@ -100,7 +100,7 @@ a:hover,.submit-btn:hover,.toggle-btn:hover{
     padding: 10px 20px;
     display: block;
     margin: auto;
-    background: linear-gradient(to right, #ff105f, #ffad06);
+    background: linear-gradient(to right, #FFFFFF, #6284FF, #FF0000);
     border: 0;
     outline: none;
     border-radius: 30px;
