@@ -12,8 +12,10 @@ Last Modified: 11/01/2021
 '''
 from . import draw_blueprint
 from .classifier.main import classifyImage
+from .detector.main import predictEquationFromImage
 from flask import Flask, jsonify, render_template, request, current_app
 import base64
+import os
 
 # create a route between the URL (/draw) and the function draw() that returns a response
 @draw_blueprint.route('/draw', methods=['GET'])
@@ -39,8 +41,11 @@ def runAlgorithm():
     with open('/app/flask_app/draw/temp.jpg','wb+') as f:
         f.write(image_binary)
    
-    class_prediction = classifyImage('temp.jpg') 
+    #class_prediction = classifyImage('temp.jpg') 
+    predicted_equation = predictEquationFromImage('temp.jpg')
+    # NEED ERROR HANDLING!
+    #os.remove('temp.jpg')
 
-    message = {'prediction':class_prediction}
+    message = {'prediction':predicted_equation}
     # jsonify the message
     return jsonify(message)

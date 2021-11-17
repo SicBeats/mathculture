@@ -15,8 +15,8 @@ SOURCES:
 https://stackoverflow.com/a/20285053
 https://stackoverflow.com/a/52311051
 ******************************************************************/
-function encodeImageFileAsURL(element){
-    var file = element.files[0];
+//function encodeImageFileAsURL(element){
+function encodeImageFileAsURL(file){
     var reader = new FileReader();
     reader.onloadend = async function() {
         console.log('RESULT',reader.result);
@@ -31,7 +31,7 @@ function encodeImageFileAsURL(element){
         console.log('POST response:',data);
         prediction = data['prediction']
         console.log('class prediction:',prediction);
-        var messageDiv = document.getElementById('message');  
+        var messageDiv = document.getElementById('displayEquation');  
         messageDiv.innerText = "PREDICTION: " + prediction;
         
     };
@@ -43,7 +43,10 @@ PURPOSE: This function takes the uploaded file image and displays it in the canv
 ************************************************************************************************/
 function loadfile(event) 
 {
-    imagePreview(URL.createObjectURL(event.target.files[0]));
+    var file = event.target.files[0]
+    encodeImageFileAsURL(file);
+    //imagePreview(URL.createObjectURL(event.target.files[0]));
+    imagePreview(URL.createObjectURL(file));
 }
 
 function imagePreview(img)
