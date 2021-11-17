@@ -14,7 +14,7 @@ html,*{
 }
 /* We establish our background image */
 body {    
-    background-image: url("desert.jpg");
+    background-image: url("math.jpeg");
     background-size: cover;
 }
 /* This positions our entire box of controls in the center of the screen */
