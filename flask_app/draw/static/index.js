@@ -55,7 +55,6 @@ function imagePreview(img)
     canvasimg.src = img;  
     // Need to retain aspect ratio to keep 640x480
     canvasimg.style.height = (Math.round(canvasimg.clientWidth * 3 / 4)).toString(10) + "px";
-    console.log("Canvas image element height is now: ", canvasimg.clientHeight);
 }
 
 /***********************************************************************************************
@@ -104,19 +103,17 @@ function init()
     h = canvas.height;
 
     // set canvas background color to white
-    ctx.fillStyle = "white";
-    ctx.fillRect(0,0,w,h);
+    clearCanvas();
+    // Display the empty canvas in the "last character" area
+    imagePreview(canvas.toDataURL());
     
     // If a user starts drawing on the canvas, we need to respond
     canvas.addEventListener("mousemove", function (e) { findxy('move', e) }, false);
     canvas.addEventListener("mousedown", function (e) { findxy('down', e) }, false);
     canvas.addEventListener("mouseup", function (e) { findxy('up', e) }, false);
     canvas.addEventListener("mouseout", function (e) { findxy('out', e) }, false);
-
-    // Display the empty canvas in the "last character" area
-    imagePreview(canvas.toDataURL());
+    
     // Display the current Equation   
-    //document.getElementById("displayEquation").innerText = "Equation: " + equation.join("");
     document.getElementById("displayEquation").innerText = "Predicted equation: ";
 }
 /***********************************************************************************************
@@ -139,25 +136,11 @@ PURPOSE: Clears the main canvas, but not the canvas viewer
 ************************************************************************************************/
 function clearCanvas() 
 {
-    if (confirm("Are you sure you want to clear the canvas?")) 
-    {
-        ctx.clearRect(0, 0, w, h);
-        document.getElementById("canvasimg").style.display = "inline";
-    }
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,w,h);
+    document.getElementById("canvasimg").style.display = "inline"; 
 }    
-/***********************************************************************************************
-FUNCTION: save()
-PURPOSE: This function:
-Calls imagePreview() to display the character
-Calls translate_to_char() to get the corresponding character for the image
-Adds the mathematical operator or digit to the equation
-************************************************************************************************/
-function save() 
-{
-    imagePreview(canvas.toDataURL());
-    equation.unshift(translate_to_char(canvas.toDataURL()));
-    document.getElementById("displayEquation").innerText = "Equation: " + equation.join("");
-}
+
 /***********************************************************************************************
 FUNCTION: findxy
 PURPOSE: Pretty much handles all of the drawing  
@@ -192,17 +175,10 @@ function findxy(res, e)
         }            
     }    
 }
-/***********************************************************************************************
-FUNCTION: translate_to_char()
-PURPOSE: Calls deep-learning algorithm to translate image into math character
-************************************************************************************************/
-function translate_to_char(image)
-{
-    return "t";
-}
+
 /***********************************************************************************************
 FUNCTION: calculatEquation
-PURPOSE: Displays answer - should call WOLFRAM API
+PURPOSE: Displays solution
 ************************************************************************************************/
 async function calculatEquation()
 {   
@@ -212,23 +188,7 @@ async function calculatEquation()
         const file = new File([blob], "temp.png");
         encodeImageFileAsURL(file);
     });
-    
-    
-    //var eq1 = "2*3+3*4+6-25/23";
-    //var n = eval(eq1);        
+           
     //document.getElementById("displayResult").innerText = " Answer: " + n;
 }
-/***********************************************************************************************
-FUNCTION: deleteCharacter
-PURPOSE: Deletes the last character in the equation
-************************************************************************************************/
-function deleteCharacter()
-{
-    if (equation.length == 1)
-        alert("No more characters to delete!");
-    else
-    {
-        equation.shift();
-        document.getElementById("displayEquation").innerText = "Equation: " + equation.join("");
-    }   
-}
+
