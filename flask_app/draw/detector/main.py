@@ -64,13 +64,15 @@ def loadTrainedModel():
 
     # DOWNLOAD THIS FILE AND KEEP IT LOCAL TO FLASK FILESYSTEM!!!!
     # load a Faster R-CNN model pre-trained on COCO
-    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
+    #model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
     # get number of input features for the classifier
-    in_features = model.roi_heads.box_predictor.cls_score.in_features
+    #in_features = model.roi_heads.box_predictor.cls_score.in_features
     # replace the pre-trained head with a new one
-    model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
-    model.load_state_dict(torch.load('/app/flask_app/draw/detector/objdetector.pth', map_location=torch.device('cpu')))
+    #model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+    #model.load_state_dict(torch.load('/app/flask_app/draw/detector/objdetector.pth', map_location=torch.device('cpu')))
+    model = torch.load('/app/flask_app/draw/detector/objdetector.pth',map_location=torch.device('cpu'))
     model.to(device)
+
     return model
 
 def predictEquationFromImage(image_filename):
