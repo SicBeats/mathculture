@@ -7,11 +7,13 @@ from . import dataset
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from flask import current_app
 
 def draw_boxes_on_image(image,boxes,labels):
     fig, ax = plt.subplots(figsize=(6,6)) # set figure size to 6x6inches
     ax.imshow(image.permute(1, 2, 0).cpu())
-    classes = ["background","zero","one","two","three","four","five","six","seven","eight","plus","equal","lpar"]
+    classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
+
 
     # x1, y1 is the upper-left corner point, x2, y2 is the bottom-left corner point
     for i,box in enumerate(boxes):
@@ -53,8 +55,8 @@ def loadTrainedModel():
     #trainset = dataset.MCImageDataset("/content/dataset/train.txt","/content/dataset/")
     #valset = dataset.MCImageDataset("/content/dataset/val.txt","/content/dataset/")
 
-    classes = ["background","zero","one","two","three","four","five","six","seven","eight","plus","equal","lpar"]
-    num_classes = len(classes)
+    #classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
+    #num_classes = len(classes)
 
     #trainloader = torch.utils.data.DataLoader(trainset, batch_size=1, shuffle=True, num_workers=4,collate_fn=dataset.collate_fn)
     #testloader = torch.utils.data.DataLoader(valset, batch_size=1, shuffle=False, num_workers=4,collate_fn=dataset.collate_fn)
@@ -75,15 +77,18 @@ def loadTrainedModel():
 
     return model
 
+model = loadTrainedModel()
+current_app.logger.info('test')
 def predictEquationFromImage(image_filename):
     device = torch.device("cpu")
     #trainset = dataset.MCImageDataset("/content/dataset/train.txt","/content/dataset/")
-    model = loadTrainedModel()
+    #model = loadTrainedModel()
     img = (read_image('/app/flask_app/draw/temp.jpg'))
     img = img.float() / 255
     print(img.size())
-    classes = ["background","zero","one","two","three","four","five","six","seven","eight","plus","equal","lpar"]
     model.eval()
+    #classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
+    classes = ["background","0","1","2","3","4","5","6","7","8","9","/","+","(","="]
     with torch.no_grad():
         prediction = model([img.to(device)])[0]
 
@@ -102,7 +107,9 @@ def predictEquationFromImage(image_filename):
     sorted_by_minx = sorted(zipped_labels_bboxes, key = lambda pair: pair[1][0])
 
     sorted_labels, sorted_bboxes = [list(tup) for tup in zip(*sorted_by_minx)]
-    
-    
+   
+    prediction_string = "".join(sorted_labels)
+        
     #return prediction_list_decoded
-    return sorted_labels
+    #return sorted_labels
+    return prediction_string

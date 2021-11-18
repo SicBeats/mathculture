@@ -13,6 +13,8 @@ Last Modified: 11/01/2021
 from . import draw_blueprint
 from .classifier.main import classifyImage
 from .detector.main import predictEquationFromImage
+from .detector.main import loadTrainedModel
+#from . import querywolframalpha
 from flask import Flask, jsonify, render_template, request, current_app
 import base64
 import os
@@ -29,7 +31,7 @@ def draw():
 # GET: retrieving information 
 # example: going to the post office to ask for your letter
 
-# Help from: https://stackoverflow.com/a/37767000
+
 @draw_blueprint.route('/algo', methods=['POST'])
 def runAlgorithm():
     # POST request
@@ -43,6 +45,7 @@ def runAlgorithm():
    
     #class_prediction = classifyImage('temp.jpg') 
     predicted_equation = predictEquationFromImage('temp.jpg')
+    #step_by_step = querywolframalpha.getStepByStep(predicted_equation)
     # NEED ERROR HANDLING!
     #os.remove('temp.jpg')
 
