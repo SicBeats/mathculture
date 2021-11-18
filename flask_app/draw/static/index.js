@@ -192,3 +192,16 @@ async function calculatEquation()
     //document.getElementById("displayResult").innerText = " Answer: " + n;
 }
 
+/***********************************************************************************************
+FUNCTION: downloadCanvas
+PURPOSE: downloads canvas to picture
+************************************************************************************************/
+function downloadCanvas()
+{
+    var a = document.createElement('a');
+    a.href = document.getElementById('canvas').toDataURL();
+    a.download = "drawnEquation.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}

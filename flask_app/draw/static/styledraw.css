@@ -191,11 +191,11 @@ button{
     background:white;
 }
 
-#clr, #calc {
+#clr, #dwnld {
     float: left;
     display : block;
 }
-#clr,#eraser, #btn, #displayEquation, #equationFormat, #displayResult {
+#calc,#eraser, #displayEquation, #equationFormat, #displayResult {
     float: left;
     clear: left;
     display: block;
