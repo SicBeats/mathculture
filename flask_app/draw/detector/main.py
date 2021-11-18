@@ -10,7 +10,7 @@ import matplotlib.patches as mpatches
 from flask import current_app
 
 def draw_boxes_on_image(image,boxes,labels):
-    fig, ax = plt.subplots(figsize=(6,6)) # set figure size to 6x6inches
+    fig, ax = plt.subplots(figsize=(6.4,4.8)) # set figure size to 6x6inches
     ax.imshow(image.permute(1, 2, 0).cpu())
     classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
 
@@ -24,7 +24,7 @@ def draw_boxes_on_image(image,boxes,labels):
         ax.text(x1,(y1-5),classes[labels[i].item()],verticalalignment='top', color='black',fontsize=20,weight='bold')
 
     plt.axis('off')
-    plt.savefig('/app/flask_app/draw/detector/temp_bboxes.jpg')
+    plt.savefig('/app/flask_app/draw/detector/temp_bboxes.jpg',dpi=100)
     plt.show()
 
 def bboxes_per_class(dataloader):
