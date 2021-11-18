@@ -7,6 +7,7 @@
     - https://docs.docker.com/compose/install/ (Linux only)
 2. Run Docker Desktop (Mac and Windows) or the Docker daemon (Linux) in the background
 3. Build and run the application stack using docker-compose:
+<br>(NOTE: this may take a few minutes. The PyTorch python library is large.)
 
     - If you are on macOS or Linux, enter the following commands into your terminal:
 
