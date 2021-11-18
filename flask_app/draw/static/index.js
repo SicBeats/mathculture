@@ -98,9 +98,14 @@ function init()
     windowResized();
     canvas = document.getElementById('canvas');
     // Set the global variables
-    ctx = canvas.getContext("2d");
+    // removing the alpha value to satisfy the object detector's input requirements
+    ctx = canvas.getContext("2d",{alpha: false});
     w = canvas.width;
     h = canvas.height;
+
+    // set canvas background color to white
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,w,h);
     
     // If a user starts drawing on the canvas, we need to respond
     canvas.addEventListener("mousemove", function (e) { findxy('move', e) }, false);
@@ -111,7 +116,8 @@ function init()
     // Display the empty canvas in the "last character" area
     imagePreview(canvas.toDataURL());
     // Display the current Equation   
-    document.getElementById("displayEquation").innerText = "Equation: " + equation.join("");
+    //document.getElementById("displayEquation").innerText = "Equation: " + equation.join("");
+    document.getElementById("displayEquation").innerText = "Predicted equation: ";
 }
 /***********************************************************************************************
 FUNCTION: color
@@ -200,9 +206,17 @@ PURPOSE: Displays answer - should call WOLFRAM API
 ************************************************************************************************/
 async function calculatEquation()
 {   
-    var eq1 = "2*3+3*4+6-25/23";
-    var n = eval(eq1);        
-    document.getElementById("displayResult").innerText = " Answer: " + n;
+    canvasImage = canvas.toDataURL();
+    imagePreview(canvasImage);
+    canvas.toBlob(blob => {
+        const file = new File([blob], "temp.png");
+        encodeImageFileAsURL(file);
+    });
+    
+    
+    //var eq1 = "2*3+3*4+6-25/23";
+    //var n = eval(eq1);        
+    //document.getElementById("displayResult").innerText = " Answer: " + n;
 }
 /***********************************************************************************************
 FUNCTION: deleteCharacter

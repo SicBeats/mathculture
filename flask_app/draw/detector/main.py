@@ -11,7 +11,7 @@ import matplotlib.patches as mpatches
 def draw_boxes_on_image(image,boxes,labels):
     fig, ax = plt.subplots(figsize=(6,6)) # set figure size to 6x6inches
     ax.imshow(image.permute(1, 2, 0).cpu())
-    classes = ["background","zero","one","two","three","four","five","six","seven","eight","plus","lpar"]
+    classes = ["background","zero","one","two","three","four","five","six","seven","eight","plus","equal","lpar"]
 
     # x1, y1 is the upper-left corner point, x2, y2 is the bottom-left corner point
     for i,box in enumerate(boxes):
@@ -79,6 +79,7 @@ def predictEquationFromImage(image_filename):
     model = loadTrainedModel()
     img = (read_image('/app/flask_app/draw/temp.jpg'))
     img = img.float() / 255
+    print(img.size())
     classes = ["background","zero","one","two","three","four","five","six","seven","eight","plus","equal","lpar"]
     model.eval()
     with torch.no_grad():
@@ -89,8 +90,17 @@ def predictEquationFromImage(image_filename):
     print('nms predicted #boxes: ', len(nms_prediction['labels']))
 
     #draw_boxes_on_image(image,prediction['boxes'],prediction['labels'])
+         
     draw_boxes_on_image(img,nms_prediction['boxes'],nms_prediction['labels'])
     prediction_list_encoded = nms_prediction['labels'].tolist()
     prediction_list_decoded = [classes[label] for label in prediction_list_encoded]
-    return prediction_list_decoded
+   
+    predicted_bbox_list = nms_prediction['boxes'].tolist()
+    zipped_labels_bboxes= zip(prediction_list_decoded,predicted_bbox_list)
+    sorted_by_minx = sorted(zipped_labels_bboxes, key = lambda pair: pair[1][0])
 
+    sorted_labels, sorted_bboxes = [list(tup) for tup in zip(*sorted_by_minx)]
+    
+    
+    #return prediction_list_decoded
+    return sorted_labels
