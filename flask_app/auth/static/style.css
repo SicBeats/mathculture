@@ -26,7 +26,7 @@ body {
     margin: 6% auto;
     padding: 5px;
     overflow: hidden;
-    background-color: rgba(255, 217, 0, 0.171);
+    background-color: rgba(0, 0, 0, 0);
     border: 5px solid white;      
 }
 /* The button box just affects the positioning of the login/register toggle button */
@@ -42,11 +42,11 @@ body {
     padding: 10px;
     margin: 0px;
     width: 32%;
-    background: linear-gradient(to right, #FF0000, #6284FF, #FFFFFF);
+    background: linear-gradient(to right, #0093E9, #FFFFFF);
     border: 0;
 }
 #midbtn{
-    background: linear-gradient(to right, #FFFFFF, #6284FF, #FF0000);
+    background: linear-gradient(to right, #FFFFFF, #0093E9);
     margin-left: -5px;
     margin-right: -5px;
 }
@@ -67,13 +67,13 @@ a{
     padding-right: 100px;
     padding-left: 100px;
     border-radius: 5px;
-    background: linear-gradient(to right, #FF0000, #6284FF, #FFFFFF);
+    background: linear-gradient(to right, #0093E9, #FFFFFF);
     color: black;
     text-decoration: none;
 }
 /* When users hover, we want to let them know this is a link */
 a:hover,.submit-btn:hover,.toggle-btn:hover{
-    color: rgb(28, 196, 28);
+    color: rgb(250, 7, 7);
     font-weight: bold;
 }
 /* This affects the location of the input fields and the login/register buttons */
@@ -100,7 +100,7 @@ a:hover,.submit-btn:hover,.toggle-btn:hover{
     padding: 10px 20px;
     display: block;
     margin: auto;
-    background: linear-gradient(to right, #FFFFFF, #6284FF, #FF0000);
+    background: linear-gradient(to right, #FFFFFF, #0093E9);
     border: 0;
     outline: none;
     border-radius: 30px;
