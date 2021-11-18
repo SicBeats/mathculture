@@ -26,7 +26,7 @@ body {
     margin: 6% auto;
     padding: 5px;
     overflow: hidden;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: teal;
     border: 5px solid white;      
 }
 /* The button box just affects the positioning of the login/register toggle button */
@@ -111,7 +111,7 @@ a:hover,.submit-btn:hover,.toggle-btn:hover{
 }
 /* This is for the words next to the check box */
 span{
-    color: #777;
+    color: rgba(0, 0, 0, 0.550);
     font-size: 14px;
     position: absolute;
 }
