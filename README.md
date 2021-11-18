@@ -49,7 +49,7 @@ Using the docker-compose script will automatically push changes to the web app i
 
 #### (DEVELOPMENT) Debugging the Flask server:
 
-    docker logs -f project2-flaskwebservice-1    
+    docker logs -f project2_flaskwebservice_1    
 
 ### Resources:
 
