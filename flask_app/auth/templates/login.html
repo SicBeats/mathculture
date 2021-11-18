@@ -27,15 +27,15 @@ Date Last Edited: 11/15/2021
 			<label id="GroupID">Group ID: </label>
 			<label id="RoleID">Role ID:   </label>
 			<label id="Email">Email ID:   </label>
-			<input type="text" class="input-field" id="oldpass" placeholder="Enter Password"required>
-			<input type="text" class="input-field" id="newpass" placeholder="New Password"required>
-			<input type="text" class="input-field" id="confirmpass" placeholder="Re-enter New Password"required>
+			<input type="password" class="input-field" id="oldpass" placeholder="Enter Password"required>
+			<input type="password" class="input-field" id="newpass" placeholder="New Password"required>
+			<input type="password" class="input-field" id="confirmpass" placeholder="Re-enter New Password"required>
 			<button type="submit" class="submit-btn" onclick="changePassword();">Submit Password Change</button>
 		</form>
 		<!-- This is where a user would login if they already had an account -->
 		<form id="sign_in" action="/sign_in" class="input-group">
 			<input type="text" class="input-field" placeholder="User ID"required>
-			<input type="text" class="input-field" placeholder="Enter Password"required>
+			<input type="password" class="input-field" placeholder="Enter Password"required>
 			<input type="checkbox" class="check-box"><span>Remember Password</span>
 			<button type="submit" class="submit-btn" onclick="signin()">Log in</button>
 		</form>
@@ -44,7 +44,7 @@ Date Last Edited: 11/15/2021
 			<input type="text" class="input-field" placeholder="User ID"required>			
 			<input type="text" class="input-field" placeholder="Group ID" required>
 			<input type="email" class="input-field" placeholder="Email ID"required>
-			<input type="text" class="input-field" placeholder="Enter Password"required>
+			<input type="password" class="input-field" placeholder="Enter Password"required>
 			<input type="text" class="input-field" placeholder="Account Sign-Up Code" required>
 			<input type="checkbox" class="check-box"><span id="TermsConditions">I agree to the terms and conditions</span>
 			<div class="option-set"> <!-- distance and duration bubbles -->
