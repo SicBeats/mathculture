@@ -21,9 +21,10 @@ def draw_boxes_on_image(image,boxes,labels):
         w, h = (x2-x1), (y2-y1)
         bounding_box = mpatches.Rectangle((x1,y1), w, h, fill=False, edgecolor='green', linewidth=1)
         ax.add_patch(bounding_box)
-        ax.text(x1,(y1-5),classes[labels[i].item()],verticalalignment='top', color='white',fontsize=10,weight='bold')
+        ax.text(x1,(y1-5),classes[labels[i].item()],verticalalignment='top', color='black',fontsize=20,weight='bold')
 
     plt.axis('off')
+    plt.savefig('/app/flask_app/draw/detector/temp_bboxes.jpg')
     plt.show()
 
 def bboxes_per_class(dataloader):

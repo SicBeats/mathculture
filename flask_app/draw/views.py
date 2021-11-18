@@ -42,13 +42,22 @@ def runAlgorithm():
     image_binary = base64.b64decode(image_base64)
     with open('/app/flask_app/draw/temp.jpg','wb+') as f:
         f.write(image_binary)
-   
+  
     #class_prediction = classifyImage('temp.jpg') 
     predicted_equation = predictEquationFromImage('temp.jpg')
+    
+    encoding = 'utf-8'
+    with open('/app/flask_app/draw/detector/temp_bboxes.jpg','rb') as f:
+        byte_content = f.read()
+
+    base64_bytes = base64.b64encode(byte_content)
+    base64_string = base64_bytes.decode(encoding)
+    
+    
     #step_by_step = querywolframalpha.getStepByStep(predicted_equation)
     # NEED ERROR HANDLING!
     #os.remove('temp.jpg')
 
-    message = {'prediction':predicted_equation}
+    message = {'prediction':predicted_equation,'bbox_image':base64_string}
     # jsonify the message
     return jsonify(message)

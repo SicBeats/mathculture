@@ -33,6 +33,10 @@ function encodeImageFileAsURL(file){
         console.log('class prediction:',prediction);
         var messageDiv = document.getElementById('displayEquation');  
         messageDiv.innerText = "PREDICTION: " + prediction;
+
+        bbox_prediction = "data:image/png;base64," + data['bbox_image'];
+        imagePreview(bbox_prediction);
+        
         
     };
     reader.readAsDataURL(file);
