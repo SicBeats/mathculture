@@ -14,7 +14,8 @@
 # Last Edited: 10/24/2021
 ##################################################################################
 Flask
-torch
+-f https://download.pytorch.org/whl/cpu/torch_stable.html
+torch==1.10.0+cpu
 torchvision
 pillow
 matplotlib
