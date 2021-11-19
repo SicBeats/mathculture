@@ -41,16 +41,18 @@ Last Modified: 11/10/2021
             </div>            
         </div>    
         <div id="disabled_equations">
-            <h2 id="message">Currently Disabled Equations</h2>
+            <h2 class="message">Currently Disabled Equations</h2>
             <div id="list">
                 <!-- All currently unpublished equations -->
                 None
             </div>
-            <h2 id="message">Uploaded Equations</h2>
+            <h2 class="message">Recognized Uploaded Equations</h2>
             <div id="uploaded_equations">                
                 <!-- All equations that are uploaded -->
                 None
             </div>
+            <input type="button" value="Publish All" id="pub" onclick="publishAll()" >
+            <input type="button" value="Unpublish All" id="un_pub" onclick="unpublishAll()" > 
         </div>    
     </div>
   </body>

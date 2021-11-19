@@ -7,7 +7,7 @@ Team: Map Culture (Team 5)
 
 Last Modified: 11/18/2021
 */
-
+var arrGlob = new Array();
 /***********************************************************************************************
 FUNCTION: loadfile
 PURPOSE: This function takes the uploaded file image and displays it in the canvas image element
@@ -37,21 +37,38 @@ function displayUploadedEquations()
     // We need to check for invalid equations!
     var node = document.getElementById('uploaded_equations');
     var box = document.getElementById('equation_input');
-    let me = node.innerText;
-    console.log(me);
-    node.innerText = "Equation 1:";
-    let counter = 2;
-    for (let i = 0; i < me.length; i++)
+    let arr = node.innerText;
+    node.innerText = "";
+    let equat_num = 1;
+    var bl = false;
+
+    for (let i = 0; i < arr.length; i++)
     {
-        if ((me[i] == '\n') && (me[i+1] != '\n'))
+        if ((arr[i] == '\n') && (arr[i+1] != '\n'))
         {
-            node.innerText = node.innerText + me[i] + "Equation " + counter++ + ": ";
+            bl = false;
         }  
-        else if ((me[i] != ' ') && (me[i] != '\n'))
+        else if ((arr[i] != ' ') && (arr[i] != '\n') && (is_valid_char(arr[i]) == true))
         {
-            node.innerText = node.innerText + me[i];
-        }   
+            if (bl == false)
+            {
+                node.innerText = node.innerText + "\nEquation " + equat_num++ + ": ";
+                bl = true;
+            }
+            node.innerText = node.innerText + arr[i];
+        }  
     }
+    arrGlob = arr;
+}
+function is_valid_char(char)
+{
+    const arr = ["0","1","2","3","4","5","6","7","8","9","x","y","z","+","-","*","/","=","(",")"];
+    for (var i = 0; i < arr.length; i++)
+    {
+        if (char == arr[i])
+            return true;
+    }
+    return false;
 }
 function publish()
 {
@@ -64,6 +81,33 @@ function unpublish()
     var equat = document.getElementById("equation_input").value;
     console.log(equat);
     //remove from blacklist
+}
+function publishAll()
+{
+    var bl = false;
+    console.log(arrGlob);
+    for (let i = 0; i < arrGlob.length; i++)
+    {
+        if ((arrGlob[i] == '\n') && (arrGlob[i+1] != '\n'))
+        {
+            bl = false;
+        }  
+        else if ((arrGlob[i] != ' ') && (arrGlob[i] != '\n') && (is_valid_char(arrGlob[i]) == true))
+        {
+            if (bl == false)
+            {
+                bl = true;
+            }
+        }   
+        else
+        {
+            arrGlob.splice(i);
+        }
+    }
+}
+function unpublishAll()
+{
+    console.log(arrGlob);
 }
 function init()
 {
