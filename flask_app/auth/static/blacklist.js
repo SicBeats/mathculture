@@ -84,30 +84,13 @@ function unpublish()
 }
 function publishAll()
 {
-    var bl = false;
     for (let i = 0; i < arrGlob.length; i++)
     {
-        if ((arrGlob[i] == '\n') && (arrGlob[i+1] != '\n'))
+        if ((arrGlob[i] != ' ') && (arrGlob[i] != '\n') && (is_valid_char(arrGlob[i]) == false))
         {
-            bl = false;
-            console.log("rece: ", arrGlob[i]);
-        }  
-        else if ((arrGlob[i] != ' ') && (arrGlob[i] != '\n') && (is_valid_char(arrGlob[i]) == true))
-        {
-            if (bl == false)
-            {
-                bl = true;
-            }
-            console.log("Valid: ", arrGlob[i]);
-        }   
-        else
-        {
-            //console.log(arrGlob.length);
-            console.log("InValid: ", arrGlob[i]);
             arrGlob.splice(i,1);
-            //console.log(myArr);
             i--
-        }
+        }   
     }
     console.log(arrGlob);
     //console.log(arrGlob);
