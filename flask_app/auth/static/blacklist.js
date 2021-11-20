@@ -86,14 +86,22 @@ function publishAll()
 {
     for (let i = 0; i < arrGlob.length; i++)
     {
-        if ((arrGlob[i] != ' ') && (arrGlob[i] != '\n') && (is_valid_char(arrGlob[i]) == false))
+        if (((arrGlob[i] == '\n') && ((arrGlob[i+1] == '\n') || (arrGlob[i-1] == '\n'))) ||
+        ((arrGlob[i] != ' ') && (arrGlob[i] != '\n') && (is_valid_char(arrGlob[i]) == false)))
         {
             arrGlob.splice(i,1);
             i--
         }   
     }
+
+    var newArr = new Array();
+    
+
+
+
+
+
     console.log(arrGlob);
-    //console.log(arrGlob);
 }
 function unpublishAll()
 {
