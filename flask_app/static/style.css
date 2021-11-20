@@ -2,7 +2,7 @@
 Statement: Implements index.html styles
 Authors: Kaiser Slocum, Sofi Vinas
 Team: Map Culture (Team 5)
-Date last edited: 11/11/2021
+Date last edited: 11/19/2021
 */
 
 /* Sets defaults */
@@ -92,9 +92,9 @@ nav ul{
   padding: 5px;
   padding-top: 10px;
   border-radius: 5px;
-  /*added*/
+  /*added
   background-color: midnightblue;
-  text-align:center
+  text-align:center */
 }
 
 nav ul:first-of-type{
