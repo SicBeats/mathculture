@@ -31,8 +31,9 @@ function encodeImageFileAsURL(file){
         console.log('POST response:',data);
         prediction = data['prediction']
         console.log('class prediction:',prediction);
-        var messageDiv = document.getElementById('displayEquation');  
-        messageDiv.innerText = "Predicted Equation: \n" + prediction;
+        var messageDiv = document.getElementById('displayResult');  
+        // remove ugly vertical bars from Wolfram output ( e.g. 'Answer | | x = 3/4')
+        messageDiv.innerText = prediction.replaceAll('|','');
 
         bbox_prediction = "data:image/png;base64," + data['bbox_image'];
         imagePreview(bbox_prediction);
@@ -122,7 +123,7 @@ function init()
     canvas.addEventListener("mouseout", function (e) { findxy('out', e) }, false);
     
     // Display the current Equation   
-    document.getElementById("displayEquation").innerText = "Predicted Equation: ";
+    //document.getElementById("displayResult").innerText = Predicted Equation: ";
 }
 /***********************************************************************************************
 FUNCTION: color
