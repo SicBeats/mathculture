@@ -29,4 +29,4 @@ def sign_in():
 
 @auth_blueprint.route('/blocklist',methods=['GET'])
 def blocklist():
-    return render_template('blacklist.html')
+    return render_template('blocklist.html')

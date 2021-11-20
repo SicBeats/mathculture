@@ -1,5 +1,5 @@
 /*
-File Name: blacklist.js
+File Name: blocklist.js
 
 Author: Kaiser Slocum
 Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
