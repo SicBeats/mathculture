@@ -39,6 +39,7 @@ function encodeImageFileAsURL(file){
         
         
     };
+    console.log("hello");
     reader.readAsDataURL(file);
 }
 /***********************************************************************************************

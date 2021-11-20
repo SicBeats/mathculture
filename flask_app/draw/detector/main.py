@@ -1,6 +1,6 @@
 import torch
 import torchvision
-from torchvision.io import read_image
+from torchvision.io import read_image, ImageReadMode
 import torchvision.transforms as transforms
 from torch.utils.data import Dataset, DataLoader, Subset
 from . import dataset
@@ -8,6 +8,8 @@ from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from flask import current_app
+from PIL import Image
+from . import querywolfram
 
 def draw_boxes_on_image(image,boxes,labels):
     fig, ax = plt.subplots(figsize=(6.4,4.8)) # set figure size to 6x6inches
@@ -79,12 +81,11 @@ def loadTrainedModel():
     return model
 
 model = loadTrainedModel()
-current_app.logger.info('test')
 def predictEquationFromImage(image_filename):
     device = torch.device("cpu")
     #trainset = dataset.MCImageDataset("/content/dataset/train.txt","/content/dataset/")
     #model = loadTrainedModel()
-    img = (read_image('/app/flask_app/draw/temp.jpg'))
+    img = read_image('/app/flask_app/draw/temp.jpg',ImageReadMode.RGB)
     img = img.float() / 255
     print(img.size())
     model.eval()
@@ -110,7 +111,13 @@ def predictEquationFromImage(image_filename):
     sorted_labels, sorted_bboxes = [list(tup) for tup in zip(*sorted_by_minx)]
    
     prediction_string = "".join(sorted_labels)
+    current_app.logger.info(prediction_string)
+    if "x" in prediction_string:
+        step_by_step = querywolfram.getStepByStep(prediction_string)
+        return step_by_step
+    else:
+        return prediction_string + "\n" + str(eval(prediction_string))
         
     #return prediction_list_decoded
     #return sorted_labels
-    return prediction_string
+    #return prediction_string
