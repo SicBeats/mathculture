@@ -8,6 +8,7 @@ Team: Map Culture (Team 5)
 Last Modified: 11/18/2021
 */
 var arrGlob = new Array();
+var newArr = new Array();
 /***********************************************************************************************
 FUNCTION: loadfile
 PURPOSE: This function takes the uploaded file image and displays it in the canvas image element
@@ -36,29 +37,42 @@ function displayUploadedEquations()
 {
     // We need to check for invalid equations!
     var node = document.getElementById('uploaded_equations');
-    var box = document.getElementById('equation_input');
+    //var box = document.getElementById('equation_input');
     let arr = node.innerText;
-    node.innerText = "";
-    let equat_num = 1;
-    var bl = false;
-
-    for (let i = 0; i < arr.length; i++)
-    {
-        if ((arr[i] == '\n') && (arr[i+1] != '\n'))
-        {
-            bl = false;
-        }  
-        else if ((arr[i] != ' ') && (arr[i] != '\n') && (is_valid_char(arr[i]) == true))
-        {
-            if (bl == false)
-            {
-                node.innerText = node.innerText + "\nEquation " + equat_num++ + ": ";
-                bl = true;
-            }
-            node.innerText = node.innerText + arr[i];
-        }  
-    }
     arrGlob = arr.split("");
+    node.innerText = "";
+    let equat_num = 1;    
+    
+    // Remove \n if at beginning!
+    for (let i = 0; i < arrGlob.length; i++)
+    {
+        if (((arrGlob[i] == '\n') && ((arrGlob[i+1] == '\n') || (arrGlob[i-1] == '\n'))) ||
+        ((arrGlob[i] != ' ') && (arrGlob[i] != '\n') && (is_valid_char(arrGlob[i]) == false)))
+        {
+            arrGlob.splice(i,1);
+            i--
+        }   
+    }
+
+    var ic = 0;
+    newArr[ic] = "";
+    for (let i = 0; i < arrGlob.length; i++)
+    {
+        if (arrGlob[i] ==  '\n')
+        {
+            ic++;
+            newArr[ic] = "";
+        } 
+        else
+        {
+            newArr[ic] += arrGlob[i];
+        } 
+    }
+
+    for (var i = 0; i < newArr.length; i++)
+    {
+        node.innerText += "\nEquation " + equat_num++ + ": " + newArr[i];
+    }
 }
 function is_valid_char(char)
 {
@@ -84,28 +98,11 @@ function unpublish()
 }
 function publishAll()
 {
-    for (let i = 0; i < arrGlob.length; i++)
-    {
-        if (((arrGlob[i] == '\n') && ((arrGlob[i+1] == '\n') || (arrGlob[i-1] == '\n'))) ||
-        ((arrGlob[i] != ' ') && (arrGlob[i] != '\n') && (is_valid_char(arrGlob[i]) == false)))
-        {
-            arrGlob.splice(i,1);
-            i--
-        }   
-    }
-
-    var newArr = new Array();
-    
-
-
-
-
-
-    console.log(arrGlob);
+    //Go through newArr and publish them all
 }
 function unpublishAll()
 {
-    console.log(arrGlob);
+    //Go through newArr and unpublish them all
 }
 function init()
 {
