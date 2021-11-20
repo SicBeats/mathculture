@@ -14,7 +14,7 @@ from . import querywolfram
 def draw_boxes_on_image(image,boxes,labels):
     fig, ax = plt.subplots(figsize=(6.4,4.8)) # set figure size to 6x6inches
     ax.imshow(image.permute(1, 2, 0).cpu())
-    classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
+    classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal","x"]
 
 
     # x1, y1 is the upper-left corner point, x2, y2 is the bottom-left corner point
@@ -90,7 +90,7 @@ def predictEquationFromImage(image_filename):
     print(img.size())
     model.eval()
     #classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
-    classes = ["background","0","1","2","3","4","5","6","7","8","9","/","+","(","="]
+    classes = ["background","0","1","2","3","4","5","6","7","8","9","/","+","(","=","x"]
     with torch.no_grad():
         prediction = model([img.to(device)])[0]
 
@@ -114,7 +114,7 @@ def predictEquationFromImage(image_filename):
     current_app.logger.info(prediction_string)
     if "x" in prediction_string:
         step_by_step = querywolfram.getStepByStep(prediction_string)
-        return step_by_step
+        return prediction_string + "\n" + step_by_step
     else:
         return prediction_string + "\n" + str(eval(prediction_string))
         
