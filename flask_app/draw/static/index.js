@@ -5,7 +5,7 @@ Author: Kelemen Szimonisz, Kaiser Slocum
 Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
 Team: Map Culture (Team 5)
 
-Last Modified: 11/14/2021
+Last Modified: 11/20/2021
 */
 
 /*****************************************************************
@@ -32,7 +32,7 @@ function encodeImageFileAsURL(file){
         prediction = data['prediction']
         console.log('class prediction:',prediction);
         var messageDiv = document.getElementById('displayEquation');  
-        messageDiv.innerText = "PREDICTION: " + prediction;
+        messageDiv.innerText = "Predicted Equation: \n" + prediction;
 
         bbox_prediction = "data:image/png;base64," + data['bbox_image'];
         imagePreview(bbox_prediction);
@@ -60,6 +60,7 @@ function imagePreview(img)
     canvasimg.src = img;  
     // Need to retain aspect ratio to keep 640x480
     canvasimg.style.height = (Math.round(canvasimg.clientWidth * 3 / 4)).toString(10) + "px";
+    
 }
 
 /***********************************************************************************************
@@ -103,12 +104,14 @@ function init()
     canvas = document.getElementById('canvas');
     // Set the global variables
     // removing the alpha value to satisfy the object detector's input requirements
-    ctx = canvas.getContext("2d",{alpha: false});
+    //ctx = canvas.getContext("2d",{alpha: false});
+    ctx = canvas.getContext("2d",{alpha: true});
     w = canvas.width;
     h = canvas.height;
 
     // set canvas background color to white
     clearCanvas();
+    
     // Display the empty canvas in the "last character" area
     imagePreview(canvas.toDataURL());
     
@@ -119,7 +122,7 @@ function init()
     canvas.addEventListener("mouseout", function (e) { findxy('out', e) }, false);
     
     // Display the current Equation   
-    document.getElementById("displayEquation").innerText = "Predicted equation: ";
+    document.getElementById("displayEquation").innerText = "Predicted Equation: ";
 }
 /***********************************************************************************************
 FUNCTION: color
@@ -141,8 +144,9 @@ PURPOSE: Clears the main canvas, but not the canvas viewer
 ************************************************************************************************/
 function clearCanvas() 
 {
-    ctx.fillStyle = "white";
-    ctx.fillRect(0,0,w,h);
+    ctx.clearRect(0,0,w,h);
+    //ctx.fillStyle = "white";
+    //ctx.fillRect(0,0,w,h);
     document.getElementById("canvasimg").style.display = "inline"; 
 }    
 
@@ -190,7 +194,7 @@ async function calculatEquation()
     canvasImage = canvas.toDataURL();
     imagePreview(canvasImage);
     canvas.toBlob(blob => {
-        const file = new File([blob], "temp.png");
+        const file = new File([blob], "temp.jpg");
         encodeImageFileAsURL(file);
     });
            
@@ -203,6 +207,9 @@ PURPOSE: downloads canvas to picture
 ************************************************************************************************/
 function downloadCanvas()
 {
+    ctx.globalCompositeOperation = "source-out";
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, w,h);
     var a = document.createElement('a');
     a.href = document.getElementById('canvas').toDataURL();
     a.download = "drawnEquation.png";
