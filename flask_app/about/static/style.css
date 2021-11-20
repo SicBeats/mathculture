@@ -15,7 +15,7 @@ html, body {
   color: black;
   background-color: blue;
   min-width: 500px;
-  background-image: url("/about/static/math_background.mp4");
+  background-image: url("/static/mathbackground.mp4");
 }
 body {
   min-width: 780px;
