@@ -92,7 +92,11 @@ nav ul{
   padding: 5px;
   padding-top: 10px;
   border-radius: 5px;
+  /*added*/
+  background-color: midnightblue;
+  text-align:center
 }
+
 nav ul:first-of-type{
   border-top: none;
   margin: 0px;  
