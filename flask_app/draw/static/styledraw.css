@@ -146,7 +146,6 @@ button{
     justify-content: center;
 }
 #canvas {
-    /*background-color: black;*/
     background:url('/draw/static/paper_background.jpg');
     display: flex;
     align-items: center;
@@ -164,11 +163,12 @@ button{
     border-radius: 15px;
 }
 
-hr{
+#result-container hr{
     height:2px;
     border:none;
     background-color:black;
 }
+
 #displayResult{
   font-weight:normal;
   line-height: 200%;
@@ -239,20 +239,4 @@ hr{
     display:flex;
     align-items:center;
     justify-content:center;
-}
-h3{
-    color:white;
-    font-size:15px;
-    font-weight:none;
-}
-.options-container{
-    display: flex;
-    align-items:center;
-    justify-content:center;
-    padding: 5px;
-}
-.option-set{
-    color:white;
-    padding:5px;
-    margin:5px;
 }
