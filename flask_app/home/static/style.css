@@ -103,8 +103,8 @@ nav ul{
   transition: all 0.2s;
 }
 nav ul:hover{
-  color:#000000;
-  background-color:#FFFFFF;
+  /*color:#000000;*/
+  background-color: rgb(25, 27, 37);
 }
 @media all and(max-width:40em){
   nav ul{
@@ -114,6 +114,11 @@ nav ul:hover{
 }
 
 nav ul:first-of-type{
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 20px;
+  padding-top:10px;
+  /*original*/
   border-top: none;
   margin: 0px;
 }
