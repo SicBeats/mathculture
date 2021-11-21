@@ -86,18 +86,19 @@ nav li {
 /* Controls the look and layout of our top links/buttons */
 nav ul{
   /* button customization */
-  display: inline-block;
   float: left;
   margin-left: 2%;
   margin-right: 2%;
   margin-top: 20px;
+  padding: 0px;
   padding: 5px;
-  border:0.1em solid #FFFFFF;
-  border-radius:0.12em;
   padding-top: 10px;
+  border:0.1em solid #FFFFFF;
+  border-radius: 2px;
   box-sizing: border-box;
   text-decoration:none;
   font-family:'Quicksand',sans-serif;
+  font-weight: bold;
   font-weight:300;
   color:#FFFFFF;
   text-align:center;
