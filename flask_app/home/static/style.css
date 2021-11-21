@@ -114,11 +114,6 @@ nav ul:hover{
 }
 
 nav ul:first-of-type{
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-top: 20px;
-  padding-top:10px;
-  /*original*/
   border-top: none;
   margin: 0px;
 }
