@@ -88,14 +88,14 @@ def predictEquationFromImage(image_filename):
     #trainset = dataset.MCImageDataset("/content/dataset/train.txt","/content/dataset/")
     #model = loadTrainedModel()
     #img = read_image('/app/flask_app/draw/temp.jpg')
-    img = Image.open('/app/flask_app/draw/temp.jpg')
-    current_app.logger.info(img.mode)
-    if img.mode == 'RGBA':
-        current_app.logger.info('yo')
-        new_img = Image.new('RGBA',img.size,"WHITE")
-        new_img.paste(img,(0,0),img)
-        new_img.convert('RGB').save('/app/flask_app/draw/temp.jpg')
-    img = read_image('/app/flask_app/draw/temp.jpg')
+    #img = Image.open('/app/flask_app/draw/temp.jpg')
+    #current_app.logger.info(img.mode)
+    #if img.mode == 'RGBA':
+    #    current_app.logger.info('yo')
+    #    new_img = Image.new('RGBA',img.size,"WHITE")
+    #    new_img.paste(img,(0,0),img)
+    #    new_img.convert('RGB').save('/app/flask_app/draw/temp.jpg')
+    img = read_image('/app/flask_app/draw/temp.jpg',ImageReadMode.RGB)
         
     #transform = transforms.Compose([transforms.ToTensor()])
     #img = transform(img)

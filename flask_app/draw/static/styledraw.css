@@ -26,7 +26,8 @@ body {
   /* define the container as a grid container */
   display: grid;
   /* three columns (three values seperated by space, sized by fraction of available space*/
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;*/
+  grid-template-columns: 1fr 640px 1fr;
   grid-template-rows: 50px 1fr 1fr;
   gap: 15px;
   padding: 5px;
@@ -36,7 +37,6 @@ body {
 
 /* Contains the home and account link buttons*/
 .header {
-    /*background-color: rgba(0,128,128,0.5);*/
     background-color: rgba(113, 100, 83,0.5);
     font-size:15px;
     font-weight:none;
@@ -55,7 +55,7 @@ body {
     border: 3px solid #514537; 
     /*background-color: rgba(0,128,128,0.5);*/
     grid-row-start: 2;
-    grid-row-end:5;
+    grid-row-end:4;
     border-radius:25px;
     padding:20px;
     margin:10px;
@@ -138,14 +138,13 @@ button{
     /*background-color: rgba(0,128,128,0.5);*/
     border-radius: 20px;
     grid-column-start: 2;
-    grid-column-end: 5;
+    grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end:4;
     padding: 5px;
     min-width: 250px;
 }
 #canvas_container {
-    padding-top:20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -160,16 +159,15 @@ button{
 }
 #results-container{
     padding:20px;
-    grid-column-start: 5;
-    grid-column-end: 7;
+    grid-column-start: 3;
+    grid-column-end: 4;
     grid-row-start: 1;
-    grid-row-end:5;
+    grid-row-end:4;
     border: 3px solid #514537; 
     border-radius: 15px;
-    min-width: 70px;
 }
 
-#result-container hr{
+#results-container hr{
     height:2px;
     border:none;
     background-color:black;
@@ -253,8 +251,11 @@ button{
     grid-column-start: 2;
     grid-column-end: 5;
     grid-row-start: 1;
-    grid-row-end:4;
+    grid-row-end:2;
     display:flex;
     align-items:center;
     justify-content:center;
+}
+#hidden-canvas{
+    display:none;
 }
