@@ -97,6 +97,26 @@ nav ul{
   /*added
   background-color: midnightblue;
   text-align:center */
+
+  /* button customization */
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color:#FFFFFF;
+  background-color: rgba(56, 80, 255, 0.71);
+  text-align: center;
+  transition: all 0.2s;
+}
+nav ul:hover{
+  background-color: rgba(56, 80, 255, 0.71);
+}
+@media all and(max-width:40em){
+  nav ul{
+    display:block;
+    margin:0.2em auto;
+  }
 }
 
 nav ul:first-of-type{
