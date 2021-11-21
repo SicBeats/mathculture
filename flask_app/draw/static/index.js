@@ -85,6 +85,7 @@ function windowResized()
     // Get our various elements
     canvas = document.getElementById('canvas');
     drawInterface = document.getElementById('drawInterface');
+    var canvasimg = document.getElementById("canvasimg"); 
     // Set how wide our canvas is according to the size of its parent container
     canvas.width = drawInterface.clientWidth / 1.3;
     // Now set the height of the canvas to match the 640x480 size

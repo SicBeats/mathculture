@@ -31,6 +31,7 @@ body {
   gap: 15px;
   padding: 5px;
   box-sizing: border-box;
+  min-width: 500px;
 }
 
 /* Contains the home and account link buttons*/
@@ -58,6 +59,8 @@ body {
     border-radius:25px;
     padding:20px;
     margin:10px;
+    
+    min-height: 430px;
 }
 
 #image-upload {
@@ -138,6 +141,8 @@ button{
     grid-column-end: 5;
     grid-row-start: 1;
     grid-row-end:4;
+    padding: 5px;
+    min-width: 250px;
 }
 #canvas_container {
     padding-top:20px;
@@ -161,6 +166,7 @@ button{
     grid-row-end:5;
     border: 3px solid #514537; 
     border-radius: 15px;
+    min-width: 70px;
 }
 
 #result-container hr{
@@ -181,16 +187,34 @@ button{
     padding:10px;
 }
 #button-set{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding:10px;
+    width: 90%;
+    padding:5px;
+}
+#calc {
+    float: left;
+    display: block;
+    width: 30%;
+    min-width: 125px;
+    text-align: center; 
+}
+#clr{
+    float: left;
+    display: block;
+    width: 30%;
+    min-width: 92px;
+}
+#dwnld {
+    float: left;
+    display: block;
+    width: 40%;
+    min-width: 165px;
 }
 .colorblock {
     float: left;
     display: block;
     margin: 3px;    
     width:15px;
+    min-width: 15px;
     height:15px;
 }
 #green{    
@@ -216,17 +240,11 @@ button{
     border:2px solid;
     background:white;
 }
-
-#clr, #dwnld {
-    float: left;
-    display : block;
-}
-#calc,#eraser, #displayEquation, #equationFormat, #displayResult {
+#eraser, #displayEquation, #equationFormat, #displayResult {
     float: left;
     clear: left;
     display: block;
 }
-
 #header-container{
     padding-top:20px;
     /*border: 3px solid #000000;*/
