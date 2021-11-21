@@ -27,3 +27,6 @@ def login():
 def sign_in():
     return redirect(url_for("home_blueprint.index"))
 
+@auth_blueprint.route('/blocklist',methods=['GET'])
+def blocklist():
+    return render_template('blocklist.html')

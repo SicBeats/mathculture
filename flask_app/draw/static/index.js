@@ -5,55 +5,57 @@ Author: Kelemen Szimonisz, Kaiser Slocum
 Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
 Team: Map Culture (Team 5)
 
-Last Modified: 11/14/2021
+Last Modified: 11/20/2021
 */
 
-/*****************************************************************
-FUNCTION:encodeImageFileAsURL
-PURPOSE: This function takes an image file and coverts it to a url
-SOURCES: 
-https://stackoverflow.com/a/20285053
-https://stackoverflow.com/a/52311051
-******************************************************************/
-//function encodeImageFileAsURL(element){
-function encodeImageFileAsURL(file){
-    var reader = new FileReader();
-    reader.onloadend = async function() {
-        console.log('RESULT',reader.result);
-        let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
-        
-        const flask_response = await fetch('/algo', {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify({'image': encoded}),
-        });
-        const data = await flask_response.json();
-        console.log('POST response:',data);
-        prediction = data['prediction']
-        console.log('class prediction:',prediction);
-        var messageDiv = document.getElementById('displayEquation');  
-        messageDiv.innerText = "PREDICTION: " + prediction;
-
-        bbox_prediction = "data:image/png;base64," + data['bbox_image'];
-        imagePreview(bbox_prediction);
-        
-        
-    };
-    console.log("hello");
-    reader.readAsDataURL(file);
+/***********************************************************************************************
+FUNCTION: convertImageFileToBase64
+************************************************************************************************/
+function convertImageFileToBase64(file){
+    return new Promise((resolve, reject) => {
+        var reader = new FileReader();
+        reader.onloadend = function(file){
+            var result = reader.result;
+            resolve(result.toString().replace(/^data:(.*,)?/, ''));
+        }
+        reader.readAsDataURL(file);
+    });
 }
+
+/***********************************************************************************************
+FUNCTION: sendImageToObjectDetector 
+PURPOSE: This function takes a base64 image file and sends it to the 
+         backend object detector using HTTP POST request.
+         The result is a step-by-step solution to the equation.
+************************************************************************************************/
+async function sendImageToObjectDetector(encoded){
+    const flask_response = await fetch('/algo', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({'image': encoded}),
+    });
+    const data = await flask_response.json();
+    return data;
+} 
+
 /***********************************************************************************************
 FUNCTION: loadfile
 PURPOSE: This function takes the uploaded file image and displays it in the canvas image element
 ************************************************************************************************/
-function loadfile(event) 
+async function loadfile(event) 
 {
     var file = event.target.files[0]
-    encodeImageFileAsURL(file);
-    //imagePreview(URL.createObjectURL(event.target.files[0]));
     imagePreview(URL.createObjectURL(file));
+    // encode the image file in base64
+    var encoded = await convertImageFileToBase64(file);
+    // send the image file to the object detector (HTTP POST request)
+    var data = await sendImageToObjectDetector(encoded);
+    displayObjectDetectorResult(data);
 }
 
+/***********************************************************************************************
+FUNCTION: imagePreview
+************************************************************************************************/
 function imagePreview(img)
 {
     var canvasimg = document.getElementById("canvasimg");   
@@ -70,27 +72,6 @@ SOURCES: https://stackoverflow.com/questions/2368784/draw-on-html5-canvas-using-
 (The above source was used for most of the canvas drawing functions - although heavily modified)
 ************************************************************************************************/
 var canvas, ctx, flag = false, x = "black", y = 2, prevX = 0, currX = 0, prevY = 0, currY = 0;    
-const equation = ["="];
-
-/***********************************************************************************************
-FUNCTION: windowResized
-PURPOSE: When our window is resized, this function will cause the canvas element to resize as well.
-NOTE: CSS styles will skew the drawing on the canvas, so we need to use JS to do this
-************************************************************************************************/
-window.onresize = windowResized;
-function windowResized() 
-{
-    // Get our various elements
-    canvas = document.getElementById('canvas');
-    drawInterface = document.getElementById('drawInterface');
-    // Set how wide our canvas is according to the size of its parent container
-    canvas.width = drawInterface.clientWidth / 1.3;
-    // Now set the height of the canvas to match the 640x480 size
-    canvas.height = Math.round(canvas.clientWidth * 3 / 4);
-    // We also will resize the canvas view
-    canvasimg.style.height = (Math.round(canvasimg.clientWidth * 3 / 4)).toString(10) + "px";
-}
-
 /***********************************************************************************************
 FUNCTION: init
 PURPOSE: This is the main function called by the html's body element. 
@@ -98,18 +79,13 @@ It is in charge of setting up the drawFace interface and the elements inside - n
 ************************************************************************************************/
 function init() 
 {
-    // Call window resize to make sure the sizing of the canvas/canvas view is correct    
-    windowResized();
     canvas = document.getElementById('canvas');
     // Set the global variables
-    // removing the alpha value to satisfy the object detector's input requirements
-    ctx = canvas.getContext("2d",{alpha: false});
+    ctx = canvas.getContext("2d",{alpha: true});
     w = canvas.width;
     h = canvas.height;
 
-    // set canvas background color to white
-    clearCanvas();
-    // Display the empty canvas in the "last character" area
+    // Display the empty canvas in the image preview area 
     imagePreview(canvas.toDataURL());
     
     // If a user starts drawing on the canvas, we need to respond
@@ -117,9 +93,6 @@ function init()
     canvas.addEventListener("mousedown", function (e) { findxy('down', e) }, false);
     canvas.addEventListener("mouseup", function (e) { findxy('up', e) }, false);
     canvas.addEventListener("mouseout", function (e) { findxy('out', e) }, false);
-    
-    // Display the current Equation   
-    document.getElementById("displayEquation").innerText = "Predicted equation: ";
 }
 /***********************************************************************************************
 FUNCTION: color
@@ -141,9 +114,7 @@ PURPOSE: Clears the main canvas, but not the canvas viewer
 ************************************************************************************************/
 function clearCanvas() 
 {
-    ctx.fillStyle = "white";
-    ctx.fillRect(0,0,w,h);
-    document.getElementById("canvasimg").style.display = "inline"; 
+    ctx.clearRect(0,0,w,h);
 }    
 
 /***********************************************************************************************
@@ -181,20 +152,69 @@ function findxy(res, e)
     }    
 }
 
+function displayObjectDetectorResult(data){
+    predictedEquation = data['prediction']
+    bboxImage = "data:image/png;base64," + data['bbox_image'];
+
+    // Display the predicted equation / Wolfram step-by-step to the user
+    // remove ugly vertical bars from Wolfram output ( e.g. 'Answer | | x = 3/4')
+    document.getElementById('displayResult').innerText = predictedEquation.replaceAll('|','');
+
+    // Display the inputted image with drawn bbox predictions to the user
+    bbox_prediction = "data:image/png;base64," + data['bbox_image'];
+    imagePreview(bbox_prediction);
+}
+
 /***********************************************************************************************
 FUNCTION: calculatEquation
 PURPOSE: Displays solution
 ************************************************************************************************/
 async function calculatEquation()
 {   
-    canvasImage = canvas.toDataURL();
+    // clone the canvas drawing from the main canvas to the hidden canvas
+    hiddenCanvas = document.getElementById('hidden-canvas');
+    canvas = document.getElementById('canvas');
+
+    cloneCanvas(canvas,hiddenCanvas);
+    // convert all transparent pixels of the hidden canvas to white pixels
+    colorTransparentCanvasPixels(hiddenCanvas,"#ffffff");
+
+    // Display the inputted image in the imagePreview area
+    canvasImage = hiddenCanvas.toDataURL();
     imagePreview(canvasImage);
-    canvas.toBlob(blob => {
-        const file = new File([blob], "temp.png");
-        encodeImageFileAsURL(file);
-    });
-           
-    //document.getElementById("displayResult").innerText = " Answer: " + n;
+    
+    // convert the hiddenCanvas image to a blob
+    const blob = await new Promise(resolve => hiddenCanvas.toBlob(resolve));
+    // conver the blob to an image file
+    const file = new File([blob], "temp.jpg");
+    // encode the image file in base64
+    var encoded = await convertImageFileToBase64(file);
+    // send the image file to the object detector (HTTP POST request)
+    var data = await sendImageToObjectDetector(encoded);
+    displayObjectDetectorResult(data);
+}
+
+/***********************************************************************************************
+FUNCTION: cloneCanvas
+PURPOSE: Clone the context of one canvas to another.
+************************************************************************************************/
+function cloneCanvas(sourceCanvas,destCanvas){
+    destCtx = destCanvas.getContext("2d");
+    // clear the destination canvas before drawing on it
+    destCtx.clearRect(0,0,w,h);
+    // draw the contents of the sourceCanvas onto the destCanvas
+    destCtx.drawImage(sourceCanvas, 0, 0);
+}
+
+/***********************************************************************************************
+FUNCTION: colorTransparentCanvasPixels
+PURPOSE: Converts all transparent pixels of an HTML <canvas> element to a desired color
+************************************************************************************************/
+function colorTransparentCanvasPixels(sourceCanvas, color){
+    context = sourceCanvas.getContext("2d",{alpha:true});
+    context.globalCompositeOperation = "destination-over";
+    context.fillStyle = color;
+    context.fillRect(0,0,640,480);
 }
 
 /***********************************************************************************************
@@ -203,8 +223,15 @@ PURPOSE: downloads canvas to picture
 ************************************************************************************************/
 function downloadCanvas()
 {
+    // clone the canvas drawing from the main canvas to the hidden canvas
+    hiddenCanvas = document.getElementById('hidden-canvas');
+    cloneCanvas(canvas,hiddenCanvas);
+
+    // convert all transparent pixels of the hidden canvas to white pixels
+    colorTransparentCanvasPixels(hiddenCanvas,"#ffffff");
+    
     var a = document.createElement('a');
-    a.href = document.getElementById('canvas').toDataURL();
+    a.href = hiddenCanvas.toDataURL();
     a.download = "drawnEquation.png";
     document.body.appendChild(a);
     a.click();

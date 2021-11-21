@@ -100,6 +100,7 @@ a:hover,.submit-btn:hover,.toggle-btn:hover{
     padding: 10px 20px;
     display: block;
     margin: auto;
+    margin-top: 5px;
     background: linear-gradient(to right, #FFFFFF, #0093E9);
     border: 0;
     outline: none;

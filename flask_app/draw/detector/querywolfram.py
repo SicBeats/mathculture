@@ -20,7 +20,7 @@ def getStepByStep(equation):
     # encodes non-ASCII text to be used in a URL
     # also replaces spaces with plus signs, as required when building up a URL query string
     # Example: quote_plus('/El Niño/') yields '%2FEl+Ni%C3%B1o%2F'.
-    query = urllib.parse.quote_plus(f"solve {equation}x=0")
+    query = urllib.parse.quote_plus(f"solve {equation}")
 
     query_url = f"http://api.wolframalpha.com/v2/query?" \
                 f"appid={appid}" \

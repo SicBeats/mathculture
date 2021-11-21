@@ -16,7 +16,7 @@ Last Modified: 11/10/2021
         <meta charset="utf-8">
         <link rel="stylesheet" href="/draw/static/styledraw.css" />
         <script src="/draw/static/index.js"></script>
-        <link rel="icon" type="image/x-icon" href="/static/mapcultureicon.ico" />
+        <link rel="icon" type="image/x-icon" href="/static/mathcultureicon.ico" />
     </head>
     <body onload="init()">
         <div class="container"> <!---grid container--> <!---grid has base layout of rows and columns -->
@@ -28,41 +28,50 @@ Last Modified: 11/10/2021
             </div>
         <div class="side"> <!-- sidebar column of grid container -->
             <div class="imagelocation">
-                <img src="/static/mapculturelogo.png" alt="mapculture logo">
+                <img src="/static/Mathculturelogo.png" alt="mapculture logo">
             </div>
-            <div class="image-upload">
+            <div id="image-upload">
                 <label for="file">Choose image to upload: </label>
                 <input type="file" id="myFile" accept="image/*" name="filename" onchange="loadfile(event)">
             </div>
-            <div class="message-container">
-                <h3 id="message"></h3>
+            <div class = "side2" id="side2">
+                <!-- Contains image screenshot -->
+                <img id="canvasimg"> 
             </div>
         </div> <!-- side -->
-        <div class = "side" id="side2">
-            <!-- Contains image screenshot -->
-            <!--<h3>Last character inputted:</h3>-->
-            <img id="canvasimg" style="display:inline;">
-        </div>
         <div id="drawInterface">
-            <canvas id="canvas" width="640" height="480"></canvas>
-            <div id="choosecolor">Choose Your Color</div>
-            <div class="colorblock" id="green" onclick="color(this)"></div>
-            <div class="colorblock" id="blue" onclick="color(this)"></div>
-            <div class="colorblock" id="red" onclick="color(this)"></div>
-            <div class="colorblock" id="yellow" onclick="color(this)"></div>
-            <div class="colorblock" id="orange" onclick="color(this)"></div>
-            <div class="colorblock" id="black" onclick="color(this)"></div>
-            <div id="eraser" >Eraser</div>
-            <div class="colorblock" id="white" onclick="color(this)"></div>
-            
-            <input type="button" value="Calculate equation" id="calc" onclick="calculatEquation()" >
-            <input type="button" value="Clear Drawn Character" id="clr" onclick="clearCanvas()" >            
-            <input type="button" value="Download Canvas Image" id="dwnld" onclick="downloadCanvas()" >
-            <div id="equationFormat">------------------------------ </div>
-            <div id="displayEquation"></div>
+            <div id="header-container">
+                <h2>Write an equation!</h2>
+            </div>
+            <div id="canvas_container">
+                <canvas id="canvas" width="640" height="480"></canvas>
+            </div>
+            <div id="color-controls">
+                <div id="choosecolor">Color: </div>
+                <div class="colorblock" id="green" onclick="color(this)"></div>
+                <div class="colorblock" id="blue" onclick="color(this)"></div>
+                <div class="colorblock" id="red" onclick="color(this)"></div>
+                <div class="colorblock" id="yellow" onclick="color(this)"></div>
+                <div class="colorblock" id="orange" onclick="color(this)"></div>
+                <div class="colorblock" id="black" onclick="color(this)"></div>
+                <div id="eraser" >Eraser:</div>
+                <div class="colorblock" id="white" onclick="color(this)"></div>
+            </div>
+            <div id="button-set">
+                <input type="button" value="Calculate Equation" id="calc" onclick="calculatEquation()" >
+                <input type="button" value="Clear Canvas" id="clr" onclick="clearCanvas()" >            
+                <input type="button" value="Download Canvas Image" id="dwnld" onclick="downloadCanvas()" >
+            </div>
+        </div>
+        <div id="results-container">
+            <div id="displayEquation">Predicted Equation:</div>
+            <br>
+            <hr>
+            <br>
             <div id="displayResult"></div>
+        </div>
             
-        </div><!-- canvas and canvas related controls -->
     </div> <!-- container -->
+    <canvas id=hidden-canvas width="640" height="480"></canvas>
   </body>
 </html>

@@ -1,0 +1,166 @@
+/*
+Statement: Implements index.html styles
+Authors: Kaiser Slocum, Sofi Vinas
+Team: Map Culture (Team 5)
+Date last edited: 11/19/2021
+*/
+
+/* Sets defaults */
+html, body {
+  height: 100%;
+  width: 100%;  
+  margin: 0;
+  padding: 0;
+  font-family: 'Quicksand', sans-serif;
+  color: black;
+  background-color: blue;
+  min-width: 500px;
+  background-image: url("/static/mathbackground.jpg");
+}
+body {
+  min-width: 780px;
+}
+
+.dropbtn {
+  background-color: teal;
+  font-weight: bold;
+  color: black;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.dropbtn:hover, .dropbtn:focus {
+  color: white;
+}
+.dropdown-content {
+  width: 100%;
+  display: none;
+  position: absolute;
+  border-radius: 0px 0px 10px 10px;
+  background-color: teal;  
+  font-weight: bold;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* The default color of our links */
+a:link, a:visited {
+  color: white;
+  text-decoration: none;
+}
+/* If the user is hovering over a link, we need to emphasize that it is a link */
+a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+.show {
+  display: block;
+}
+nav {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  background-color: teal;
+  border-bottom: solid 3px;
+}
+/* We don't want those default dots on our list  */
+nav li {
+  list-style: none;
+  float: left;
+  display: block;
+  margin: 0px;
+  padding: 0px;
+  width: 80%;
+  background-color: teal;  
+  overflow: hidden;
+}
+/* Controls the look and layout of our top links/buttons */
+nav ul{
+  float: left;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 20px;
+  padding: 0px;
+  font-weight: bold;
+  padding: 5px;
+  padding-top: 10px;
+  border-radius: 5px;
+  /*added
+  background-color: midnightblue;
+  text-align:center */
+}
+
+nav ul:first-of-type{
+  border-top: none;
+  margin: 0px;  
+}
+.dropdown{
+    margin: 0px;    
+    padding: 0px;
+    width: 9%;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 36px;
+    position: relative;
+    right: -8%;
+    display: inline-block;
+}
+img {
+  max-width: 200px;
+  width: 100%;
+}
+
+/* Controls the words on the website */
+section {
+  clear: left;
+  float: center;
+  margin: 15%;
+  border-radius: 0px 0px 20px 20px;
+  color: black;
+  background-color: rgba(0, 0, 255, 0.7);
+  padding-bottom: 10px;
+}
+/* Controls the main header */
+section h1 {
+  font-size: 3em;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  width: 100%;
+  text-align: center;
+}
+/* Controls the secondary header */
+section h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+}
+/* Controls the looks of the main paragraph */
+section p {
+  margin: 10px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+/* We don't want our link button to be too far up */
+section p:last-of-type {
+  margin-top: 5%;
+}
+/* We need to carefully align the link within the button */
+section p a{  
+  margin: 5px;
+  text-align: center;
+  font-weight: bold;
+  padding: 2px;
+  font-weight: bold;
+  background-color: black;
+  padding: 10px;
+  border-radius: 5px;
+}

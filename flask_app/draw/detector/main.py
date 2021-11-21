@@ -9,13 +9,15 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from flask import current_app
 from PIL import Image
+import PIL
 from . import querywolfram
 
 def draw_boxes_on_image(image,boxes,labels):
-    fig, ax = plt.subplots(figsize=(6.4,4.8)) # set figure size to 6x6inches
+    #fig, ax = plt.subplots(figsize=(6.4,4.8)) # set figure size to 6x6inches
+    fig, ax = plt.subplots(figsize=(3.2,2.4)) # set figure size to 6x6inches
+    #ax.imshow(image)
     ax.imshow(image.permute(1, 2, 0).cpu())
-    classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
-
+    classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal","x"]
 
     # x1, y1 is the upper-left corner point, x2, y2 is the bottom-left corner point
     for i,box in enumerate(boxes):
@@ -23,10 +25,10 @@ def draw_boxes_on_image(image,boxes,labels):
         w, h = (x2-x1), (y2-y1)
         bounding_box = mpatches.Rectangle((x1,y1), w, h, fill=False, edgecolor='green', linewidth=1)
         ax.add_patch(bounding_box)
-        ax.text(x1,(y1-5),classes[labels[i].item()],verticalalignment='top', color='black',fontsize=20,weight='bold')
+        ax.text(x1,(y1-5),classes[labels[i].item()],verticalalignment='top', color='black',fontsize=10,weight='bold')
 
     plt.axis('off')
-    plt.savefig('/app/flask_app/draw/detector/temp_bboxes.jpg',dpi=100)
+    plt.savefig('/app/flask_app/draw/detector/temp_bboxes.jpg',dpi=200)
     plt.show()
 
 def bboxes_per_class(dataloader):
@@ -85,22 +87,30 @@ def predictEquationFromImage(image_filename):
     device = torch.device("cpu")
     #trainset = dataset.MCImageDataset("/content/dataset/train.txt","/content/dataset/")
     #model = loadTrainedModel()
+    #img = read_image('/app/flask_app/draw/temp.jpg')
+    #img = Image.open('/app/flask_app/draw/temp.jpg')
+    #current_app.logger.info(img.mode)
+    #if img.mode == 'RGBA':
+    #    current_app.logger.info('yo')
+    #    new_img = Image.new('RGBA',img.size,"WHITE")
+    #    new_img.paste(img,(0,0),img)
+    #    new_img.convert('RGB').save('/app/flask_app/draw/temp.jpg')
     img = read_image('/app/flask_app/draw/temp.jpg',ImageReadMode.RGB)
+        
+    #transform = transforms.Compose([transforms.ToTensor()])
+    #img = transform(img)
     img = img.float() / 255
     print(img.size())
     model.eval()
-    #classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
-    classes = ["background","0","1","2","3","4","5","6","7","8","9","/","+","(","="]
+    classes = ["background","0","1","2","3","4","5","6","7","8","9","/","+","(","=","x"]
     with torch.no_grad():
         prediction = model([img.to(device)])[0]
 
     nms_prediction = apply_nms(prediction, iou_thresh=0.3)
-    #print('predicted #boxes: ', len(prediction['labels']))
     print('nms predicted #boxes: ', len(nms_prediction['labels']))
-
-    #draw_boxes_on_image(image,prediction['boxes'],prediction['labels'])
          
     draw_boxes_on_image(img,nms_prediction['boxes'],nms_prediction['labels'])
+
     prediction_list_encoded = nms_prediction['labels'].tolist()
     prediction_list_decoded = [classes[label] for label in prediction_list_encoded]
    
@@ -114,9 +124,10 @@ def predictEquationFromImage(image_filename):
     current_app.logger.info(prediction_string)
     if "x" in prediction_string:
         step_by_step = querywolfram.getStepByStep(prediction_string)
-        return step_by_step
+        return prediction_string + "\n" + step_by_step
     else:
-        return prediction_string + "\n" + str(eval(prediction_string))
+        #return prediction_string + "\n" + str(eval(prediction_string))
+        return prediction_string
         
     #return prediction_list_decoded
     #return sorted_labels
