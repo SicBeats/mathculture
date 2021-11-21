@@ -85,19 +85,13 @@ nav li {
 }
 /* Controls the look and layout of our top links/buttons */
 nav ul{
-  float: left;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-top: 20px;
-  padding: 0px;
-  font-weight: bold;
-  padding: 5px;
-  padding-top: 10px;
-  border-radius: 5px;
-
   /* button customization */
+  float: left;
+  margin-top: 20px;
   display:inline-block;
+  padding:0.35em 1.2em;
   border:0.1em solid #FFFFFF;
+  margin:0 0.3em 0.3em 0;
   border-radius:0.12em;
   box-sizing: border-box;
   text-decoration:none;
@@ -107,7 +101,6 @@ nav ul{
   text-align:center;
   transition: all 0.2s;
 }
-
 nav ul:hover{
   color:#000000;
   background-color:#FFFFFF;
