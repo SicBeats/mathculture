@@ -28,40 +28,40 @@ firebase.initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
-export default { 
-    auth: firebase.auth(),
-    login() {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithRedirect(provider);
-    },
-    logout() {
-      firebase.auth().signOut()
-      .then(function() {})
-      .catch(function(error) {
-        console.log(error)});
-    },
-    createMenu() {
-      return firebase.functions().httpsCallable('c').call();
-    }
-}
+// export default { 
+//     auth: firebase.auth(),
+//     login() {
+//       const provider = new firebase.auth.GoogleAuthProvider();
+//       firebase.auth().signInWithRedirect(provider);
+//     },
+//     logout() {
+//       firebase.auth().signOut()
+//       .then(function() {})
+//       .catch(function(error) {
+//         console.log(error)});
+//     },
+//     createMenu() {
+//       return firebase.functions().httpsCallable('c').call();
+//     }
+// }
 
 // Detect auth
-// signInWithCustomToken(auth, token)
-// .then((userCredential) => {
-//     // Signed in
-//     const user = userCredential.user;
-//     // ...
-// })
-// .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // ...
-// }),
+signInWithCustomToken(auth, token)
+.then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    // ...
+})
+.catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ...
+}),
 
-// signOut(auth).then(() => {
-//     // Sign-out successful.
-//   }).catch((error) => {
-//     // An error happened.
-//     console.log(error)
-//   });
+signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    // An error happened.
+    console.log(error)
+  });
   
