@@ -12,7 +12,7 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: 'Quicksand', sans-serif;
-  background-image: url("/home/static/help_background.jpeg");
+  background-image: url("/help/static/help_background.jpeg");
   background-size: cover;
   color: black;
   min-width: 500px;
