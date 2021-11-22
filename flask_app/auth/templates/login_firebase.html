@@ -1,22 +1,22 @@
-<!-- 
+<!--
 Statement: New or returning users will be directed to this web page to login or create their account
 Authors: Liam Dauphinee, Kaiser Slocum
 Team: Map Culture (Team 5)
 Date Last Edited: 10/29/2021
 -->
 <html>
-<head>	
+<head>
 	<title>CIS 422: Project 1</title>
-	<link rel="stylesheet" href="/auth/static/style.css">	
-    <link rel="icon" type="image/x-icon" href="/static/mapcultureicon.ico" />	
+	<link rel="stylesheet" href="/auth/static/style.css">
+    <link rel="icon" type="image/x-icon" href="/static/mathcultureicon.ico" />
 </head>
 <body>
 	<div class="hero"> 		
-		
+
 		<div class="form-box">
 			<a href="/" >Home</a>
 			<!-- This is the toggle button which is actually two buttons at the top of the main form box -->
-			<div class="button-box">				
+			<div class="button-box">
 				<button type="button" class="toggle-btn" onclick="signin()">Log In</button>
 				<button type="button" class="toggle-btn" onclick="register()">Register</button>
 			</div>
@@ -45,11 +45,11 @@ Date Last Edited: 10/29/2021
             <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js"></script>
             <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-database.js"></script>
             <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-storage.js"></script>
-            
+
 		</form>
 		</div>
-	</div> 
-	
+	</div>
+
 	<script>
 	var x = document.getElementById("sign_in")
 	var y = document.getElementById("register")
@@ -57,7 +57,7 @@ Date Last Edited: 10/29/2021
         x.style.left = "50px";
         y.style.left = "450px";
         z.style.left = "0px";
-	
+
 	function register(){
 		x.style.left = "-400px";
 		y.style.left = "50px";
