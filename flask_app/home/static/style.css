@@ -91,45 +91,17 @@ nav ul{
   margin-right: 2%;
   margin-top: 20px;
   padding: 0px;
+  font-weight: bold;
   padding: 5px;
   padding-top: 10px;
-  border:0.1em solid #FFFFFF;
-  border-radius: 2px;
-  box-sizing: border-box;
-  text-decoration:none;
-  font-family:'Quicksand',sans-serif;
-  font-weight: bold;
-  font-weight:300;
-  color:#FFFFFF;
-  text-align:center;
-  transition: all 0.2s;
-}
-nav ul:hover{
-  /*color:#000000;*/
-  background-color: rgb(25, 27, 37);
-}
-@media all and(max-width:40em){
-  nav ul{
-    display:block;
-    margin:0.4em auto;
-  }
+  border-radius: 5px;
 }
 
 nav ul:first-of-type{
   border-top: none;
   margin: 0px;
 }
-nav ul2{
-  float: left;
-  margin-left: 2%;
-  margin-right: 2%;
-  margin-top: 20px;
-  padding: 0px;
-  font-weight: bold;
-  padding: 5px;
-  padding-top: 10px;
-  border-radius: 5px;
-}
+
 
 .dropdown{
     margin: 0px;
