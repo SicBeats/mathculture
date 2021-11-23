@@ -140,7 +140,7 @@ section {
   /*rgba(56, 80, 255, 0.71)*/
   /*0.95 to have very little transparency as background video can block words*/
   /*(121, 1, 15)*/
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: rgba(0, 0, 0, 0.85);
   padding-bottom: 10px;
 }
 /* Controls the main header */
