@@ -231,8 +231,8 @@ function downloadCanvas()
     colorTransparentCanvasPixels(hiddenCanvas,"#ffffff");
     
     var a = document.createElement('a');
-    a.href = hiddenCanvas.toDataURL();
-    a.download = "drawnEquation.png";
+    a.href = hiddenCanvas.toDataURL("image/jpeg");
+    a.download = "drawnEquation.jpg";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
