@@ -17,7 +17,7 @@ def draw_boxes_on_image(image,boxes,labels):
     fig, ax = plt.subplots(figsize=(3.2,2.4)) # set figure size to 6x6inches
     #ax.imshow(image)
     ax.imshow(image.permute(1, 2, 0).cpu())
-    classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal","x"]
+    classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","rpar","equal","x","y","z"]
 
     # x1, y1 is the upper-left corner point, x2, y2 is the bottom-left corner point
     for i,box in enumerate(boxes):
@@ -102,7 +102,7 @@ def predictEquationFromImage(image_filename):
     img = img.float() / 255
     print(img.size())
     model.eval()
-    classes = ["background","0","1","2","3","4","5","6","7","8","9","/","+","(","=","x"]
+    classes = ["background","0","1","2","3","4","5","6","7","8","9","/","+","(",")","=","x","y","z"]
     with torch.no_grad():
         prediction = model([img.to(device)])[0]
 
