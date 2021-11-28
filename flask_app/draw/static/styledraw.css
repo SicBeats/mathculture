@@ -27,7 +27,7 @@ body {
   display: grid;
   /* three columns (three values seperated by space, sized by fraction of available space*/
   /*grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;*/
-  grid-template-columns: 1fr 640px 1fr;
+  grid-template-columns: 640px 640px 1fr;
   grid-template-rows: 50px 1fr 1fr;
   gap: 15px;
   padding: 5px;
