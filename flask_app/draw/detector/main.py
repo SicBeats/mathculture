@@ -72,7 +72,7 @@ def predictEquationFromImage(image_filename):
     with torch.no_grad():
         prediction = model([img.to(device)])[0]
 
-    nms_prediction = apply_nms(prediction, iou_thresh=0.3)
+    nms_prediction = apply_nms(prediction, iou_thresh=0.1)
     print('nms predicted #boxes: ', len(nms_prediction['labels']))
          
     draw_boxes_on_image(img,nms_prediction['boxes'],nms_prediction['labels'])
