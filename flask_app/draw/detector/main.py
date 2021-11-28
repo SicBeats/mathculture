@@ -94,15 +94,22 @@ def predictEquationFromImage(image_filename):
    
         prediction_string = "".join(sorted_labels)
         current_app.logger.info(prediction_string)
-        if "x" in prediction_string:
-            step_by_step = querywolfram.getStepByStep(prediction_string)
-            return prediction_string + "\n" + step_by_step
-        else:
-            try: 
-                results = str(eval(prediction_string))
-            except ZeroDivisionError:
-                results = "No solution. Cannot divide by zero!"
-            except SyntaxError:
-                results = "No solution. Improper syntax!" 
-            return prediction_string + "\n=\n"+ results 
-            #return prediction_string
+
+        # check if the prediction_string contains a variable
+        # if so, send it to wolfram to be solved
+        variables = ["x","y","z"]
+        for v in variables:
+            if v in prediction_string:
+                step_by_step = querywolfram.getStepByStep(prediction_string)
+                return prediction_string + "\n" + step_by_step
+
+        # if the prediction_string does not contain a variable, then it is arithmetic
+        # use the eval function so solve it
+        try: 
+            results = str(eval(prediction_string))
+        except ZeroDivisionError:
+            results = "No solution. Cannot divide by zero!"
+        except SyntaxError:
+            results = "No solution. Improper syntax!" 
+        return prediction_string + "\n=\n"+ results 
+        #return prediction_string

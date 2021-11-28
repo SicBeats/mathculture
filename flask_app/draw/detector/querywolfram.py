@@ -32,6 +32,11 @@ def getStepByStep(equation):
 
     r = requests.get(query_url).json()
     current_app.logger.info(r);
+    success = r["queryresult"]["success"]
+    if success == False:
+        current_app.logger.info("Query returned with success=False. Likely a syntax error.")
+        return "No solution. Improper syntax!"
+
     data = r["queryresult"]["pods"][0]["subpods"]
     num_subpods = r["queryresult"]["pods"][0]["numsubpods"]
     if num_subpods == 2:
