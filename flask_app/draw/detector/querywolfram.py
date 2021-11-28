@@ -33,9 +33,18 @@ def getStepByStep(equation):
     r = requests.get(query_url).json()
     current_app.logger.info(r);
     data = r["queryresult"]["pods"][0]["subpods"]
-    result = data[0]["plaintext"]
-    steps = data[1]["plaintext"]
+    num_subpods = r["queryresult"]["pods"][0]["numsubpods"]
+    if num_subpods == 2:
+        # there is a result and step-by-step solution
+        result = data[0]["plaintext"]
+        steps = data[1]["plaintext"]
+        print(f"Result of {equation} is '{result}'.")
+        print(f"Possible steps to solution:\n\n{steps}")
+        return steps
+    elif num_subpods == 1:
+        # there is likely only a result
+        # this happens in cases like: 65x + y, where the solution is one step: y= -65x
+        result = data[0]["plaintext"]
+        print(f"Result of {equation} is '{result}'.")
+        return result
 
-    print(f"Result of {equation} is '{result}'.")
-    print(f"Possible steps to solution:\n\n{steps}")
-    return steps
