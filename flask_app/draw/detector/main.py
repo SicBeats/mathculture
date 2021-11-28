@@ -13,9 +13,7 @@ import PIL
 from . import querywolfram
 
 def draw_boxes_on_image(image,boxes,labels):
-    #fig, ax = plt.subplots(figsize=(6.4,4.8)) # set figure size to 6x6inches
     fig, ax = plt.subplots(figsize=(3.2,2.4)) # set figure size to 6x6inches
-    #ax.imshow(image)
     ax.imshow(image.permute(1, 2, 0).cpu())
     classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","plus","minus","mult","division","lpar","rpar","equal","x","y","z"]
 
@@ -57,26 +55,6 @@ def apply_nms(orig_prediction, iou_thresh=0.3):
 
 def loadTrainedModel():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    #trainset = dataset.MCImageDataset("/content/dataset/train.txt","/content/dataset/")
-    #valset = dataset.MCImageDataset("/content/dataset/val.txt","/content/dataset/")
-
-    #classes = ["background","zero","one","two","three","four","five","six","seven","eight","nine","division","plus","lpar","equal"]
-    #num_classes = len(classes)
-
-    #trainloader = torch.utils.data.DataLoader(trainset, batch_size=1, shuffle=True, num_workers=4,collate_fn=dataset.collate_fn)
-    #testloader = torch.utils.data.DataLoader(valset, batch_size=1, shuffle=False, num_workers=4,collate_fn=dataset.collate_fn)
-
-    # this only works correctly if the dataloader's batch_size=1
-    #bboxes_per_class(trainloader)
-
-    # DOWNLOAD THIS FILE AND KEEP IT LOCAL TO FLASK FILESYSTEM!!!!
-    # load a Faster R-CNN model pre-trained on COCO
-    #model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
-    # get number of input features for the classifier
-    #in_features = model.roi_heads.box_predictor.cls_score.in_features
-    # replace the pre-trained head with a new one
-    #model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
-    #model.load_state_dict(torch.load('/app/flask_app/draw/detector/objdetector.pth', map_location=torch.device('cpu')))
     model = torch.load('/app/flask_app/draw/detector/objdetector.pth',map_location=torch.device('cpu'))
     model.to(device)
 
@@ -85,20 +63,8 @@ def loadTrainedModel():
 model = loadTrainedModel()
 def predictEquationFromImage(image_filename):
     device = torch.device("cpu")
-    #trainset = dataset.MCImageDataset("/content/dataset/train.txt","/content/dataset/")
-    #model = loadTrainedModel()
-    #img = read_image('/app/flask_app/draw/temp.jpg')
-    #img = Image.open('/app/flask_app/draw/temp.jpg')
-    #current_app.logger.info(img.mode)
-    #if img.mode == 'RGBA':
-    #    current_app.logger.info('yo')
-    #    new_img = Image.new('RGBA',img.size,"WHITE")
-    #    new_img.paste(img,(0,0),img)
-    #    new_img.convert('RGB').save('/app/flask_app/draw/temp.jpg')
     img = read_image('/app/flask_app/draw/temp.jpg',ImageReadMode.RGB)
         
-    #transform = transforms.Compose([transforms.ToTensor()])
-    #img = transform(img)
     img = img.float() / 255
     print(img.size())
     model.eval()
@@ -129,6 +95,3 @@ def predictEquationFromImage(image_filename):
         #return prediction_string + "\n" + str(eval(prediction_string))
         return prediction_string
         
-    #return prediction_list_decoded
-    #return sorted_labels
-    #return prediction_string

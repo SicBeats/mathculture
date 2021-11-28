@@ -59,7 +59,6 @@ body {
     border-radius:25px;
     padding:20px;
     margin:10px;
-
     min-height: 430px;
 }
 
@@ -123,14 +122,14 @@ a:hover {
     color: brown;
 }
 /* Controls the formats of the buttons */
-button{
+#button-set input[type=button]{
     padding: 5px;
-    margin: 5px;
+    margin: 3px;
     text-align: center;
     border-radius: 8px;
-    color: white;
+    color: black;
     font-weight: bold;
-    background-color: black;
+    background-color: white;
 }
 /* Describe the draw div's attributes */
 #drawInterface {
@@ -259,4 +258,9 @@ button{
 }
 #hidden-canvas{
     display:none;
+}
+#messenger{
+    display:none;
+    align-items:center;
+    justify-content:center;
 }
