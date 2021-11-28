@@ -81,17 +81,28 @@ def predictEquationFromImage(image_filename):
     prediction_list_decoded = [classes[label] for label in prediction_list_encoded]
    
     predicted_bbox_list = nms_prediction['boxes'].tolist()
-    zipped_labels_bboxes= zip(prediction_list_decoded,predicted_bbox_list)
-    sorted_by_minx = sorted(zipped_labels_bboxes, key = lambda pair: pair[1][0])
 
-    sorted_labels, sorted_bboxes = [list(tup) for tup in zip(*sorted_by_minx)]
-   
-    prediction_string = "".join(sorted_labels)
-    current_app.logger.info(prediction_string)
-    if "x" in prediction_string:
-        step_by_step = querywolfram.getStepByStep(prediction_string)
-        return prediction_string + "\n" + step_by_step
-    else:
-        #return prediction_string + "\n" + str(eval(prediction_string))
+    # if the model did not locate any objects
+    if len(predicted_bbox_list) == 0:
+        prediction_string = "No objects found"
         return prediction_string
-        
+    else:
+        zipped_labels_bboxes= zip(prediction_list_decoded,predicted_bbox_list)
+        sorted_by_minx = sorted(zipped_labels_bboxes, key = lambda pair: pair[1][0])
+
+        sorted_labels, sorted_bboxes = [list(tup) for tup in zip(*sorted_by_minx)]
+   
+        prediction_string = "".join(sorted_labels)
+        current_app.logger.info(prediction_string)
+        if "x" in prediction_string:
+            step_by_step = querywolfram.getStepByStep(prediction_string)
+            return prediction_string + "\n" + step_by_step
+        else:
+            try: 
+                results = str(eval(prediction_string))
+            except ZeroDivisionError:
+                results = "No solution. Cannot divide by zero!"
+            except SyntaxError:
+                results = "No solution. Improper syntax!" 
+            return prediction_string + "\n=\n"+ results 
+            #return prediction_string
