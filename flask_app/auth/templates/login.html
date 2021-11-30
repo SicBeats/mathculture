@@ -38,7 +38,8 @@ Date Last Edited: 11/15/2021
 			<input type="text" class="input-field" placeholder="User ID"required>
 			<input type="password" class="input-field" placeholder="Enter Password"required>
 			<input type="checkbox" class="check-box"><span>Remember Password</span>
-			<button type="submit" class="submit-btn" onclick="signin()">Log in</button>
+			<!-- ALIYA MODIFICATION changed by adding "id" after button -->
+			<button id = "btn-login" type="submit" class="submit-btn" onclick="signin()">Log in</button>
 		</form>
 		<!-- This is where a user would create their account if they're new -->
 		<form id="register" class="input-group">
@@ -57,6 +58,17 @@ Date Last Edited: 11/15/2021
 			<button type="submit" class="submit-btn" onclick="register()">Register</button>
 		</form>				
 		</div>
-	</div> 	
+	</div>
+	<!-- ALIYA MODIFICATION added this too -->
+	<script src="/auth/static/index.js"></script>
+	<script>
+		firebase.auth().onAuthStateChanged(function(user){
+			if(user)
+			{
+				window.location.heref ="/draw/templates/draw.html";
+			}
+		});
+	</script>
+
 </body>
 </html>
