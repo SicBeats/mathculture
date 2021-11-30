@@ -50,7 +50,7 @@ $("#btn-login").click(function(){
   var email = $("#email").val();
   var password = $("#password").val();
 
-  if(email != "" && password != ""){
+  if(email != "" && password != "" && validate_email(email) == true && validate_password(password)){
     var result = firebase.auth().signInWithEmailAndPassword(email, password);
 
     result.catch(function(error){
@@ -63,6 +63,25 @@ $("#btn-login").click(function(){
     });
   }
 });
+
+// validate passwords and validate email 
+
+function validate_email(email){
+  valid = /^[^@]+@\w+(\.\w+)+\w$/
+  if (valid.test(email) = true){
+    return true
+  } else{
+    return false
+  }
+}
+
+function validate_password(password){
+  if (password < 6){
+    return false
+  }else{
+    return true
+  }
+}
 
 // Detect auth
 signInWithCustomToken(auth, token)
