@@ -17,7 +17,7 @@ body {
 }
 
 /* container will span the entire width and height of the webpage */
-.container {  
+.container {
   width: 98vw;
   height:96vh;
   font-family: 'Quicksand', sans-serif;
@@ -52,14 +52,13 @@ body {
 }
 /* Contains the controls and text input form for the Google map */
 .side {
-    border: 3px solid #514537; 
+    border: 3px solid #514537;
     /*background-color: rgba(0,128,128,0.5);*/
     grid-row-start: 2;
     grid-row-end:4;
     border-radius:25px;
     padding:20px;
     margin:10px;
-    
     min-height: 430px;
 }
 
@@ -71,7 +70,7 @@ body {
     margin:10px;
 }
 #side2 img {
-    border: 3px solid #514537; 
+    border: 3px solid #514537;
     border-radius:25px;
     width: 100%;
     height: 100%;
@@ -105,7 +104,7 @@ img{
     width: 47%;
     float: left;
     padding: 0px;
-    text-align: center;    
+    text-align: center;
     font-weight: bold;
 }
 /* Forces the account link to the right */
@@ -123,14 +122,14 @@ a:hover {
     color: brown;
 }
 /* Controls the formats of the buttons */
-button{
+#button-set input[type=button]{
     padding: 5px;
-    margin: 5px;
+    margin: 3px;
     text-align: center;
     border-radius: 8px;
-    color: white;
+    color: black;
     font-weight: bold;
-    background-color: black;
+    background-color: white;
 }
 /* Describe the draw div's attributes */
 #drawInterface {
@@ -163,7 +162,7 @@ button{
     grid-column-end: 4;
     grid-row-start: 1;
     grid-row-end:4;
-    border: 3px solid #514537; 
+    border: 3px solid #514537;
     border-radius: 15px;
 }
 
@@ -185,6 +184,7 @@ button{
     padding:10px;
 }
 #button-set{
+    align-items: center;
     width: 90%;
     padding:5px;
 }
@@ -193,7 +193,7 @@ button{
     display: block;
     width: 30%;
     min-width: 125px;
-    text-align: center; 
+    text-align: center;
 }
 #clr{
     float: left;
@@ -210,15 +210,15 @@ button{
 .colorblock {
     float: left;
     display: block;
-    margin: 3px;    
+    margin: 3px;
     width:15px;
     min-width: 15px;
     height:15px;
 }
-#green{    
+#green{
     background:green;
 }
-#blue{    
+#blue{
     background:blue;
 }
 #red{
@@ -234,7 +234,7 @@ button{
     background:black;
 }
 #white {
-    clear: left;    
+    clear: left;
     border:2px solid;
     background:white;
 }
@@ -258,4 +258,9 @@ button{
 }
 #hidden-canvas{
     display:none;
+}
+#messenger{
+    display:none;
+    align-items:center;
+    justify-content:center;
 }

@@ -8,6 +8,25 @@ Team: Map Culture (Team 5)
 Last Modified: 11/20/2021
 */
 
+
+
+/***********************************************************************************************
+FUNCTION: hideMessage
+************************************************************************************************/
+function hideMessage(){
+    var messenger = document.getElementById("messenger");
+    messenger.style.display = "none"; 
+}
+
+/***********************************************************************************************
+FUNCTION: displayMessageToUser
+************************************************************************************************/
+function displayMessageToUser(message){
+    var messenger = document.getElementById("messenger");
+    messenger.style.display = "flex"; 
+    messenger.innerText = message;
+}
+     
 /***********************************************************************************************
 FUNCTION: convertImageFileToBase64
 ************************************************************************************************/
@@ -49,6 +68,7 @@ async function loadfile(event)
     // encode the image file in base64
     var encoded = await convertImageFileToBase64(file);
     // send the image file to the object detector (HTTP POST request)
+    displayMessageToUser("Loading...");
     var data = await sendImageToObjectDetector(encoded);
     displayObjectDetectorResult(data);
 }
@@ -190,8 +210,10 @@ async function calculatEquation()
     // encode the image file in base64
     var encoded = await convertImageFileToBase64(file);
     // send the image file to the object detector (HTTP POST request)
+    displayMessageToUser("Calculating...");
     var data = await sendImageToObjectDetector(encoded);
     displayObjectDetectorResult(data);
+    hideMessage();
 }
 
 /***********************************************************************************************
@@ -231,8 +253,8 @@ function downloadCanvas()
     colorTransparentCanvasPixels(hiddenCanvas,"#ffffff");
     
     var a = document.createElement('a');
-    a.href = hiddenCanvas.toDataURL();
-    a.download = "drawnEquation.png";
+    a.href = hiddenCanvas.toDataURL("image/jpeg");
+    a.download = "drawnEquation.jpg";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

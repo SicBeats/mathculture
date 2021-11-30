@@ -11,7 +11,6 @@ Creation Date: 10/12/2021
 Last Modified: 11/01/2021
 '''
 from . import draw_blueprint
-from .classifier.main import classifyImage
 from .detector.main import predictEquationFromImage
 from .detector.main import loadTrainedModel
 #from . import querywolframalpha
