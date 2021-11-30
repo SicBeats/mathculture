@@ -1,4 +1,4 @@
-3+5     ===    2-1
+3+5^4 =    2-1x
 asdfasdf
 
 asdfas
@@ -9,3 +9,5 @@ dfasdf
 
 gahsh
 2+5=
+
+(5-2)+7/4=5x+y
