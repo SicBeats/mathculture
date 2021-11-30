@@ -1,23 +1,23 @@
-<!-- 
+<!--
 Statement: New or returning users will be directed to this web page to login or create their account
 Authors: Liam Dauphinee, Kaiser Slocum
 Team: Map Culture (Team 5)
 Date Last Edited: 11/15/2021
 -->
 <html>
-<head>	
+<head>
 	<title>CIS 422: Project 2</title>
-	<link rel="stylesheet" href="/auth/static/style.css">	
+	<link rel="stylesheet" href="/auth/static/style.css">
 	<script src="/auth/static/login.js"></script>
     <link rel="icon" type="image/x-icon" href="/static/mathcultureicon.ico" />
 </head>
 <body onload="init()">
-	<div class="hero" > 		
-		
+	<div class="hero" >
+
 		<div class="form-box">
 			<a href="/" >Home</a>
 			<!-- This is the toggle button which is actually two buttons at the top of the main form box -->
-			<div class="button-box">				
+			<div class="button-box">
 				<button type="button" class="toggle-btn" onclick="show_signin()">Log In</button>
 				<button type="button" class="toggle-btn" onclick="show_register()" id="midbtn">Register</button>
 				<button type="button" class="toggle-btn" onclick="show_profile()">Profile</button>
@@ -31,7 +31,7 @@ Date Last Edited: 11/15/2021
 			<input type="password" class="input-field" id="newpass" placeholder="New Password"required>
 			<input type="password" class="input-field" id="confirmpass" placeholder="Re-enter New Password"required>
 			<button type="submit" class="submit-btn" onclick="changePassword();">Submit Password Change</button>
-			<button type="submit" class="submit-btn" onclick="location.href='/blocklist';">BLACKLIST</button>
+			<button type="submit" class="submit-btn" onclick="location.href='/blocklist';">BLOCKLIST</button>
 		</form>
 		<!-- This is where a user would login if they already had an account -->
 		<form id="sign_in" action="/sign_in" class="input-group">
@@ -43,7 +43,7 @@ Date Last Edited: 11/15/2021
 		</form>
 		<!-- This is where a user would create their account if they're new -->
 		<form id="register" class="input-group">
-			<input type="text" class="input-field" placeholder="User ID"required>			
+			<input type="text" class="input-field" placeholder="User ID"required>
 			<input type="text" class="input-field" placeholder="Group ID" required>
 			<input type="email" class="input-field" placeholder="Email ID"required>
 			<input type="password" class="input-field" placeholder="Enter Password"required>
@@ -56,7 +56,7 @@ Date Last Edited: 11/15/2021
 				<label id="radio-instructor-label" for="radio2">Instructor</label>
 			</div>
 			<button type="submit" class="submit-btn" onclick="register()">Register</button>
-		</form>				
+		</form>
 		</div>
 	</div>
 	<!-- ALIYA MODIFICATION added this too -->
