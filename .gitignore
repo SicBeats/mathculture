@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 temp.jpg
 temp_bboxes.jpg
+
+# Firebase cache
+.firebase/
+# Dependency directories
+node_modules/
