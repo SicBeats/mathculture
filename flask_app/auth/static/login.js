@@ -5,7 +5,6 @@ Team: Map Culture (Team 5)
 Date Last Edited: 11/15/2021
 */
 
-
 // Called by the login.html when the page is loading
 // We always want the signin form to show up first
 function init() 
