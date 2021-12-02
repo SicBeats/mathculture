@@ -46,7 +46,7 @@ firebase.auth.Auth.Persistence.LOCAL;
 //     }
 // }
 
-$("#btn-login").click(function(){
+$("#fu").click(function(){
   var email = $("#email").val();
   var password = $("#password").val();
 

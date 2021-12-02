@@ -24,10 +24,10 @@ Date Last Edited: 10/29/2021
 			</div>
 		<!-- This is where a user would login if they already had an account -->
 		<form id="sign_in" action="/sign_in" class="input-group">
-			<input type="text" class="input-field" placeholder="User ID"required>
-			<input type="text" class="input-field" placeholder="Enter Password"required>
+			<input type="text" class="input-field" id="email" placeholder="User ID"required>
+			<input type="text" class="input-field" id="password" placeholder="Enter Password"required>
 			<input type="checkbox" class="check-box"><span>Remember Password</span>
-			<button type="submit" class="submit-btn" onclick="signin()">Log in</button>
+			<button type="submit" class="submit-btn" id="fu">Log in</button>
 
             <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-app.js"></script>
             <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.js"></script>
