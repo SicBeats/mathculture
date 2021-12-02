@@ -134,6 +134,7 @@ function unpublish()
 function publishAll()
 {
     var arr = equatArr;
+    console.log(arr);
     for (let i = 0; i < arr.length; i++)
     {
         publish(arr[i]);
@@ -142,6 +143,8 @@ function publishAll()
 }
 function unpublishAll(arr)
 {
+    var arr = equatArr;
+    console.log(arr);
     //Go through newArr and unpublish them all
     for (let i = 0; i < arr.length; i++)
     {
