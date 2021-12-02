@@ -103,7 +103,7 @@ function publish()
     // Check to see all the characters are valid
     var equat = document.getElementById("equation_input").value;
     console.log(equat);
-    //publish to blacklist
+    //publish to blocklist
 }
 /***********************************************************************************************
 FUNCTION: unpublish
@@ -114,7 +114,7 @@ function unpublish()
     // Check to see all the characters are valid
     var equat = document.getElementById("equation_input").value;
     console.log(equat);
-    //unpublish from blacklist
+    //unpublish from blocklist
 }
 function publishAll()
 {
