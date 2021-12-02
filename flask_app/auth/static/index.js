@@ -58,6 +58,7 @@ $("#btn-login").click(function(){
       var errorMessage = error.message;
 
       console.log(errorCode);
+      alert("HALP");
       window.alert("Message : " + errorMessage);
       
     });
