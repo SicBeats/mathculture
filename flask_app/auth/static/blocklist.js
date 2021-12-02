@@ -8,6 +8,8 @@ Team: Map Culture (Team 5)
 Last Modified: 11/18/2021
 */
 
+var equatArr = new Array();
+
 /***********************************************************************************************
 FUNCTION: loadfile
 PURPOSE: This function takes the uploaded text file and calls displayUploadedEquations()
@@ -39,7 +41,6 @@ PURPOSE: This function organizes all the uploaded equations into an array of equ
 function displayUploadedEquations()
 {    
     var charArr = new Array();
-    var equatArr = new Array();
 
     // We need to check for invalid equations!
     var node = document.getElementById('uploaded_equations');
@@ -100,7 +101,6 @@ PURPOSE: Moves the inputted equation to the db
 ************************************************************************************************/
 function publish()
 {
-    // Check to see all the characters are valid
     var equat = document.getElementById("equation_input").value;
     console.log(equat);
     for (let i = 0; i < equat.length; i++)
@@ -119,18 +119,37 @@ PURPOSE: Removes the inputted equation to the db
 ************************************************************************************************/
 function unpublish()
 {
-    // Check to see all the characters are valid
     var equat = document.getElementById("equation_input").value;
     console.log(equat);
+    for (let i = 0; i < equat.length; i++)
+    {
+        if (is_valid_char(equat[i]) == false)
+        {
+            alert("Invalid char in your equation!");
+            return;
+        }
+    }
     //unpublish from blocklist
 }
 function publishAll()
 {
+    var arr = equatArr;
+    console.log(arr);
+    for (let i = 0; i < arr.length; i++)
+    {
+        publish(arr[i]);
+    }
     //Go through newArr and publish them all
 }
-function unpublishAll()
+function unpublishAll(arr)
 {
+    var arr = equatArr;
+    console.log(arr);
     //Go through newArr and unpublish them all
+    for (let i = 0; i < arr.length; i++)
+    {
+        unpublish(arr[i]);
+    }
 }
 function init()
 {
