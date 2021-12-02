@@ -21,7 +21,7 @@ from flask import Flask, jsonify, render_template, request, current_app, redirec
 @auth_blueprint.route('/login', methods=['GET'])
 def login():
     # render about.html when the user goes to mapculture.co/login
-    return render_template('login.html')
+    return render_template('firebase_login.html')
 
 @auth_blueprint.route('/sign_in', methods=['GET'])
 def sign_in():
