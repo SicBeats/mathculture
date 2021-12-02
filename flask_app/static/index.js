@@ -25,7 +25,7 @@ function myFunction() {
     link1 = document.getElementById("e1"); 
     link1.innerText="Sign In";  
     /* Go to Sign In webpage */
-    link1.setAttribute("href", "/login");
+    link1.setAttribute("href", "/login_firebase");
     link2 = document.getElementById("e2"); 
     link2.innerText="Sign Up";  
     /* Go to Sign Up webpage */
