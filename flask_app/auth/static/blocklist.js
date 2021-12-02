@@ -103,6 +103,14 @@ function publish()
     // Check to see all the characters are valid
     var equat = document.getElementById("equation_input").value;
     console.log(equat);
+    for (let i = 0; i < equat.length; i++)
+    {
+        if (is_valid_char(equat[i]) == false)
+        {
+            alert("Invalid char in your equation!");
+            return;
+        }
+    }
     //publish to blocklist
 }
 /***********************************************************************************************
