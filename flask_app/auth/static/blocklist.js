@@ -131,8 +131,9 @@ function unpublish()
     }
     //unpublish from blocklist
 }
-function publishAll(arr)
+function publishAll()
 {
+    var arr = equatArr;
     for (let i = 0; i < arr.length; i++)
     {
         publish(arr[i]);
