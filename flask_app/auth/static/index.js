@@ -1,18 +1,5 @@
 // Import the functions you need from the SDKs you need
-//import * as firebase from "firebase/app";
-// import 'firebase/functions';
-// import 'firebase/app';
-// import 'firebase/auth';
-//import { getFirestore } from 'firebase/firestore';
-//import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
-// import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-analytics.js";
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
   authDomain: "arithmetic-math-calculator.firebaseapp.com",
@@ -22,6 +9,8 @@ const firebaseConfig = {
   appId: "1:915244473465:web:9931e1dde113b72c2208a8",
   measurementId: "G-404YZECCP9"
 };
+const app = initializeApp(firebaseConfig);
+
 
 // Initialize Firebase
 
