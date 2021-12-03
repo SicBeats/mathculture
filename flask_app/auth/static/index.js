@@ -46,7 +46,7 @@ firebase.auth.Auth.Persistence.LOCAL;
 //     }
 // }
 
-$("#btn-login").click(function(){
+$("#fu").click(function(){
   var email = $("#email").val();
   var password = $("#password").val();
 
@@ -58,6 +58,7 @@ $("#btn-login").click(function(){
       var errorMessage = error.message;
 
       console.log(errorCode);
+      alert("HALP");
       window.alert("Message : " + errorMessage);
       
     });
