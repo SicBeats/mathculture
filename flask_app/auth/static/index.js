@@ -1,5 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
+import { } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js"
+import { } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js"
+
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
   authDomain: "arithmetic-math-calculator.firebaseapp.com",
@@ -13,11 +16,6 @@ const app = initializeApp(firebaseConfig);
 
 
 // Initialize Firebase
-
-const auth = firebase.auth()
-const database = firebase.database()
-
-firebase.auth.Auth.Persistence.LOCAL;
 
 // Set up our register function 
 function register() {
