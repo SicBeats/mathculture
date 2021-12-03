@@ -20,8 +20,8 @@ document.getElementById("submitRegister").addEventListener("click", function(eve
   event.preventDefault()
   // Get all our input fields
   //user = document.getElementById('user').value;
-  email = document.getElementById('email').value;
-  password = document.getElementById('pass').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('pass').value;
 
   // TODO
   // Validate input fields
@@ -51,6 +51,7 @@ async function createNewAccount(email,password) {
     const uid = userCredentials.user.uid;
     console.log('User Created!!');
     console.log(uid);
+    signin(email);
     set(ref(database, 'users/' + uid), {
         email: email,
     });
