@@ -1,15 +1,8 @@
 // Import the functions you need from the SDKs you need
-import * as firebase from "firebase/app";
-import 'firebase/functions'
-// import 'firebase/app';
-// import { getAnalytics } from "firebase/analytics";
-import 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
   authDomain: "arithmetic-math-calculator.firebaseapp.com",
@@ -19,88 +12,96 @@ const firebaseConfig = {
   appId: "1:915244473465:web:9931e1dde113b72c2208a8",
   measurementId: "G-404YZECCP9"
 };
-
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
-firebase.auth.Auth.Persistence.LOCAL;
+document.getElementById("submitRegister").addEventListener("click", function(event){
+  event.preventDefault()
+  // Get all our input fields
+  //user = document.getElementById('user').value;
+  email = document.getElementById('email').value;
+  password = document.getElementById('pass').value;
 
-// export default { 
-//     auth: firebase.auth(),
-//     login() {
-//       const provider = new firebase.auth.GoogleAuthProvider();
-//       firebase.auth().signInWithRedirect(provider);
-//     },
-//     logout() {
-//       firebase.auth().signOut()
-//       .then(function() {})
-//       .catch(function(error) {
-//         console.log(error)});
-//     },
-//     createMenu() {
-//       return firebase.functions().httpsCallable('c').call();
-//     }
-// }
-
-$("#fu").click(function(){
-  var email = $("#email").val();
-  var password = $("#password").val();
-
-  if(email != "" && password != "" && validate_email(email) == true && validate_password(password)){
-    var result = firebase.auth().signInWithEmailAndPassword(email, password);
-
-    result.catch(function(error){
-      var errorCode = error.code;
-      var errorMessage = error.message;
-
-      console.log(errorCode);
-      alert("HALP");
-      window.alert("Message : " + errorMessage);
-      
-    });
+  // TODO
+  // Validate input fields
+  /*
+  if (validate_email(email) == false || validate_password(password) == false) {
+    alert('Email or Password is Outta Line!!');
+    return;
+    // Don't continue running the code
   }
+  */
+  createNewAccount(email,password);
 });
 
-// validate passwords and validate email 
+/************************************************************************************************
+FUNCTION: createNewAccount
+PURPOSE: Takes email and password input and stores them in Firebase securely using Authentication.
+         Adds an entry to the users/ table with the uid as a key, and the email as an attribute.
+         The password is encrypted and is not accessible to the owner of the database. 
+         This function will return an error if a user already exists with a given email. 
+*************************************************************************************************/
+async function createNewAccount(email,password) {
 
-function validate_email(email){
-  valid = /^[^@]+@\w+(\.\w+)+\w$/
-  if (valid.test(email) = true){
-    return true
-  } else{
-    return false
+  const auth = getAuth(app);
+
+  try {
+    const userCredentials = await createUserWithEmailAndPassword(auth,email,password);
+    const uid = userCredentials.user.uid;
+    console.log('User Created!!');
+    console.log(uid);
+    set(ref(database, 'users/' + uid), {
+        email: email,
+    });
+
+  } 
+  catch(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code;
+    var error_message = error.message;
+    alert(error_message);
   }
 }
 
-function validate_password(password){
-  if (password < 6){
-    return false
-  }else{
-    return true
+// Set up our login function
+function login() {
+  // Get all our input fields
+  user = document.getElementById('user').value
+  password = document.getElementById('pass').value
+
+  // Validate input fields
+  if (validate_password(password) == false) {
+    alert('User_id or Password is Outta Line!!')
+    return 
+    // Don't continue running the code
   }
+
+  auth.signInWithEmailAndPassword(user_id, password)
+  .then(function() {
+    // Declare user variable
+    var user = auth.currentUser
+
+    // Add this user to Firebase Database
+    var database_ref = database.ref()
+
+    // Create User data
+    var user_data = {
+      last_login : Date.now()
+    }
+
+    // Push to Firebase Database
+    database_ref.child('users/' + user.uid).update(user_data)
+
+    // Done
+    console.log('User Logged In!!')
+
+  })
+  .catch(function(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code
+    var error_message = error.message
+
+    alert(error_message)
+  })
 }
-
-// Detect auth
-signInWithCustomToken(auth, token)
-.then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    // ...
-})
-.catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ...
-}),
-
-signOut(auth).then(() => {
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-    console.log(error)
-  });
-  
