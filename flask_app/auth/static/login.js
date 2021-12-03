@@ -65,7 +65,9 @@ function signin(email)
 // Called by signout button
 function signout()
 {
-    document.cookie= " signedout";
+    document.cookie= "Account";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    console.log(decodedCookie);
     console.log("After sign out cookie is: ", getCookie());   
 }
 // Called by register button

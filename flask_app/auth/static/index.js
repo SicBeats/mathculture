@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
   authDomain: "arithmetic-math-calculator.firebaseapp.com",
@@ -80,6 +80,23 @@ async function signinAccount(email,password) {
     alert(error_message);
   }
 }
+async function signoutAccount() {
+  const auth = getAuth(app);
+
+  try {
+    const userCredentials = await signOut(auth);
+    //const uid = userCredentials.user.uid;
+    console.log('User Signed Out!!');
+    signout();
+    //console.log(uid);
+  } 
+  catch(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code;
+    var error_message = error.message;
+    alert(error_message);
+  }
+}
 
 // Set up our login function
 document.getElementById("checkReg").addEventListener("click", function(event){
@@ -90,6 +107,14 @@ document.getElementById("checkReg").addEventListener("click", function(event){
   var password = document.getElementById('pass2').value
   // Validate input fields
   signinAccount(email, password);
+});
+
+// Set up our login function
+document.getElementById("signout").addEventListener("click", function(event){
+  event.preventDefault()
+  
+ 
+  signoutAccount();
 });
 
   auth.signInWithEmailAndPassword(user_id, password)
