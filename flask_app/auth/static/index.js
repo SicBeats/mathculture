@@ -4,6 +4,9 @@ import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/
 import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 import { updatePassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { getAnalytics, setUserProperties } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
@@ -164,6 +167,7 @@ document.getElementById("showprofile").addEventListener("click", function(event)
   const auth = getAuth(app);
   const user = auth.currentUser;
   console.log(user.user);
+
   if (user !== null)
   {    
     show_profile(user.email);
