@@ -61,8 +61,8 @@ a:link, a:visited {
 }
 /* If the user is hovering over a link, we need to emphasize that it is a link */
 a:hover {
-  text-decoration: #7b14ec;
-  text-decoration-thickness: 1px;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
 }
 
 .show {
