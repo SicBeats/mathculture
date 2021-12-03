@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-
+import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
   authDomain: "arithmetic-math-calculator.firebaseapp.com",
@@ -20,8 +20,8 @@ document.getElementById("submitRegister").addEventListener("click", function(eve
   event.preventDefault()
   // Get all our input fields
   //user = document.getElementById('user').value;
-  email = document.getElementById('email').value;
-  password = document.getElementById('pass').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('pass').value;
 
   // TODO
   // Validate input fields
@@ -51,6 +51,7 @@ async function createNewAccount(email,password) {
     const uid = userCredentials.user.uid;
     console.log('User Created!!');
     console.log(uid);
+    signin(email);
     set(ref(database, 'users/' + uid), {
         email: email,
     });
@@ -63,19 +64,53 @@ async function createNewAccount(email,password) {
     alert(error_message);
   }
 }
+async function signinAccount(email,password) {
+  const auth = getAuth(app);
+  try {
+    const userCredentials = await signInWithEmailAndPassword(auth,email,password);
+    const uid = userCredentials.user.uid;
+    console.log('User Signed in!!');
+    signin(email);
+    console.log(uid);
+  } 
+  catch(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code;
+    var error_message = error.message;
+    alert(error_message);
+  }
+}
+async function signoutAccount() {
+  const auth = getAuth(app);
+  try {
+    await signOut(auth);
+    console.log('User Signed Out!!');
+    signout();
+  } 
+  catch(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code;
+    var error_message = error.message;
+    alert(error_message);
+  }
+}
 
 // Set up our login function
-function login() {
+document.getElementById("signin").addEventListener("click", function(event){
+  event.preventDefault()  
   // Get all our input fields
-  user = document.getElementById('user').value
-  password = document.getElementById('pass').value
+  var email = document.getElementById('email2').value
+  var password = document.getElementById('pass2').value
+  // Attempt to signin
+  signinAccount(email, password);
+});
 
-  // Validate input fields
-  if (validate_password(password) == false) {
-    alert('User_id or Password is Outta Line!!')
-    return 
-    // Don't continue running the code
-  }
+// Set up our log out function
+document.getElementById("signout").addEventListener("click", function(event){
+  event.preventDefault()
+  // Attempt to signout
+  signoutAccount();
+});
 
   auth.signInWithEmailAndPassword(user_id, password)
   .then(function() {
@@ -104,4 +139,4 @@ function login() {
 
     alert(error_message)
   })
-}
+
