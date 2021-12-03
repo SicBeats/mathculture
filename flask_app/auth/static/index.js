@@ -1,10 +1,9 @@
 // Import the functions you need from the SDKs you need
 import * as firebase from "firebase/app";
-import 'firebase/functions'
-// import 'firebase/app';
-// import { getAnalytics } from "firebase/analytics";
+//import 'firebase/functions';
+import 'firebase/app';
 import 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+//import { getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -33,6 +32,7 @@ function register() {
   // Get all our input fields
   email = document.getElementById('email').value
   password = document.getElementById('password').value
+  user_id = document.getElementById('user_id').value
 
   // Validate input fields
   if (validate_email(email) == false || validate_password(password) == false) {
@@ -61,7 +61,7 @@ function register() {
     database_ref.child('users/' + user.uid).set(user_data)
 
     // Done
-    alert('User Created!!')
+    console.log('User Created!!')
   })
   .catch(function(error) {
     // Firebase will use this to alert of its errors
@@ -75,17 +75,17 @@ function register() {
 // Set up our login function
 function login () {
   // Get all our input fields
-  email = document.getElementById('email').value
+  user_id = document.getElementById('user_id').value
   password = document.getElementById('password').value
 
   // Validate input fields
-  if (validate_email(email) == false || validate_password(password) == false) {
-    alert('Email or Password is Outta Line!!')
+  if (validate_password(password) == false) {
+    alert('User_id or Password is Outta Line!!')
     return 
     // Don't continue running the code
   }
 
-  auth.signInWithEmailAndPassword(email, password)
+  auth.signInWithEmailAndPassword(user_id, password)
   .then(function() {
     // Declare user variable
     var user = auth.currentUser
@@ -101,8 +101,8 @@ function login () {
     // Push to Firebase Database
     database_ref.child('users/' + user.uid).update(user_data)
 
-    // DOne
-    alert('User Logged In!!')
+    // Done
+    console.log('User Logged In!!')
 
   })
   .catch(function(error) {
