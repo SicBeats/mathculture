@@ -13,7 +13,6 @@ Date Last Edited: 10/29/2021
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-storage.js"></script>
 	<script src="/auth/static/login.js"></script>
-	<script src="/auth/static/index.js"></script>
     <link rel="icon" type="image/x-icon" href="/static/mathcultureicon.ico" />
 </head>
 <body onload="init()">
@@ -44,7 +43,7 @@ Date Last Edited: 10/29/2021
 			<input type="text" class="input-field" id="email" placeholder="User ID"required>
 			<input type="password" class="input-field" id="password" placeholder="Enter Password"required>
 			<input type="checkbox" class="check-box"><span>Remember Password</span>
-			<button type="submit" class="submit-btn" id="fu">Log in</button>
+			<button type="submit" class="submit-btn" onclick="login()">Log in</button>
             <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.0/firebase-ui-auth.css" />
 		</form>
 		<form id="profile" class="input-group">
@@ -55,7 +54,7 @@ Date Last Edited: 10/29/2021
 			<input type="password" class="input-field" id="oldpass" placeholder="Enter Password"required>
 			<input type="password" class="input-field" id="newpass" placeholder="New Password"required>
 			<input type="password" class="input-field" id="confirmpass" placeholder="Re-enter New Password"required>
-			<button type="submit" class="submit-btn" onclick="changePassword();">Submit Password Change</button>
+			<button type="submit" class="submit-btn" id="changepassword">Submit Password Change</button>
 			<button type="submit" class="submit-btn" onclick="location.href='/blocklist';">BLOCKLIST</button>
 		</form>
 		<!-- This is where a user would create their account if they're new -->
@@ -64,9 +63,10 @@ Date Last Edited: 10/29/2021
 			<input type="email" class="input-field" placeholder="Email ID"required>
 			<input type="password" class="input-field" placeholder="Enter Password"required>
 			<input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
-			<button type="submit" class="submit-btn">Register</button>
+			<button type="submit" class="submit-btn" onclick="register()">Register</button>
 		</form>
 		</div>
 	</div>
 </body>
+<script src="/auth/static/index.js"></script>
 </html>

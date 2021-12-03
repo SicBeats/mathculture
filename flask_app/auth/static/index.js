@@ -23,84 +23,93 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-// const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
+const auth = firebase.auth()
+const database = firebase.database()
+
 firebase.auth.Auth.Persistence.LOCAL;
 
-// export default { 
-//     auth: firebase.auth(),
-//     login() {
-//       const provider = new firebase.auth.GoogleAuthProvider();
-//       firebase.auth().signInWithRedirect(provider);
-//     },
-//     logout() {
-//       firebase.auth().signOut()
-//       .then(function() {})
-//       .catch(function(error) {
-//         console.log(error)});
-//     },
-//     createMenu() {
-//       return firebase.functions().httpsCallable('c').call();
-//     }
-// }
+// Set up our register function 
+function register() {
+  // Get all our input fields
+  email = document.getElementById('email').value
+  password = document.getElementById('password').value
 
-$("#fu").click(function(){
-  var email = $("#email").val();
-  var password = $("#password").val();
-
-  if(email != "" && password != "" && validate_email(email) == true && validate_password(password)){
-    var result = firebase.auth().signInWithEmailAndPassword(email, password);
-
-    result.catch(function(error){
-      var errorCode = error.code;
-      var errorMessage = error.message;
-
-      console.log(errorCode);
-      alert("HALP");
-      window.alert("Message : " + errorMessage);
-      
-    });
+  // Validate input fields
+  if (validate_email(email) == false || validate_password(password) == false) {
+    alert('Email or Password is Outta Line!!')
+    return 
+    // Don't continue running the code
   }
-});
-
-// validate passwords and validate email 
-
-function validate_email(email){
-  valid = /^[^@]+@\w+(\.\w+)+\w$/
-  if (valid.test(email) = true){
-    return true
-  } else{
-    return false
-  }
-}
-
-function validate_password(password){
-  if (password < 6){
-    return false
-  }else{
-    return true
-  }
-}
-
-// Detect auth
-signInWithCustomToken(auth, token)
-.then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    // ...
-})
-.catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ...
-}),
-
-signOut(auth).then(() => {
-    // Sign-out successful.
-  }).catch((error) => {
-    // An error happened.
-    console.log(error)
-  });
   
+  // Move on with Auth
+  auth.createUserWithEmailAndPassword(email, password)
+  .then(function() {
+    // Declare user variable
+    var user = auth.currentUser
+
+    // Add this user to Firebase Database
+    var database_ref = database.ref()
+
+    // Create User data
+    var user_data = {
+      email : email,
+      user_id : user_id,
+      last_login : Date.now()
+    }
+
+    // Push to Firebase Database
+    database_ref.child('users/' + user.uid).set(user_data)
+
+    // Done
+    alert('User Created!!')
+  })
+  .catch(function(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code
+    var error_message = error.message
+
+    alert(error_message)
+  })
+}
+
+// Set up our login function
+function login () {
+  // Get all our input fields
+  email = document.getElementById('email').value
+  password = document.getElementById('password').value
+
+  // Validate input fields
+  if (validate_email(email) == false || validate_password(password) == false) {
+    alert('Email or Password is Outta Line!!')
+    return 
+    // Don't continue running the code
+  }
+
+  auth.signInWithEmailAndPassword(email, password)
+  .then(function() {
+    // Declare user variable
+    var user = auth.currentUser
+
+    // Add this user to Firebase Database
+    var database_ref = database.ref()
+
+    // Create User data
+    var user_data = {
+      last_login : Date.now()
+    }
+
+    // Push to Firebase Database
+    database_ref.child('users/' + user.uid).update(user_data)
+
+    // DOne
+    alert('User Logged In!!')
+
+  })
+  .catch(function(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code
+    var error_message = error.message
+
+    alert(error_message)
+  })
+}
