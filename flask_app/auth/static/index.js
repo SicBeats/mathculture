@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
-import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js"
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js"
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
@@ -15,50 +15,63 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+document.getElementById("submitRegister").addEventListener("click", function(event){
+  event.preventDefault()
+  register();
+});
 
 // Set up our register function 
 function register() {
+  console.log("hello");
   // Get all our input fields
-  email = document.getElementById('email').value
-  password = document.getElementById('password').value
-  user_id = document.getElementById('user_id').value
+  email = document.getElementById('email').value;
+  password = document.getElementById('password').value;
+  user = document.getElementById('user').value;
 
+
+  // TODO
   // Validate input fields
+  /*
   if (validate_email(email) == false || validate_password(password) == false) {
-    alert('Email or Password is Outta Line!!')
-    return 
+    alert('Email or Password is Outta Line!!');
+    return;
     // Don't continue running the code
   }
-  
+  */
+  set(ref(database, 'users/' + user), {
+    username: user,
+    password: password,
+    email: email,
+  });
+ 
   // Move on with Auth
-  auth.createUserWithEmailAndPassword(email, password)
-  .then(function() {
+  auth.createUserWithEmailAndPassword(email, password).then(function() {
     // Declare user variable
-    var user = auth.currentUser
+    var user = auth.currentUser;
 
     // Add this user to Firebase Database
-    var database_ref = database.ref()
+    var database_ref = database.ref();
 
     // Create User data
     var user_data = {
       email : email,
       user_id : user_id,
       last_login : Date.now()
-    }
+    };
 
     // Push to Firebase Database
-    database_ref.child('users/' + user.uid).set(user_data)
+    database_ref.child('users/' + user.uid).set(user_data);
 
     // Done
-    console.log('User Created!!')
+    console.log('User Created!!');
   })
   .catch(function(error) {
     // Firebase will use this to alert of its errors
-    var error_code = error.code
-    var error_message = error.message
+    var error_code = error.code;
+    var error_message = error.message;
 
-    alert(error_message)
-  })
+    alert(error_message);
+  });
 }
 
 // Set up our login function
