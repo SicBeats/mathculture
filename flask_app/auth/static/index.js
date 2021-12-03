@@ -65,7 +65,6 @@ async function createNewAccount(email,password) {
 }
 async function signinAccount(email,password) {
   const auth = getAuth(app);
-
   try {
     const userCredentials = await signInWithEmailAndPassword(auth,email,password);
     const uid = userCredentials.user.uid;
@@ -82,13 +81,10 @@ async function signinAccount(email,password) {
 }
 async function signoutAccount() {
   const auth = getAuth(app);
-
   try {
-    const userCredentials = await signOut(auth);
-    //const uid = userCredentials.user.uid;
+    await signOut(auth);
     console.log('User Signed Out!!');
     signout();
-    //console.log(uid);
   } 
   catch(error) {
     // Firebase will use this to alert of its errors
@@ -99,21 +95,19 @@ async function signoutAccount() {
 }
 
 // Set up our login function
-document.getElementById("checkReg").addEventListener("click", function(event){
-  event.preventDefault()
-  
+document.getElementById("signin").addEventListener("click", function(event){
+  event.preventDefault()  
   // Get all our input fields
   var email = document.getElementById('email2').value
   var password = document.getElementById('pass2').value
-  // Validate input fields
+  // Attempt to signin
   signinAccount(email, password);
 });
 
-// Set up our login function
+// Set up our log out function
 document.getElementById("signout").addEventListener("click", function(event){
   event.preventDefault()
-  
- 
+  // Attempt to signout
   signoutAccount();
 });
 

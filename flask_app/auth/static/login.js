@@ -44,17 +44,6 @@ function show_profile()
     profile();
 }
 
-// Function called by all pages' js files to get the name of the dummy account
-function getAccountStatus()
-{
-    console.log(getCookie());
-
-    if (getCookie() != "")
-        return getCookie();
-    else
-        return ""; 
-}
-
 // Called by signin button
 function signin(email)
 {   
@@ -66,16 +55,14 @@ function signin(email)
 function signout()
 {
     document.cookie= "Account";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    console.log(decodedCookie);
     console.log("After sign out cookie is: ", getCookie());   
 }
 // Called by register button
-function register()
+function register(email)
 {
     // Check to make sure user ID is unique, verify group ID corresponds with account sign-up code
-    document.cookie = "signedin";  
-    console.log("After register (which is technically just sign in) cookie is: ", getCookie()); 
+    document.cookie = email;  
+    console.log("After register cookie is: ", getCookie()); 
 }
 /* Sets up the info on the profile page */
 function profile()
@@ -125,5 +112,10 @@ function getCookie()
     let ca = decodedCookie.split(';');
     let c = ca[ca.length-1];
     c = c.split('@');
-    return c[0];
+    var dabool = c[0].indexOf("Account");
+
+    if (dabool == -1)   
+        return c[0];
+    else
+        return "Account";
 }
