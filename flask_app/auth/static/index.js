@@ -1,12 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
+import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 import { updatePassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-import { getAnalytics, setUserProperties } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
@@ -50,6 +47,7 @@ PURPOSE: Takes email and password input and stores them in Firebase securely usi
 async function createNewAccount(email,password) {
 
   const auth = getAuth(app);
+  var role = "student";
 
   try {
     const userCredentials = await createUserWithEmailAndPassword(auth,email,password);
@@ -57,11 +55,11 @@ async function createNewAccount(email,password) {
     console.log('User Created!!');
     console.log(uid);
     signin(email);
-    window.location.href="/";
+    //window.location.href="/";
     set(ref(database, 'users/' + uid), {
         email: email,
+        role: role,
     });
-
   } 
   catch(error) {
     // Firebase will use this to alert of its errors
@@ -88,6 +86,20 @@ async function signinAccount(email,password) {
     var error_message = error.message;
     alert(error_message);
   }
+
+  
+  const user = auth.currentUser;
+  const uid = user.uid;
+  const dbRef = ref(getDatabase(app));
+  get(child(dbRef, `users/${uid}`)).then((role) => {
+    if (role.exists()) {
+      console.log(role.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
 }
 
 async function signoutAccount() {
