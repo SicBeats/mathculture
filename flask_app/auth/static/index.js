@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
-//import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
   authDomain: "arithmetic-math-calculator.firebaseapp.com",
@@ -63,20 +63,15 @@ async function createNewAccount(email,password) {
     alert(error_message);
   }
 }
-
 async function signinAccount(email,password) {
-  
-
-  
-
   const auth = getAuth(app);
 
   try {
     const userCredentials = await signInWithEmailAndPassword(auth,email,password);
     const uid = userCredentials.user.uid;
     console.log('User Signed in!!');
+    signin(email);
     console.log(uid);
-
   } 
   catch(error) {
     // Firebase will use this to alert of its errors
@@ -96,8 +91,6 @@ document.getElementById("checkReg").addEventListener("click", function(event){
   // Validate input fields
   signinAccount(email, password);
 });
-
-
 
   auth.signInWithEmailAndPassword(user_id, password)
   .then(function() {

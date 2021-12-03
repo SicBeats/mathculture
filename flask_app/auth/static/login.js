@@ -49,17 +49,17 @@ function getAccountStatus()
 {
     console.log(getCookie());
 
-    if (getCookie() == " signedin")
-        return "Lumpy";
+    if (getCookie() != "")
+        return getCookie();
     else
         return ""; 
 }
 
 // Called by signin button
-function signin()
+function signin(email)
 {   
     // Check to make sure user ID and password match
-    document.cookie = "signedin";  
+    document.cookie = email;  
     console.log("After sign in cookie is: ", getCookie()); 
 }
 // Called by signout button
@@ -122,5 +122,6 @@ function getCookie()
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
     let c = ca[ca.length-1];
-    return c;
+    c = c.split('@');
+    return c[0];
 }

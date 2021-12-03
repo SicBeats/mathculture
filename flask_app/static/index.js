@@ -2,14 +2,14 @@
 Statement: Implements index.html button clicking
 Authors: Kaiser Slocum
 Team: Map Culture (Team 5)
-Date last edited: 11/15/2021
+Date last edited: 12/3/2021
 */
 
 function userLoggedIn()
 {
-  /*if (getAccountStatus() == "")
+  if (getAccountStatus() != "")
     alert('You must login first! Use the account menu!');
-  else*/
+  else
     window.location.href = "/draw";
 }
 // Open the dropdown if the user clicks on it
