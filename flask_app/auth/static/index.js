@@ -4,8 +4,8 @@
 // import 'firebase/app';
 // import 'firebase/auth';
 //import { getFirestore } from 'firebase/firestore';
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-analytics.js";
+//import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js";
+// import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-analytics.js";
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 // TODO: Add SDKs for Firebase products that you want to use
