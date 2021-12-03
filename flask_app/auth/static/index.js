@@ -42,7 +42,7 @@ PURPOSE: Takes email and password input and stores them in Firebase securely usi
          The password is encrypted and is not accessible to the owner of the database. 
          This function will return an error if a user already exists with a given email. 
 *************************************************************************************************/
-async function createNewAccount(email,password) {
+async function createNewAccount(user,email,password) {
 
   const auth = getAuth(app);
 
@@ -54,6 +54,7 @@ async function createNewAccount(email,password) {
     signin(email);
     window.location.href="/";
     set(ref(database, 'users/' + uid), {
+        user:  user,
         email: email,
     });
 
