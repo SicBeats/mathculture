@@ -3,6 +3,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { updatePassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
   authDomain: "arithmetic-math-calculator.firebaseapp.com",
@@ -74,7 +76,9 @@ async function signinAccount(email,password) {
     console.log('User Signed in!!');
     console.log(uid);
     signin(email);    
-    window.location.href="/";
+    //window.location.href="/";
+  const user = auth.currentUser;
+  console.log(user.email);
   } 
   catch(error) {
     // Firebase will use this to alert of its errors
@@ -83,8 +87,10 @@ async function signinAccount(email,password) {
     alert(error_message);
   }
 }
+
 async function signoutAccount() {
-  const auth = getAuth(app);
+  const auth = getAuth(app);  
+  
   try {
     await signOut(auth);
     console.log('User Signed Out!!');
@@ -98,6 +104,48 @@ async function signoutAccount() {
   }
 }
 
+
+
+async function changepass(password)
+{
+  const auth = getAuth();
+
+  const user = auth.currentUser;
+  const newPassword = password;
+  try {
+    await updatePassword(user, newPassword);
+    console.log('Password Changed!!');
+    //window.location.href="/";
+  } 
+  catch(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code;
+    var error_message = error.message;
+    alert(error_message);
+  }
+}
+
+async function getemail()
+{
+  const auth = getAuth(app);
+  const user = auth.currentUser.email;
+  console.log("email:", user);
+
+  if (user) 
+  {
+  // User is signed in, see docs for a list of available properties
+  // https://firebase.google.com/docs/reference/js/firebase.User
+  // ...
+  console.log("user", user);
+  } 
+  else 
+  {
+  // No user is signed in.
+  console.log("failure");
+  }
+}
+
+
 // Set up our login function
 document.getElementById("signin").addEventListener("click", function(event){
   event.preventDefault()  
@@ -106,12 +154,39 @@ document.getElementById("signin").addEventListener("click", function(event){
   var password = document.getElementById('pass2').value
   // Attempt to signin
   signinAccount(email, password);
+  //getID();
 });
 
+// Set up our log out function
+document.getElementById("showprofile").addEventListener("click", function(event){
+  event.preventDefault()
+  // Attempt to signout
+  const auth = getAuth(app);
+  const user = auth.currentUser;
+  show_profile(user.email);
+});
+// Set up our log out function
+document.getElementById("changepass").addEventListener("click", function(event){
+  event.preventDefault()
+  // Attempt to signout
+  const auth = getAuth(app);
+  const user = auth.currentUser;
+  var password1 = document.getElementById('newpass').value;
+  var password2 = document.getElementById('repass').value;
+  if (password1 != password2)
+  {
+    alert("The passwords do not match!");
+  }
+  else
+  {
+    changepass(password1);
+  }  
+});
 // Set up our log out function
 document.getElementById("signout").addEventListener("click", function(event){
   event.preventDefault()
   // Attempt to signout
+  
   signoutAccount();
 });
 

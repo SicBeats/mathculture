@@ -32,7 +32,7 @@ function show_register()
     z.style.left = "450px";
 }
 // Shows the profile form
-function show_profile()
+function show_profile(email)
 {
     var x = document.getElementById("sign_in")
 	var y = document.getElementById("register")	
@@ -40,8 +40,8 @@ function show_profile()
     x.style.left = "-750px";
     y.style.left = "-350px";
     z.style.left = "50px";
-
-    profile();
+    console.log("daemail", email);
+    profile(email);
 }
 
 // Called by signin button
@@ -65,12 +65,11 @@ function register(email)
     console.log("After register cookie is: ", getCookie()); 
 }
 /* Sets up the info on the profile page */
-function profile()
+function profile(email)
 {
     var user = "";
     var group = "";
     var role = "";
-    var email = "";
     if (getCookie() == " signedin")
     {
         var user = "Lumpy";
