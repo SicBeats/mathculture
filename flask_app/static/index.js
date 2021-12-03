@@ -4,7 +4,6 @@ Authors: Kaiser Slocum
 Team: Map Culture (Team 5)
 Date last edited: 12/3/2021
 */
-import { signout } from '/auth/static/index.js';
 
 function userLoggedIn()
 {
