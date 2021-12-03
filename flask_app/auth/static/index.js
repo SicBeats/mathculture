@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
-import { } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js"
-import { } from "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js"
+import { getDatabase } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js"
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
@@ -12,10 +11,10 @@ const firebaseConfig = {
   appId: "1:915244473465:web:9931e1dde113b72c2208a8",
   measurementId: "G-404YZECCP9"
 };
-const app = initializeApp(firebaseConfig);
-
-
 // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
 
 // Set up our register function 
 function register() {
