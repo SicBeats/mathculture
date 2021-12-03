@@ -76,7 +76,7 @@ function register() {
 }
 
 // Set up our login function
-function login () {
+function login() {
   // Get all our input fields
   user_id = document.getElementById('user_id').value
   password = document.getElementById('password').value
