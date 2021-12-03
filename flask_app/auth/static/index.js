@@ -163,7 +163,15 @@ document.getElementById("showprofile").addEventListener("click", function(event)
   // Attempt to signout
   const auth = getAuth(app);
   const user = auth.currentUser;
-  show_profile(user.email);
+  console.log(user.user);
+  if (user !== null)
+  {    
+    show_profile(user.email);
+  }
+  else
+  {
+    show_profile(" ");
+  }
 });
 // Set up our log out function
 document.getElementById("changepass").addEventListener("click", function(event){
@@ -190,7 +198,7 @@ document.getElementById("signout").addEventListener("click", function(event){
   signoutAccount();
 });
 
-  auth.signInWithEmailAndPassword(user_id, password)
+  /*auth.signInWithEmailAndPassword(user_id, password)
   .then(function() {
     // Declare user variable
     var user = auth.currentUser
@@ -216,5 +224,5 @@ document.getElementById("signout").addEventListener("click", function(event){
     var error_message = error.message
 
     alert(error_message)
-  })
+  })*/
 
