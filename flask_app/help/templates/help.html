@@ -3,7 +3,7 @@ Statement: Introduces users to the website and supplies access to the other web 
 Authors: Kaiser Slocum, Sofi Vinas
 Team: Map Culture (Team 5)
 Project: Math Culture
-Date last edited: 11/30/2021
+Date last edited: 12/2/2021
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +13,7 @@ Date last edited: 11/30/2021
     <script src="/static/index.js"></script>
     <script src="/auth/static/login.js"></script>
     <link rel="stylesheet" href="/help/static/style.css" /> 
+    <script type="module" src="/auth/static/index.js"></script>
     <link rel="icon" type="image/x-icon" href="/static/mathcultureicon.ico" />
   </head>
 
@@ -36,9 +37,10 @@ Date last edited: 11/30/2021
   <!-- A brief introduction to our software system -->  
   <section>
     <h1> Math Culture: How to Use!</h1>
-      <h2> <i> Accpetable Characters</i> </h2>
+      <h2> <i> Acceptable Characters</i> </h2>
       <!-- want to add ultraviolet box around acceptable characters -->
-      <p> <newUl>[  =  /  *  -  0  1  2  3  4  5  6  7  8  9  (  )  x  y  z  ]</newUl></p>
+      <!-- added <a> -->
+      <p> <newUl><a>[  =  /  *  -  0  1  2  3  4  5  6  7  8  9  (  )  x  y  z  ]</a></newUl></p>
     <h2> <i>Translate Image Interface</i> </h2>
     <p>To use the translate image tool, you can either upload a file containing equations or problems to solve, or you
     can use our built-in draw equation feature underneath our logo to create a simple equation on the spot. Our object detection
@@ -47,7 +49,7 @@ Date last edited: 11/30/2021
     <!-- <hr> -->
     <hr>
     <!-- <p>Teacher Information: Publish and Unpublish </p> -->
-    <h2> <i>For Teachers: Publish or unpublish equation </i> </h2>
+    <h2> <i>For Teachers: Publish or Unpublish Equation </i> </h2>
     <p>Teacher and administrators can now choose to publish or unpublish specific problems to prevent
     students from checking their solutions before attempting the homework or equations on their own.</p>
   </section>

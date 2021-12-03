@@ -52,6 +52,7 @@ async function createNewAccount(email,password) {
     console.log('User Created!!');
     console.log(uid);
     signin(email);
+    window.location.href="/";
     set(ref(database, 'users/' + uid), {
         email: email,
     });
@@ -70,8 +71,9 @@ async function signinAccount(email,password) {
     const userCredentials = await signInWithEmailAndPassword(auth,email,password);
     const uid = userCredentials.user.uid;
     console.log('User Signed in!!');
-    signin(email);
     console.log(uid);
+    signin(email);    
+    window.location.href="/";
   } 
   catch(error) {
     // Firebase will use this to alert of its errors

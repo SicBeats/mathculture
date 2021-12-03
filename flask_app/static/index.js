@@ -37,7 +37,8 @@ function myFunction() {
     link1.setAttribute("href", "/login");
     link2 = document.getElementById("e2"); 
     link2.innerText="Sign Out";  
-    link2.setAttribute("href", "/login");
+    link2.setAttribute("href", "");
+    signout();
   }
   lbl.innerText = name;
 }
