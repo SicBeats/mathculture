@@ -24,10 +24,11 @@ Date Last Edited: 10/29/2021
 			</div>
 		<!-- This is where a user would login if they already had an account -->
 		<form id="sign_in" action="/sign_in" class="input-group">
-			<input type="text" class="input-field" id="user_id" placeholder="User ID"required>
-			<input type="password" class="input-field" id="password" placeholder="Enter Password"required>
+			<input id="user2" type="text" class="input-field" placeholder="User ID"required>
+			<input id="email2" type="email" class="input-field" placeholder="Email ID"required>
+			<input id="pass2" type="password" class="input-field" placeholder="Enter Password"required>
 			<input type="checkbox" class="check-box"><span>Remember Password</span>
-			<button type="submit" class="submit-btn" onclick="login()">Log in</button>
+			<button id="checkReg" type="submit" class="submit-btn" onclick="login()">Log in</button>
 		</form>
 		<form id="profile" class="input-group">
 			<label id="UserID">User ID:   </label>

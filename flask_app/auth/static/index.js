@@ -1,8 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-
+//import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
   authDomain: "arithmetic-math-calculator.firebaseapp.com",
@@ -64,18 +64,40 @@ async function createNewAccount(email,password) {
   }
 }
 
-// Set up our login function
-function login() {
-  // Get all our input fields
-  user = document.getElementById('user').value
-  password = document.getElementById('pass').value
+async function signinAccount(email,password) {
+  
 
-  // Validate input fields
-  if (validate_password(password) == false) {
-    alert('User_id or Password is Outta Line!!')
-    return 
-    // Don't continue running the code
+  
+
+  const auth = getAuth(app);
+
+  try {
+    const userCredentials = await signInWithEmailAndPassword(auth,email,password);
+    const uid = userCredentials.user.uid;
+    console.log('User Signed in!!');
+    console.log(uid);
+
+  } 
+  catch(error) {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code;
+    var error_message = error.message;
+    alert(error_message);
   }
+}
+
+// Set up our login function
+document.getElementById("checkReg").addEventListener("click", function(event){
+  event.preventDefault()
+  
+  // Get all our input fields
+  var email = document.getElementById('email2').value
+  var password = document.getElementById('pass2').value
+  // Validate input fields
+  signinAccount(email, password);
+});
+
+
 
   auth.signInWithEmailAndPassword(user_id, password)
   .then(function() {
@@ -104,4 +126,4 @@ function login() {
 
     alert(error_message)
   })
-}
+
