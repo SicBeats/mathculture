@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js"
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
@@ -17,17 +18,10 @@ const database = getDatabase(app);
 
 document.getElementById("submitRegister").addEventListener("click", function(event){
   event.preventDefault()
-  register();
-});
-
-// Set up our register function 
-function register() {
-  console.log("hello");
   // Get all our input fields
+  //user = document.getElementById('user').value;
   email = document.getElementById('email').value;
-  password = document.getElementById('password').value;
-  user = document.getElementById('user').value;
-
+  password = document.getElementById('pass').value;
 
   // TODO
   // Validate input fields
@@ -38,47 +32,43 @@ function register() {
     // Don't continue running the code
   }
   */
-  set(ref(database, 'users/' + user), {
-    username: user,
-    password: password,
-    email: email,
-  });
- 
-  // Move on with Auth
-  auth.createUserWithEmailAndPassword(email, password).then(function() {
-    // Declare user variable
-    var user = auth.currentUser;
+  createNewAccount(email,password);
+});
 
-    // Add this user to Firebase Database
-    var database_ref = database.ref();
+/************************************************************************************************
+FUNCTION: createNewAccount
+PURPOSE: Takes email and password input and stores them in Firebase securely using Authentication.
+         Adds an entry to the users/ table with the uid as a key, and the email as an attribute.
+         The password is encrypted and is not accessible to the owner of the database. 
+         This function will return an error if a user already exists with a given email. 
+*************************************************************************************************/
+async function createNewAccount(email,password) {
 
-    // Create User data
-    var user_data = {
-      email : email,
-      user_id : user_id,
-      last_login : Date.now()
-    };
+  const auth = getAuth(app);
 
-    // Push to Firebase Database
-    database_ref.child('users/' + user.uid).set(user_data);
-
-    // Done
+  try {
+    const userCredentials = await createUserWithEmailAndPassword(auth,email,password);
+    const uid = userCredentials.user.uid;
     console.log('User Created!!');
-  })
-  .catch(function(error) {
+    console.log(uid);
+    set(ref(database, 'users/' + uid), {
+        email: email,
+    });
+
+  } 
+  catch(error) {
     // Firebase will use this to alert of its errors
     var error_code = error.code;
     var error_message = error.message;
-
     alert(error_message);
-  });
+  }
 }
 
 // Set up our login function
 function login() {
   // Get all our input fields
-  user_id = document.getElementById('user_id').value
-  password = document.getElementById('password').value
+  user = document.getElementById('user').value
+  password = document.getElementById('pass').value
 
   // Validate input fields
   if (validate_password(password) == false) {
