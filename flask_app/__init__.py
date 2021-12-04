@@ -2,7 +2,7 @@
 File name: __init__.py (main Flask app module)
 
 Author: Kelemen Szimonisz
-Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
+Organization: Math Culture (University of Oregon, CIS422, FALL 2021)
 
 This python file creates and configures the Flask application object.
 
@@ -18,7 +18,7 @@ The flask app follows a divisional organizational structure:
 https://exploreflask.com/en/latest/blueprints.html#divisional
 
 Creation Date: 10/05/2021
-Last Edited: 11/02/2021
+Last Edited: 11/05/2021
 '''
 
 from flask import Flask, render_template
