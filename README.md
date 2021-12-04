@@ -21,7 +21,7 @@
         1. docker-compose build
         2. docker-compose up -d 
 
-4. Visit `localhost:5000` in your web browser to view the web app
+4. Visit `localhost:5000` in your web browser to view the web app (may take a bit to load because of file quantity)
 
 ##### Software dependencies? Required versions of components?
 
