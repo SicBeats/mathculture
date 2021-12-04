@@ -66,6 +66,22 @@ async function createNewAccount(userID, email, groupID, accesskey, password, rol
         groupID: groupID, 
         accesskey: accesskey,
     });
+
+    var userID = " ";
+    const dbRef = ref(getDatabase(app));
+    await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
+    if (snapshot.exists()) 
+    {
+      userID = snapshot.child("userID").val();
+      console.log(userID);
+    } else 
+    {
+      console.log("No data available");
+    }
+    }).catch((error) => {
+      console.error(error);
+    });
+    register(userID);
   } 
   catch(error) {
     // Firebase will use this to alert of its errors
@@ -81,7 +97,23 @@ async function signinAccount(email,password) {
     const uid = userCredentials.user.uid;
     console.log('User Signed in!!');
     console.log(uid);
-    signin(email);    
+
+    var userID = " ";
+    const dbRef = ref(getDatabase(app));
+    await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
+    if (snapshot.exists()) 
+    {
+      userID = snapshot.child("userID").val();
+      console.log(userID);
+    } else 
+    {
+      console.log("No data available");
+    }
+    }).catch((error) => {
+      console.error(error);
+    });
+    
+    signin(userID);    
     //window.location.href="/";
   const user = auth.currentUser;
   console.log(user.email);
@@ -129,25 +161,6 @@ async function changepass(password)
   }
 }
 
-async function getemail()
-{
-  const auth = getAuth(app);
-  const user = auth.currentUser.email;
-  console.log("email:", user);
-
-  if (user) 
-  {
-  // User is signed in, see docs for a list of available properties
-  // https://firebase.google.com/docs/reference/js/firebase.User
-  // ...
-  console.log("user", user);
-  } 
-  else 
-  {
-  // No user is signed in.
-  console.log("failure");
-  }
-}
 
 // Set up our login function
 document.getElementById("signin").addEventListener("click", function(event){
@@ -191,8 +204,7 @@ document.getElementById("showprofile").addEventListener("click", async function(
     }
     }).catch((error) => {
       console.error(error);
-    });
-    
+    });    
   }
   show_profile(userID, role, groupID, email, accesskey);
 });

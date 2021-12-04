@@ -45,10 +45,11 @@ function show_profile(userID, role, groupID, email, accesskey)
 }
 
 // Called by signin button
-function signin(email)
+function signin(userID)
 {   
+    console.log("UserID is: ", userID);
     // Check to make sure user ID and password match
-    document.cookie = email;  
+    document.cookie = userID;  
     console.log("After sign in cookie is: ", getCookie()); 
 }
 // Called by signout button
@@ -58,10 +59,10 @@ function signout()
     console.log("After sign out cookie is: ", getCookie());   
 }
 // Called by register button
-function register(email)
+function register(userID)
 {
     // Check to make sure user ID is unique, verify group ID corresponds with account sign-up code
-    document.cookie = email;  
+    document.cookie = userID;  
     console.log("After register cookie is: ", getCookie()); 
 }
 /* Sets up the info on the profile page */
@@ -101,11 +102,10 @@ function getCookie()
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
     let c = ca[ca.length-1];
-    c = c.split('@');
-    var dabool = c[0].indexOf("Account");
+    var dabool = c.indexOf("Account");
 
     if (dabool == -1)   
-        return c[0];
+        return c;
     else
         return "Account";
 }
