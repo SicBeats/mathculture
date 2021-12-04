@@ -2,17 +2,16 @@
 File name: draw/__init__.py (draw package)
 
 Author: Kelemen Szimonisz
-Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
+Organization: Math Culture (University of Oregon, CIS422, FALL 2021)
 
 This python file tells Python that the /draw directory is a Python package.
 (Allows us to import the draw blueprint from the parent flask app directory)
 
-In this file, we create and configure a blueprint for the Auth package.
+In this file, we create and configure a blueprint for the Draw package.
 
 Reference: https://exploreflask.com/en/latest/blueprints.html
 
-Creation Date: 10/12/2021
-Last Modified: 11/01/2021
+Last Modified: 11/05/2021
 '''
 
 from flask import Blueprint

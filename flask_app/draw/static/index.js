@@ -2,16 +2,19 @@
 File Name: index.js
 
 Author: Kelemen Szimonisz, Kaiser Slocum
-Organization: Map Culture (University of Oregon, CIS422, FALL 2021)
-Team: Map Culture (Team 5)
+Organization: Math Culture (University of Oregon, CIS422, FALL 2021)
 
+This JavaScript file is used by draw.html template and enables the page to:
+    1. Display a canvas to the user, where they can draw using their mouse
+    2. Upload an image of a handwritten equation
+    3. Display the bounding box predictions for the inputted equation
+    4. Display a step-by-step solution to the predicted equation
 Last Modified: 11/20/2021
 */
 
-
-
 /***********************************************************************************************
 FUNCTION: hideMessage
+PURPOSE: Hides the 'messenger' div from the user
 ************************************************************************************************/
 function hideMessage(){
     var messenger = document.getElementById("messenger");
@@ -20,6 +23,7 @@ function hideMessage(){
 
 /***********************************************************************************************
 FUNCTION: displayMessageToUser
+PURPOSE: Displays a message to the user using the HTML div with the ID 'messenger'.
 ************************************************************************************************/
 function displayMessageToUser(message){
     var messenger = document.getElementById("messenger");
@@ -29,12 +33,14 @@ function displayMessageToUser(message){
      
 /***********************************************************************************************
 FUNCTION: convertImageFileToBase64
+PURPOSE: Converts an image file (jpeg) to Base64 encoding
 ************************************************************************************************/
 function convertImageFileToBase64(file){
     return new Promise((resolve, reject) => {
         var reader = new FileReader();
         reader.onloadend = function(file){
             var result = reader.result;
+            // remove the base64 datatype header
             resolve(result.toString().replace(/^data:(.*,)?/, ''));
         }
         reader.readAsDataURL(file);
@@ -48,11 +54,13 @@ PURPOSE: This function takes a base64 image file and sends it to the
          The result is a step-by-step solution to the equation.
 ************************************************************************************************/
 async function sendImageToObjectDetector(encoded){
+    // POST request to /algo URL (handled by Flask back-end)
     const flask_response = await fetch('/algo', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({'image': encoded}),
     });
+    // contains the result of the POST request (the predicted equation and image)
     const data = await flask_response.json();
     return data;
 } 
@@ -63,18 +71,22 @@ PURPOSE: This function takes the uploaded file image and displays it in the canv
 ************************************************************************************************/
 async function loadfile(event) 
 {
+    // get the uploaded file
     var file = event.target.files[0]
+    // display the uploaded file
     imagePreview(URL.createObjectURL(file));
     // encode the image file in base64
     var encoded = await convertImageFileToBase64(file);
     // send the image file to the object detector (HTTP POST request)
     displayMessageToUser("Loading...");
     var data = await sendImageToObjectDetector(encoded);
+    // display the prediction
     displayObjectDetectorResult(data);
 }
 
 /***********************************************************************************************
 FUNCTION: imagePreview
+PURPOSE: Display an image in the bottom left hand corner of the template. Retain aspect ratio.
 ************************************************************************************************/
 function imagePreview(img)
 {
@@ -172,6 +184,12 @@ function findxy(res, e)
     }    
 }
 
+/***********************************************************************************************
+FUNCTION: displayObjectDetectorResult
+PURPOSE: Parse the data returned from the backend. (The step-by-step solution and bbox_image)
+         Display the step-by-step solution.
+         Display the bbox image to the user.
+************************************************************************************************/
 function displayObjectDetectorResult(data){
     predictedEquation = data['prediction']
     bboxImage = "data:image/png;base64," + data['bbox_image'];
@@ -187,7 +205,8 @@ function displayObjectDetectorResult(data){
 
 /***********************************************************************************************
 FUNCTION: calculatEquation
-PURPOSE: Displays solution
+PURPOSE: Converts the canvas drawing to a JPG image. Converts the JPG image to Base64.
+         Sends the Base64 image to the backend to be processed by the object detector.
 ************************************************************************************************/
 async function calculatEquation()
 {   
