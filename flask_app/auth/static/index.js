@@ -37,7 +37,32 @@ document.getElementById("register").addEventListener("click", function(event)
   var groupID   = document.getElementById('group').value;
   var accesskey = document.getElementById('access').value;
   var password  = document.getElementById('pass').value;
-  var role      = document.getElementById('role').value;
+  
+  var role = " ";
+  var s = document.getElementById("student");
+  var i = document.getElementById("instructor");
+  if (s.checked == true)
+  {
+    console.log(s.value);
+    role = s.value;
+
+  }	  
+  else if (i.checked == true)
+  {
+    console.log(i.value);
+    role = i.value;
+  }    
+  else
+  {
+    alert("Neither Instructor nor Student was specified!");
+    return;
+  }
+  var t = document.getElementById("checkbox");
+  if (t.checked == false)
+  {
+    alert("You must agree to the terms and conditions!");
+    return;
+  }    
 
   createNewAccount(userID, email, groupID, accesskey, password, role);
 });

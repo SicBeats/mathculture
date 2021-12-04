@@ -10,13 +10,14 @@ Purpose: Implements login_firebase.html "swoosh" motion and displaying database 
 function init() 
 {
 	show_signin();	
+    document.getElementById("student").checked = true;
 }
 // Shows the signin form
 function show_signin()
 {
-    var x = document.getElementById("sign_in")
-	var y = document.getElementById("register")	
-	var z = document.getElementById("profile")
+    var x = document.getElementById("sign_inForm")
+	var y = document.getElementById("registerForm")	
+	var z = document.getElementById("profileForm")
     x.style.left = "50px";
     y.style.left = "450px";
     z.style.left = "850px";
@@ -24,9 +25,9 @@ function show_signin()
 // Shows the register form
 function show_register()
 {
-    var x = document.getElementById("sign_in")
-	var y = document.getElementById("register")
-	var z = document.getElementById("profile")
+    var x = document.getElementById("sign_inForm")
+	var y = document.getElementById("registerForm")
+	var z = document.getElementById("profileForm")
     x.style.left = "-350px";
     y.style.left = "50px";
     z.style.left = "450px";
@@ -35,9 +36,9 @@ function show_register()
 // When this form loads, we need to automatically check for a logged-in user
 function show_profile(userID, role, groupID, email, accesskey)
 {
-    var x = document.getElementById("sign_in")
-	var y = document.getElementById("register")	
-	var z = document.getElementById("profile")
+    var x = document.getElementById("sign_inForm")
+	var y = document.getElementById("registerForm")	
+	var z = document.getElementById("profileForm")
     x.style.left = "-750px";
     y.style.left = "-350px";
     z.style.left = "50px";
