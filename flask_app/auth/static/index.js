@@ -84,8 +84,6 @@ async function createNewAccount(userID, email, groupID, accesskey, password, rol
     const userCredentials = await createUserWithEmailAndPassword(auth,email,password);
     const uid = userCredentials.user.uid;
     console.log('User Created!!');
-    signin(email);
-    //window.location.href="/";
     //make sure to set all the attributes using the input arguments
     set(ref(database, 'users/' + uid), {
         email: email,
@@ -111,6 +109,7 @@ async function createNewAccount(userID, email, groupID, accesskey, password, rol
       console.error(error);
     });
     register(userID);
+    alert("Account created!");
   } 
   catch(error) 
   {
@@ -151,7 +150,7 @@ async function signinAccount(email,password)
     });
     
     signin(userID);    
-    //window.location.href="/";
+    alert("You have been signed in!");
   } 
   catch(error) 
   {
@@ -187,6 +186,7 @@ async function signoutAccount()
     await signOut(auth);
     console.log('User Signed Out!!');
     signout();
+    alert("You signed out!");
   } 
   catch(error) 
   {
@@ -220,7 +220,7 @@ async function changepass(password)
   {
     await updatePassword(user, newPassword);
     console.log('Password Changed!!');
-    //window.location.href="/";
+    alert("Your password changed!");
   } 
   catch(error) 
   {
@@ -283,6 +283,11 @@ document.getElementById("showprofile").addEventListener("click", async function(
     }).catch((error) => {
       console.error(error);
     });    
+  }
+  console.log("role:", role);
+  if (role == "student")
+  {
+    document.getElementById("blckbtn").disabled = true;
   }
   show_profile(userID, role, groupID, email, accesskey);
 });

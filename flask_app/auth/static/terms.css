@@ -1,0 +1,49 @@
+/*
+Statement: Describes the attribute styles for login.html
+Authors: Liam Dauphinee, Kaiser Slocum
+Team: Map Culture (Team 5)
+Date Last Edited: 12/3/2021
+*/
+
+/* We set the default font and that all structures won't have padding or margin */ 
+html,*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+/* We establish our background image */
+body {    
+    background-image: url("paper.jpg");
+    background-size: cover;
+}
+
+a {
+    position: relative;    
+    top: 20px;
+    left: 10px;
+    margin: 3%;
+    margin-top: 2%;
+    text-align: center;
+    padding: 10px;
+    padding-right: 100px;
+    padding-left: 100px;
+    border-radius: 5px;
+    background: linear-gradient(to right, #0093E9, #FFFFFF);
+    color: black;
+    text-decoration: none;
+    display: block;
+    float: left;
+    clear: left;
+}
+/* When users hover, we want to let them know this is a link */
+a:hover,.submit-btn:hover,.toggle-btn:hover{
+    color: rgb(250, 7, 7);
+    font-weight: bold;
+}
+p {
+    display: block;
+    clear: left;
+    float: left;
+    margin-left: 3%;
+}
