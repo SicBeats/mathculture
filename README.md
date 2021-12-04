@@ -29,14 +29,6 @@
 - Requirement: The latest release of Docker
     - Docker handles all dependencies needed to build and run the web app
 
-#### Testing the handwriting classifier:
-
-    docker exec -it project2_flaskwebservice_1 bash -c "python3 classifier/main.py"    
-
-#### Accessing the web app (Production)
-
-    //TODO
-
 #### (DEVELOPMENT) Neural Network Training and Testing (Google Colab)
 
 - By default, our object detector is already trained so it can be used to predict equations.
