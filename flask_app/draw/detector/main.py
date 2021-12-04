@@ -1,3 +1,17 @@
+'''
+File name: /draw/detector/main.py
+
+Author: Kelemen Szimonisz
+Organization: Math Culture (University of Oregon, CIS 422, FALL 2021)
+
+This python file defines the main functions for use of the object detector: 
+    - loading the object detector model (objdetector.pth)
+    - passing data into the object detector, parsing the prediction, submitting to Wolfram Alpha API  
+    - drawing bounding boxes on image files, producing a new image
+
+Last Modified: 12/03/2021
+'''
+
 import torch
 import torchvision
 from torchvision.io import read_image, ImageReadMode
@@ -12,6 +26,11 @@ from PIL import Image
 import PIL
 from . import querywolfram
 
+############################################################################################
+# FUNCTION: draw_boxes_on_image
+#
+# This function takes a PIL image file, a list of bounding boxes, and a list of labels and produces a new image with those boxes and labels drawn onto it.
+############################################################################################
 def draw_boxes_on_image(image,boxes,labels):
     fig, ax = plt.subplots(figsize=(3.2,2.4)) # set figure size to 6x6inches
     ax.imshow(image.permute(1, 2, 0).cpu())
@@ -29,6 +48,12 @@ def draw_boxes_on_image(image,boxes,labels):
     plt.savefig('/app/flask_app/draw/detector/temp_bboxes.jpg',dpi=200)
     plt.show()
 
+############################################################################################
+# FUNCTION: bboxes_per_class
+#
+# This function counts how many bounding boxes there are for each class in a given dataloader
+# This is only used for analytics (helpful when we were building our dataset)
+############################################################################################
 def bboxes_per_class(dataloader):
   classes = dataloader.dataset.classes
   d = {}
@@ -41,6 +66,14 @@ def bboxes_per_class(dataloader):
   print("bboxes per class:")
   print(d)
 
+
+############################################################################################
+# FUNCTION: apply_nms
+#
+# This function takes a set of bounding box predictions and performs non-max suppression with a specific IoU threshold.
+# This reduces the number of overlapping bounding boxes.
+# If the IoU of two boxes are greater than the threshold, the one with the greatest objectness score is drawn and the other is ignored.
+############################################################################################
 def apply_nms(orig_prediction, iou_thresh=0.3):
     
     # torchvision returns the indices of the bboxes to keep
@@ -53,6 +86,12 @@ def apply_nms(orig_prediction, iou_thresh=0.3):
     
     return final_prediction
 
+############################################################################################
+# FUNCTION: loadTrainedModel
+#
+# This function loads the objdetector.pth model (weights trained via Google Colab notebook)
+# Loads the model to the CPU.   
+############################################################################################
 def loadTrainedModel():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = torch.load('/app/flask_app/draw/detector/objdetector.pth',map_location=torch.device('cpu'))
@@ -60,21 +99,37 @@ def loadTrainedModel():
 
     return model
 
+# load the trained model
 model = loadTrainedModel()
+############################################################################################
+# FUNCTION: predictEquationFromImage
+#
+# This function takes an image as input and feeds it to the model.
+# Bounding boxes and classes are predicted for the image.
+# Boxes are drawn on the image and saved as a seperate file (to be sent to front-end for user to see)
+# The predicted equation is parsed by organizing the bounding boxes from left to right (x-coordinates)
+# If the predicted equation/expression involves a variable, the Wolfram Alpha API is queried and its results are sent to the frontend.
+# If the prediction does not involve a variable, the eval() function is used to solve the arithmetic expression
+############################################################################################
 def predictEquationFromImage(image_filename):
     device = torch.device("cpu")
+    # read the image as a PIL image
     img = read_image('/app/flask_app/draw/temp.jpg',ImageReadMode.RGB)
-        
+    # normalize the image
     img = img.float() / 255
-    print(img.size())
+    # set the model to evaluate mode
     model.eval()
     classes = ["background","0","1","2","3","4","5","6","7","8","9","+","-","*","/","(",")","=","x","y","z"]
+
+    # input the image into the model, produce a prediction, no grad means do not adjust NN weights
     with torch.no_grad():
         prediction = model([img.to(device)])[0]
 
+    # apply non-max suppression to the predicted bounding boxes
     nms_prediction = apply_nms(prediction, iou_thresh=0.1)
     print('nms predicted #boxes: ', len(nms_prediction['labels']))
          
+    # create an image with boudning box predictions and labels drawn on it
     draw_boxes_on_image(img,nms_prediction['boxes'],nms_prediction['labels'])
 
     prediction_list_encoded = nms_prediction['labels'].tolist()
@@ -87,11 +142,15 @@ def predictEquationFromImage(image_filename):
         prediction_string = "No objects found"
         return prediction_string
     else:
+        # zip the decoded, encoded class labels into a list of tuples
         zipped_labels_bboxes= zip(prediction_list_decoded,predicted_bbox_list)
+        # sort each prediction by the bounding boxes' minx value (lower-left corner)
         sorted_by_minx = sorted(zipped_labels_bboxes, key = lambda pair: pair[1][0])
 
+        # sort the labels, sort the bboxes
         sorted_labels, sorted_bboxes = [list(tup) for tup in zip(*sorted_by_minx)]
-   
+  
+        # create one string combining all predicted classes 
         prediction_string = "".join(sorted_labels)
         current_app.logger.info(prediction_string)
 
@@ -112,4 +171,3 @@ def predictEquationFromImage(image_filename):
         except SyntaxError:
             results = "No solution. Improper syntax!" 
         return prediction_string + "\n=\n"+ results 
-        #return prediction_string
