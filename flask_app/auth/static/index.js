@@ -284,7 +284,6 @@ document.getElementById("showprofile").addEventListener("click", async function(
       console.error(error);
     });    
   }
-  console.log("role:", role);
   if (role == "student")
   {
     document.getElementById("blckbtn").disabled = true;
