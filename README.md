@@ -38,11 +38,13 @@
 
 #### (DEVELOPMENT) Neural Network Training and Testing (Google Colab)
 
-- For now, the code that trains the neural network will not be in the Github repository.
-- Instead, it is hosted on Google Colab and utilizes Google's free Cloud GPUs:
-    - https://colab.research.google.com/drive/1Y_qcrWQf-x3NgfWXg4BpRVaF1hyDCSjs?usp=sharing
-- The dataset used to train the model is from:
-    - https://www.kaggle.com/sagyamthapa/handwritten-math-symbols
+- By default, our object detector is already trained so it can be used to predict equations.
+- If you would like to train the object detector yourself, you may run the Jupyter Notebook found at: /flask_app/draw/detector/CustomDatasetFasterRCNNFineTuning.ipynb
+- /flask_app/draw/detector/dataset.tar.gz must be uploaded into the /content/ folder of Google Colab
+- We trained the neural network using Google Colab and Google's free Cloud GPUs:
+    - https://colab.research.google.com
+
+- NOTE: Training the network with a CPU is very slow. It may take days. A GPU is highly recommended.
 
 #### (DEVELOPMENT) Making changes:
 
@@ -56,3 +58,6 @@ Using the docker-compose script will automatically push changes to the web app i
 
 Docker: https://docs.docker.com/get-started/
 Flask: https://flask.palletsprojects.com/en/2.0.x/
+Firebase: https://firebase.google.com/docs
+PyTorch: https://pytorch.org/
+Google Colab: https://colab.research.google.com/ 
