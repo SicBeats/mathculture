@@ -149,7 +149,6 @@ async function getemail()
   }
 }
 
-
 // Set up our login function
 document.getElementById("signin").addEventListener("click", function(event){
   event.preventDefault()  
@@ -162,10 +161,9 @@ document.getElementById("signin").addEventListener("click", function(event){
 });
 
 // Set up our log out function
-document.getElementById("showprofile").addEventListener("click", async function(event){
+document.getElementById("showprofile").addEventListener("click", async function(event)
+{
   event.preventDefault()
-  // Attempt to signout
-
   var userID = "";
   var email = "";
   var groupID = "";
@@ -173,9 +171,12 @@ document.getElementById("showprofile").addEventListener("click", async function(
   var role = "";
   const auth = getAuth(app);
   const user = auth.currentUser;
-  const uid = user.uid;
-  const dbRef = ref(getDatabase(app));
-  await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
+
+  if (user !== null)
+  {    
+    const uid = user.uid;
+    const dbRef = ref(getDatabase(app));
+    await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
     if (snapshot.exists()) 
     {
       userID = snapshot.child("userID").val();
@@ -184,31 +185,16 @@ document.getElementById("showprofile").addEventListener("click", async function(
       accesskey = snapshot.child("accesskey").val();
       role = snapshot.child("role").val();
       console.log(userID);
-    console.log(email);
-    console.log(groupID);
-    console.log(accesskey);
-    console.log(role);
-
-    } else {
+    } else 
+    {
       console.log("No data available");
     }
-  }).catch((error) => {
-    console.error(error);
-  });
-
-  if (user !== null)
-  {    
-    console.log(userID);
-    console.log(email);
-    console.log(groupID);
-    console.log(accesskey);
-    console.log(role);
-    show_profile(userID, role, groupID, email, accesskey);
+    }).catch((error) => {
+      console.error(error);
+    });
+    
   }
-  else
-  {
-    show_profile(" ");
-  }
+  show_profile(userID, role, groupID, email, accesskey);
 });
 // Set up our log out function
 document.getElementById("changepass").addEventListener("click", function(event){

@@ -41,11 +41,6 @@ function show_profile(userID, role, groupID, email, accesskey)
     y.style.left = "-350px";
     z.style.left = "50px";
     
-    console.log(userID);
-    console.log(email);
-    console.log(groupID);
-    console.log(accesskey);
-    console.log(role);
     profile(userID, role, groupID, email, accesskey);
 }
 
@@ -71,8 +66,7 @@ function register(email)
 }
 /* Sets up the info on the profile page */
 function profile(userID, role, groupID, email, accesskey)
-{
-    
+{    
     document.getElementById("UserID").innerHTML = "User ID: " + userID;
     document.getElementById("GroupID").innerHTML = "Group ID: " + groupID;
     document.getElementById("RoleID").innerHTML = "Role ID: " + role;
