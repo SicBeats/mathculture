@@ -86,7 +86,6 @@ async function signinAccount(email,password) {
     var error_message = error.message;
     alert(error_message);
   }
-
   
   const user = auth.currentUser;
   const uid = user.uid;
