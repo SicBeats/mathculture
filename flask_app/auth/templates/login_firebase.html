@@ -15,7 +15,7 @@ Date Last Edited: 12/3/2021
 <body onload="init()">
 	<div class="hero"> 		
 		<div class="form-box">
-			<a href="/" >Home</a>
+			<a id="homeref" href="/" >Home</a>
 			<!-- This is the toggle button which is actually two buttons at the top of the main form box -->
 			<div class="button-box">
 				<button type="button" class="toggle-btn" onclick="show_signin()">Log In</button>
@@ -23,15 +23,19 @@ Date Last Edited: 12/3/2021
 				<button id="showprofile" type="button" class="toggle-btn">Profile</button>
 			</div>
 		<!-- This is where a user would login if they already had an account -->
-		<form id="sign_in" action="/sign_in" class="input-group">
+		<form id="sign_inForm" class="input-group">
 			<input id="email2" type="email" class="input-field" placeholder="Email ID"required>
 			<input id="pass2" type="password" class="input-field" placeholder="Enter Password"required>
-			<input type="checkbox" class="check-box"><span>Remember Password</span>
+			
 			<button id="signin" type="submit" class="submit-btn">Log in</button>
 			<button id="signout" type="submit" class="submit-btn">Sign out</button>
 		</form>
+<<<<<<< Updated upstream
 		<!--This is where a user changes their password-->
 		<form id="profile" class="input-group">
+=======
+		<form id="profileForm" class="input-group">
+>>>>>>> Stashed changes
 			<label id="UserID">User ID:   </label>
 			<label id="GroupID">Group ID: </label>
 			<label id="RoleID">Role ID:   </label>
@@ -40,17 +44,22 @@ Date Last Edited: 12/3/2021
 			<input id="newpass" type="password" class="input-field" id="newpass" placeholder="New Password"required>
 			<input id="repass" type="password" class="input-field" id="confirmpass" placeholder="Re-enter New Password"required>
 			<button id="changepass" type="submit" class="submit-btn" id="changepassword">Submit Password Change</button>
-			<button type="submit" class="submit-btn" onclick="location.href='/blocklist';">BLOCKLIST</button>			
+			<button type="submit" class="submit-btn" onclick="location.href='/blocklist';">Blocklist</button>			
 		</form>
 		<!-- This is where a user would create their account if they're new -->
-		<form id="register" class="input-group">
+		<form id="registerForm" class="input-group">
 			<input id="user" type="text" class="input-field" placeholder="User ID"required>
 			<input id="email" type="email" class="input-field" placeholder="Email ID"required>
 			<input id="group" type="text" class="input-field" placeholder="Group ID"required>
-			<input id="role" type="text" class="input-field" placeholder="Role"required>
+			<!--<input id="role" type="text" class="input-field" placeholder="Role"required>-->
+			<input type="radio" id="instructor" name="role" value="instructor">
+			<label for="instructor">Instructor</label><br>
+			<input type="radio" id="student" name="role" value="student">
+			<label for="instructor">Student</label><br>
+
 			<input id="access" type="text" class="input-field" placeholder="Access Key"required>
 			<input id="pass" type="password" class="input-field" placeholder="Enter Password"required>
-			<input type="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
+			<input type="checkbox" id="checkbox" class="check-box"><span>I agree to the terms and conditions</span>
 			<button id="register" type="submit" class="submit-btn">Register</button>
 			<a id="terms" href="/auth/static/terms.html">Terms</a>
 		</form>
