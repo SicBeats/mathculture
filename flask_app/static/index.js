@@ -22,23 +22,22 @@ function myFunction() {
   {
     name = "Account"
     link1 = document.getElementById("e1"); 
-    link1.innerText="Sign In";  
+    link1.innerText="Go Sign In";  
     /* Go to Sign In webpage */
     link1.setAttribute("href", "/login");
     link2 = document.getElementById("e2"); 
-    link2.innerText="Sign Up";  
+    link2.innerText="Go Sign Up";  
     /* Go to Sign Up webpage */
     link2.setAttribute("href", "/login");
   }
   else
   {
     link1 = document.getElementById("e1"); 
-    link1.innerText="Profile";  
+    link1.innerText="View Profile";  
     link1.setAttribute("href", "/login");
     link2 = document.getElementById("e2"); 
-    link2.innerText="Sign Out";  
-    link2.setAttribute("href", "");
-    signout();
+    link2.innerText="Go Sign Out";  
+    link2.setAttribute("href", "/login");
   }
   lbl.innerText = name;
 }
