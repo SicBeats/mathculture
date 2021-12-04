@@ -134,6 +134,9 @@ img {
   max-width: 200px;
   width: 100%;
 }
+#charimg {
+  max-width: 500px;
+}
 
 /* Controls the words on the website */
 section {
