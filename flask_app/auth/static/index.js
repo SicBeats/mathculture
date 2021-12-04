@@ -1,3 +1,10 @@
+/*
+Statement: Loads of js
+Authors: Kaiser Slocum, Kelemen Szimonez
+Team: Map Culture (Team 5)
+Date Last Edited: 12/3/2021
+*/
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
 import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
@@ -67,6 +74,7 @@ async function createNewAccount(userID, email, groupID, accesskey, password, rol
         accesskey: accesskey,
     });
 
+    // This gets the user ID for display on each main page
     var userID = " ";
     const dbRef = ref(getDatabase(app));
     await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
@@ -98,6 +106,7 @@ async function signinAccount(email,password) {
     console.log('User Signed in!!');
     console.log(uid);
 
+    // This gets the user ID for display on each main page
     var userID = " ";
     const dbRef = ref(getDatabase(app));
     await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
