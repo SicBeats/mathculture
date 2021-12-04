@@ -1,3 +1,17 @@
+'''
+File Name: dataset.py
+
+Author: Kelemen Szimonisz
+Organization: Math Culture (University of Oregon, CIS422, FALL 2021)
+
+This python file defines the custom PyTorch Dataset class for our dataset of handwritten characters annotated with bounding boxes and class names.
+
+20 classes:
+["background","zero","one","two","three","four","five","six","seven","eight","nine","plus","minus","mult","division","lpar","rpar","equal","x","y","z"]
+
+Last Modified: 12/03/2021
+'''
+
 import os
 import torch
 from torch.utils.data import Dataset

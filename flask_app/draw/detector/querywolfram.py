@@ -1,8 +1,12 @@
 '''
-querywolfram.py
+File Name: querywolfram.py
 Authors: Kelemen Szimonisz
+Organization: Math Culture
 
 Most code borrowed from: https://towardsdatascience.com/build-your-next-project-with-wolfram-alpha-api-and-python-51c2c361d8b9
+
+This python file defines the function that query Wolfram|Alpha's API for the step by step solution to an algebraic equation.
+Last Modified: 11/29/2021
 '''
 
 from pprint import pprint
@@ -13,6 +17,12 @@ import argparse
 from flask import current_app
 
 
+#########################################################################################
+# FUNCTION: getStepByStep
+# 
+# Query Wolfram|Alpha's Step-by-Step API for a given equation
+# The results are parsed and returned as a string.
+#########################################################################################
 def getStepByStep(equation):
     appid = "7WEQV6-Q7WGAPL9KE" 
 
