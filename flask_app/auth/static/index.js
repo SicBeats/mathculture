@@ -22,8 +22,12 @@ document.getElementById("submitRegister").addEventListener("click", function(eve
   event.preventDefault()
   // Get all our input fields
   //user = document.getElementById('user').value;
+  var userID = document.getElementById('user').value;
   var email = document.getElementById('email').value;
+  var groupID = document.getElementById('group').value;
+  var accesskey = document.getElementById('access').value;
   var password = document.getElementById('pass').value;
+  var role = document.getElementById('role').value;
 
   // TODO
   // Validate input fields
@@ -34,7 +38,7 @@ document.getElementById("submitRegister").addEventListener("click", function(eve
     // Don't continue running the code
   }
   */
-  createNewAccount(email,password);
+  createNewAccount(userID, email, groupID, accesskey, password, role);
 });
 
 /************************************************************************************************
@@ -44,10 +48,9 @@ PURPOSE: Takes email and password input and stores them in Firebase securely usi
          The password is encrypted and is not accessible to the owner of the database. 
          This function will return an error if a user already exists with a given email. 
 *************************************************************************************************/
-async function createNewAccount(email,password) {
+async function createNewAccount(userID, email, groupID, accesskey, password, role) {
 
   const auth = getAuth(app);
-  var role = "student";
 
   try {
     const userCredentials = await createUserWithEmailAndPassword(auth,email,password);
@@ -59,6 +62,9 @@ async function createNewAccount(email,password) {
     set(ref(database, 'users/' + uid), {
         email: email,
         role: role,
+        userID: userID,
+        groupID: groupID, 
+        accesskey: accesskey,
     });
   } 
   catch(error) {
@@ -85,20 +91,7 @@ async function signinAccount(email,password) {
     var error_code = error.code;
     var error_message = error.message;
     alert(error_message);
-  }
-  
-  const user = auth.currentUser;
-  const uid = user.uid;
-  const dbRef = ref(getDatabase(app));
-  get(child(dbRef, `users/${uid}`)).then((role) => {
-    if (role.exists()) {
-      console.log(role.val());
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
+  }  
 }
 
 async function signoutAccount() {
@@ -116,8 +109,6 @@ async function signoutAccount() {
     alert(error_message);
   }
 }
-
-
 
 async function changepass(password)
 {
@@ -171,16 +162,48 @@ document.getElementById("signin").addEventListener("click", function(event){
 });
 
 // Set up our log out function
-document.getElementById("showprofile").addEventListener("click", function(event){
+document.getElementById("showprofile").addEventListener("click", async function(event){
   event.preventDefault()
   // Attempt to signout
+
+  var userID = "";
+  var email = "";
+  var groupID = "";
+  var accesskey = "";
+  var role = "";
   const auth = getAuth(app);
   const user = auth.currentUser;
-  console.log(user.user);
+  const uid = user.uid;
+  const dbRef = ref(getDatabase(app));
+  await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
+    if (snapshot.exists()) 
+    {
+      userID = snapshot.child("userID").val();
+      email = snapshot.child("email").val();
+      groupID = snapshot.child("groupID").val();
+      accesskey = snapshot.child("accesskey").val();
+      role = snapshot.child("role").val();
+      console.log(userID);
+    console.log(email);
+    console.log(groupID);
+    console.log(accesskey);
+    console.log(role);
+
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
 
   if (user !== null)
   {    
-    show_profile(user.email);
+    console.log(userID);
+    console.log(email);
+    console.log(groupID);
+    console.log(accesskey);
+    console.log(role);
+    show_profile(userID, role, groupID, email, accesskey);
   }
   else
   {

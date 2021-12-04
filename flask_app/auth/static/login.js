@@ -32,7 +32,7 @@ function show_register()
     z.style.left = "450px";
 }
 // Shows the profile form
-function show_profile(email)
+function show_profile(userID, role, groupID, email, accesskey)
 {
     var x = document.getElementById("sign_in")
 	var y = document.getElementById("register")	
@@ -40,8 +40,13 @@ function show_profile(email)
     x.style.left = "-750px";
     y.style.left = "-350px";
     z.style.left = "50px";
-    console.log("daemail", email);
-    profile(email);
+    
+    console.log(userID);
+    console.log(email);
+    console.log(groupID);
+    console.log(accesskey);
+    console.log(role);
+    profile(userID, role, groupID, email, accesskey);
 }
 
 // Called by signin button
@@ -65,22 +70,14 @@ function register(email)
     console.log("After register cookie is: ", getCookie()); 
 }
 /* Sets up the info on the profile page */
-function profile(email)
+function profile(userID, role, groupID, email, accesskey)
 {
-    var user = "";
-    var group = "";
-    var role = "";
-    if (getCookie() == " signedin")
-    {
-        var user = "Lumpy";
-        var group = "TiggerGang";
-        var role = "Instructor";
-        var email = "lumpyh@hundredacre.woods";
-    }
-    document.getElementById("UserID").innerHTML = "User ID: " + user;
-    document.getElementById("GroupID").innerHTML = "Group ID: " + group;
+    
+    document.getElementById("UserID").innerHTML = "User ID: " + userID;
+    document.getElementById("GroupID").innerHTML = "Group ID: " + groupID;
     document.getElementById("RoleID").innerHTML = "Role ID: " + role;
     document.getElementById("Email").innerHTML = "Email: " + email;
+    document.getElementById("AccessKey").innerHTML = "Access Key: " + accesskey;
 }
 /* 
 Called by change password button
