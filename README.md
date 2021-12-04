@@ -5,6 +5,7 @@
 1. Install Docker Desktop for Mac or Windows, or Docker (and Docker Compose) for linux:
     - https://docs.docker.com/get-docker/
     - https://docs.docker.com/compose/install/ (Linux only)
+    - NOTE: M1 MacBooks can build and run the Docker container. However, they are not compatible with the PyTorch library. Therefore, M1 MacBook's cannot use the equation prediction feature.
 2. Run Docker Desktop (Mac and Windows) or the Docker daemon (Linux) in the background
 3. Build and run the application stack using docker-compose:
 <br>(NOTE: this may take a few minutes. The PyTorch python library is large.)
