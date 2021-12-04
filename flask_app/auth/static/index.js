@@ -1,9 +1,14 @@
+/*
+Statement: Loads of js
+Authors: Kaiser Slocum, Kelemen Szimonez
+Team: Map Culture (Team 5)
+Date Last Edited: 12/3/2021
+*/
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
 import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-import { updatePassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updatePassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
@@ -18,26 +23,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-document.getElementById("submitRegister").addEventListener("click", function(event){
+/************************************************************************************************
+FUNCTION: function register
+PURPOSE: Once the register button is clicked this function is in charge of gathering all the user
+input and sending it to the createNewAccount()
+*************************************************************************************************/
+document.getElementById("register").addEventListener("click", function(event)
+{
   event.preventDefault()
   // Get all our input fields
-  //user = document.getElementById('user').value;
-  var userID = document.getElementById('user').value;
-  var email = document.getElementById('email').value;
-  var groupID = document.getElementById('group').value;
+  var userID    = document.getElementById('user').value;
+  var email     = document.getElementById('email').value;
+  var groupID   = document.getElementById('group').value;
   var accesskey = document.getElementById('access').value;
-  var password = document.getElementById('pass').value;
-  var role = document.getElementById('role').value;
+  var password  = document.getElementById('pass').value;
+  var role      = document.getElementById('role').value;
 
-  // TODO
-  // Validate input fields
-  /*
-  if (validate_email(email) == false || validate_password(password) == false) {
-    alert('Email or Password is Outta Line!!');
-    return;
-    // Don't continue running the code
-  }
-  */
   createNewAccount(userID, email, groupID, accesskey, password, role);
 });
 
@@ -48,17 +49,19 @@ PURPOSE: Takes email and password input and stores them in Firebase securely usi
          The password is encrypted and is not accessible to the owner of the database. 
          This function will return an error if a user already exists with a given email. 
 *************************************************************************************************/
-async function createNewAccount(userID, email, groupID, accesskey, password, role) {
-
+async function createNewAccount(userID, email, groupID, accesskey, password, role) 
+{
   const auth = getAuth(app);
 
-  try {
+  try 
+  {
+    // First create the account using the email and password
     const userCredentials = await createUserWithEmailAndPassword(auth,email,password);
     const uid = userCredentials.user.uid;
     console.log('User Created!!');
-    console.log(uid);
     signin(email);
     //window.location.href="/";
+    //make sure to set all the attributes using the input arguments
     set(ref(database, 'users/' + uid), {
         email: email,
         role: role,
@@ -67,6 +70,7 @@ async function createNewAccount(userID, email, groupID, accesskey, password, rol
         accesskey: accesskey,
     });
 
+    // This gets the user ID for display on each main page
     var userID = " ";
     const dbRef = ref(getDatabase(app));
     await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
@@ -83,21 +87,29 @@ async function createNewAccount(userID, email, groupID, accesskey, password, rol
     });
     register(userID);
   } 
-  catch(error) {
+  catch(error) 
+  {
     // Firebase will use this to alert of its errors
     var error_code = error.code;
     var error_message = error.message;
     alert(error_message);
   }
 }
-async function signinAccount(email,password) {
+
+/************************************************************************************************
+FUNCTION: signinAccount
+PURPOSE: Takes email and password input and authenticates them using the Firebase Authentication.         
+*************************************************************************************************/
+async function signinAccount(email,password) 
+{
   const auth = getAuth(app);
-  try {
+  try 
+  {
     const userCredentials = await signInWithEmailAndPassword(auth,email,password);
     const uid = userCredentials.user.uid;
     console.log('User Signed in!!');
-    console.log(uid);
 
+    // This gets the user ID for display on each main page
     var userID = " ";
     const dbRef = ref(getDatabase(app));
     await get(child(dbRef, `users/${uid}`)).then((snapshot) => {
@@ -115,65 +127,106 @@ async function signinAccount(email,password) {
     
     signin(userID);    
     //window.location.href="/";
-  const user = auth.currentUser;
-  console.log(user.email);
   } 
-  catch(error) {
+  catch(error) 
+  {
     // Firebase will use this to alert of its errors
     var error_code = error.code;
     var error_message = error.message;
     alert(error_message);
   }  
 }
-
-async function signoutAccount() {
-  const auth = getAuth(app);  
-  
-  try {
-    await signOut(auth);
-    console.log('User Signed Out!!');
-    signout();
-  } 
-  catch(error) {
-    // Firebase will use this to alert of its errors
-    var error_code = error.code;
-    var error_message = error.message;
-    alert(error_message);
-  }
-}
-
-async function changepass(password)
-{
-  const auth = getAuth();
-
-  const user = auth.currentUser;
-  const newPassword = password;
-  try {
-    await updatePassword(user, newPassword);
-    console.log('Password Changed!!');
-    //window.location.href="/";
-  } 
-  catch(error) {
-    // Firebase will use this to alert of its errors
-    var error_code = error.code;
-    var error_message = error.message;
-    alert(error_message);
-  }
-}
-
-
-// Set up our login function
+/************************************************************************************************
+FUNCTION: function signin
+PURPOSE: Once the login button is clicked this function is in charge of gathering the user's
+input and sending it to the signinAccount()
+*************************************************************************************************/
 document.getElementById("signin").addEventListener("click", function(event){
   event.preventDefault()  
   // Get all our input fields
   var email = document.getElementById('email2').value
   var password = document.getElementById('pass2').value
-  // Attempt to signin
   signinAccount(email, password);
-  //getID();
 });
 
-// Set up our log out function
+/************************************************************************************************
+FUNCTION: signoutAccount
+PURPOSE: Signs the user out
+*************************************************************************************************/
+async function signoutAccount() 
+{
+  const auth = getAuth(app);  
+  
+  try 
+  {
+    await signOut(auth);
+    console.log('User Signed Out!!');
+    signout();
+  } 
+  catch(error) 
+  {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code;
+    var error_message = error.message;
+    alert(error_message);
+  }
+}
+/************************************************************************************************
+FUNCTION: function signout
+PURPOSE: Once the signout button is clicked this function is in charge of signing the user out
+*************************************************************************************************/
+document.getElementById("signout").addEventListener("click", function(event){
+  event.preventDefault()  
+  signoutAccount();
+});
+
+/************************************************************************************************
+FUNCTION: changepass
+PURPOSE: Changes the user's password - since the user is already logged in, there is no need to
+validate his current password.
+*************************************************************************************************/
+async function changepass(password)
+{
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const newPassword = password;
+
+  try 
+  {
+    await updatePassword(user, newPassword);
+    console.log('Password Changed!!');
+    //window.location.href="/";
+  } 
+  catch(error) 
+  {
+    // Firebase will use this to alert of its errors
+    var error_code = error.code;
+    var error_message = error.message;
+    alert(error_message);
+  }
+}
+/************************************************************************************************
+FUNCTION: function changepass
+PURPOSE: Once the change password button is clicked this function is in charge of gathering the user's
+new password and changing the password (if the new and confirm passwords match!)
+*************************************************************************************************/
+document.getElementById("changepass").addEventListener("click", function(event){
+  event.preventDefault()
+  // Attempt to signout
+  const auth = getAuth(app);
+  const user = auth.currentUser;
+  var password1 = document.getElementById('newpass').value;
+  var password2 = document.getElementById('repass').value;
+  if (password1 != password2)
+    alert("The passwords do not match!");
+  else 
+    changepass(password1); 
+});
+
+/************************************************************************************************
+FUNCTION: function showprofile
+PURPOSE: Once the profile file is clicked, this is in charge of populating the profile form
+*************************************************************************************************/
 document.getElementById("showprofile").addEventListener("click", async function(event)
 {
   event.preventDefault()
@@ -208,56 +261,3 @@ document.getElementById("showprofile").addEventListener("click", async function(
   }
   show_profile(userID, role, groupID, email, accesskey);
 });
-// Set up our log out function
-document.getElementById("changepass").addEventListener("click", function(event){
-  event.preventDefault()
-  // Attempt to signout
-  const auth = getAuth(app);
-  const user = auth.currentUser;
-  var password1 = document.getElementById('newpass').value;
-  var password2 = document.getElementById('repass').value;
-  if (password1 != password2)
-  {
-    alert("The passwords do not match!");
-  }
-  else
-  {
-    changepass(password1);
-  }  
-});
-// Set up our log out function
-document.getElementById("signout").addEventListener("click", function(event){
-  event.preventDefault()
-  // Attempt to signout
-  
-  signoutAccount();
-});
-
-  /*auth.signInWithEmailAndPassword(user_id, password)
-  .then(function() {
-    // Declare user variable
-    var user = auth.currentUser
-
-    // Add this user to Firebase Database
-    var database_ref = database.ref()
-
-    // Create User data
-    var user_data = {
-      last_login : Date.now()
-    }
-
-    // Push to Firebase Database
-    database_ref.child('users/' + user.uid).update(user_data)
-
-    // Done
-    console.log('User Logged In!!')
-
-  })
-  .catch(function(error) {
-    // Firebase will use this to alert of its errors
-    var error_code = error.code
-    var error_message = error.message
-
-    alert(error_message)
-  })*/
-

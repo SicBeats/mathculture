@@ -1,8 +1,8 @@
 /*
-Statement: Loads of js
 Authors: Kaiser Slocum
 Team: Map Culture (Team 5)
-Date Last Edited: 11/15/2021
+Date Last Edited: 12/3/2021
+Purpose: Implements login_firebase.html "swoosh" motion and displaying database info on other web pages
 */
 
 // Called by the login.html when the page is loading
@@ -32,6 +32,7 @@ function show_register()
     z.style.left = "450px";
 }
 // Shows the profile form
+// When this form loads, we need to automatically check for a logged-in user
 function show_profile(userID, role, groupID, email, accesskey)
 {
     var x = document.getElementById("sign_in")
@@ -44,21 +45,20 @@ function show_profile(userID, role, groupID, email, accesskey)
     profile(userID, role, groupID, email, accesskey);
 }
 
-// Called by signin button
+// Called by signin button, simply creates a cookie that will display the User ID on other web pages
 function signin(userID)
 {   
     console.log("UserID is: ", userID);
-    // Check to make sure user ID and password match
     document.cookie = userID;  
     console.log("After sign in cookie is: ", getCookie()); 
 }
-// Called by signout button
+// Called by signout button, simple sets User ID to "Account" on other web pages (because now they aren't logged in)
 function signout()
 {
     document.cookie= "Account";
     console.log("After sign out cookie is: ", getCookie());   
 }
-// Called by register button
+// Called by register button, simply creates a cookie that will display the User ID on other web pages
 function register(userID)
 {
     // Check to make sure user ID is unique, verify group ID corresponds with account sign-up code
@@ -74,38 +74,17 @@ function profile(userID, role, groupID, email, accesskey)
     document.getElementById("Email").innerHTML = "Email: " + email;
     document.getElementById("AccessKey").innerHTML = "Access Key: " + accesskey;
 }
-/* 
-Called by change password button
-if the new and confirm passwords match and the original passwords match then new password is set
-this is not hooked up to database so it's broken
-*/
-function changePassword()
-{
-    var oldpass = document.getElementById("oldpass").value;
-    var newpass = document.getElementById("newpass").value;
-    var confirmpass = document.getElementById("confirmpass").value;
-    console.log(oldpass);
-    if (newpass != confirmpass)
-        alert("The new password and confirmation password do not match!");
-    else if (oldpass != "1amLump")
-        alert("Your password does not match the correct password!")
-    else
-    {
-        alert("Your new password(1amLump) has been set!")
-        // change the password
-    }
-}
 
-/* This decodes the cookie to get the "signedin" or "signedout" clause */
+/* This decodes the cookie to get the User ID for display on the main web pages */
 function getCookie() 
 {
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
     let c = ca[ca.length-1];
-    var dabool = c.indexOf("Account");
 
-    if (dabool == -1)   
+    // If the user is logged in (i.e. Account is equal to -1 (not in "c"))
+    if (c.indexOf("Account") == -1)   
         return c;
     else
-        return "Account";
+        return "Account";   
 }
