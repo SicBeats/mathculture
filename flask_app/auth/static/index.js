@@ -8,9 +8,7 @@ Date Last Edited: 12/3/2021
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"; 
 import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-database.js";
-import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-import { signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
-import { updatePassword } from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updatePassword} from "https://www.gstatic.com/firebasejs/9.6.0/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQ9a_t_JqB4_uSCr03jG_68MbICca0Cfg",
@@ -25,26 +23,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-document.getElementById("submitRegister").addEventListener("click", function(event){
+/************************************************************************************************
+FUNCTION: submitRegister
+PURPOSE: Once the register button is clicked this function is in charge of gathering all the user
+input and sending it to the createNewAccount()
+*************************************************************************************************/
+document.getElementById("register").addEventListener("click", function(event)
+{
   event.preventDefault()
   // Get all our input fields
-  //user = document.getElementById('user').value;
-  var userID = document.getElementById('user').value;
-  var email = document.getElementById('email').value;
-  var groupID = document.getElementById('group').value;
+  var userID    = document.getElementById('user').value;
+  var email     = document.getElementById('email').value;
+  var groupID   = document.getElementById('group').value;
   var accesskey = document.getElementById('access').value;
-  var password = document.getElementById('pass').value;
-  var role = document.getElementById('role').value;
+  var password  = document.getElementById('pass').value;
+  var role      = document.getElementById('role').value;
 
-  // TODO
-  // Validate input fields
-  /*
-  if (validate_email(email) == false || validate_password(password) == false) {
-    alert('Email or Password is Outta Line!!');
-    return;
-    // Don't continue running the code
-  }
-  */
   createNewAccount(userID, email, groupID, accesskey, password, role);
 });
 
